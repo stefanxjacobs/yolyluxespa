@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Over Yoly | YolyLuxeSpa</title>
+  <meta name="description" content="Maak kennis met Yoly Ponce Montero, gecertificeerde schoonheidsspecialiste in Loenhout. Haar verhaal, filosofie en salon.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = { theme: { extend: { colors: { cream: '#FAF7F2', beige: '#E8DDD3', gold: '#C5A572', 'gold-dark': '#A8884E', brown: '#3A2F2B', 'brown-light': '#5C4D47' }, fontFamily: { serif: ['Playfair Display', 'Georgia', 'serif'], sans: ['DM Sans', 'system-ui', 'sans-serif'] } } } }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: clip; max-width: 100%; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: #FAF7F2; color: #3A2F2B; overflow-x: clip; max-width: 100%; }
+    :root { --cream: #FAF7F2; --beige: #E8DDD3; --gold: #C5A572; --gold-dark: #A8884E; --brown: #3A2F2B; --brown-light: #5C4D47; }
+
+    #announcement-bar { background: var(--brown); color: rgba(255,255,255,0.8); text-align: center; padding: 8px 16px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; position: relative; z-index: 60; }
+    #announcement-bar a { color: var(--gold); font-weight: 500; text-decoration: none; }
+
+    #main-nav { position: sticky; top: 0; z-index: 50; background: rgba(250,247,242,0.97); box-shadow: 0 1px 0 rgba(58,47,43,0.08); }
+    .nav-inner { padding: 0 48px; height: 68px; display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; }
+    .nav-logo img { height: 64px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; align-items: center; gap: 40px; }
+    .nav-link { font-size: 11.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brown-light); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.2s ease, transform 0.12s ease; }
+    .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.2s ease; }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+    .nav-link:active { transform: translateY(2px) scale(0.95); }
+    .nav-link:hover, .nav-link.active { color: var(--brown); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 8px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--brown); }
+    /* ── Mobile Menu Overlay ── */
+    #mobile-menu { display: none; position: fixed; inset: 0; z-index: 200; background-color: rgba(26,18,14,0.97); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); flex-direction: column; overflow: hidden; opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.25,0.1,0.25,1); }
+    #mobile-menu.is-open { display: flex; pointer-events: all; }
+    #mobile-menu.is-visible { opacity: 1; }
+    .mmenu-header { display: flex; align-items: center; justify-content: space-between; padding: 24px 24px 0; flex-shrink: 0; }
+    .mmenu-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+    .mmenu-close { background: none; border: none; cursor: pointer; padding: 8px; color: rgba(250,247,242,0.7); display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: color 0.2s, background 0.2s; }
+    .mmenu-close:hover { color: var(--gold); background: rgba(197,165,114,0.12); }
+    .mmenu-close:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .mmenu-close:active { transform: scale(0.92); }
+    .mmenu-nav { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 48px; }
+    .mmenu-link { display: block; font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 400; color: rgba(250,247,242,0.88); text-decoration: none; letter-spacing: -0.03em; line-height: 1.2; padding: 16px 0; border-bottom: 1px solid rgba(197,165,114,0.12); opacity: 0; transform: translateX(-24px); transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1), color 0.2s; }
+    .mmenu-link:last-child { border-bottom: none; }
+    .mmenu-link:hover { color: var(--gold); }
+    .mmenu-link:active { transform: translateX(4px); }
+    .mmenu-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px; }
+    .mmenu-link--active { color: var(--gold); }
+    .mmenu-link:nth-child(1) { transition-delay: 0s; } .mmenu-link:nth-child(2) { transition-delay: 0.05s; } .mmenu-link:nth-child(3) { transition-delay: 0.10s; } .mmenu-link:nth-child(4) { transition-delay: 0.15s; } .mmenu-link:nth-child(5) { transition-delay: 0.20s; }
+    #mobile-menu.is-visible .mmenu-link { opacity: 1; transform: translateX(0); }
+    #mobile-menu:not(.is-visible) .mmenu-link { transition-delay: 0s !important; }
+    .mmenu-footer { padding: 32px 24px 40px; flex-shrink: 0; }
+    .mmenu-cta { width: 100% !important; min-width: 0 !important; display: flex !important; justify-content: center; }
+
+    .section-label { font-size: 10.5px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; letter-spacing: -0.03em; line-height: 1.15; color: var(--brown); }
+    .section-title.light { color: #fff; }
+    .section-body { font-size: 15px; font-weight: 300; line-height: 1.75; color: var(--brown-light); }
+
+    .hero-over { position: relative; width: 100%; min-height: 45vh; overflow: hidden; display: flex; align-items: flex-end; }
+    .hero-over-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-color: #FAF7F2; }
+    .hero-over-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(232,221,211,0.5) 0%, transparent 50%); }
+    .hero-over-content { position: relative; z-index: 2; padding: 64px 48px; }
+
+    .asymmetric-grid { display: grid; grid-template-columns: 2fr 3fr; align-items: stretch; }
+    .asymmetric-text { background: var(--beige); padding: 80px 56px; display: flex; flex-direction: column; justify-content: center; gap: 24px; border-left: 3px solid var(--gold); }
+    .asymmetric-img-wrap {
+      position: relative; overflow: hidden;
+      aspect-ratio: 3/4;
+      box-shadow: inset 0 0 0 2px rgba(197,165,114,0.5),
+                  0 32px 80px rgba(0,0,0,0.2),
+                  0 8px 24px rgba(0,0,0,0.12);
+    }
+    .asymmetric-img-wrap::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+      background: linear-gradient(to top, rgba(232,221,211,0.5), transparent);
+      pointer-events: none; z-index: 1;
+    }
+    .asymmetric-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .credentials { background: var(--cream); padding: 80px 48px; }
+    .credentials-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; max-width: 1200px; margin: 0 auto; background: var(--beige); }
+    .credential-item { background: var(--cream); padding: 48px 32px; text-align: center; }
+    .credential-number { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 400; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 16px; }
+    .credential-label { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .credential-desc { font-size: 13px; color: var(--brown-light); line-height: 1.6; }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--beige); }
+    .gallery-item { overflow: hidden; aspect-ratio: 1; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.1,0.25,1); }
+    .gallery-item:hover img { transform: scale(1.04); }
+
+    /* ── Reveal animations → zie animations.css ── */
+
+    #footer { background: var(--brown); padding: 72px 48px 40px; }
+    .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+    .footer-logo { height: 48px; filter: none; opacity: 1; margin-bottom: 16px; background: #FAF7F2; border-radius: 6px; padding: 4px 8px; }
+    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 24px; max-width: 240px; }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { color: rgba(255,255,255,0.45); transition: color 0.2s; }
+    .footer-social a:hover { color: var(--gold); }
+    .footer-social svg { width: 18px; height: 18px; }
+    .footer-col-title { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+    .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-contact-item { display: flex; gap: 8px; margin-bottom: 16px; }
+    .footer-contact-item svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+    .footer-contact-item span { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+    .footer-newsletter form { display: flex; }
+    .footer-newsletter input { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 16px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; }
+    .footer-newsletter input::placeholder { color: rgba(255,255,255,0.3); }
+    .footer-newsletter button { background: var(--gold); color: var(--brown); padding: 16px 24px; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; }
+    .footer-newsletter button:hover { background: var(--gold-dark); color: #fff; }
+    .footer-bottom { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; }
+
+    @media (max-width: 1024px) { .credentials-grid { grid-template-columns: repeat(2, 1fr); } .footer-inner { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-inner { padding: 0 24px; }
+      .asymmetric-grid { grid-template-columns: 1fr; }
+      .asymmetric-text { padding: 48px 24px; }
+      .hero-over { min-height: 35vh; }
+      .hero-over-content { padding: 40px 24px; }
+      .credentials { padding: 64px 0; }
+      .credentials-grid { grid-template-columns: repeat(2, 1fr); width: 100%; }
+      .credential-item { padding: 40px 16px; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      #footer { padding: 48px 24px 32px; }
+      /* Studio section fixes */
+      .filosofie-pijlers { grid-template-columns: 1fr !important; }
+      .filosofie-item { padding: 20px 0 !important; border-right: none !important; border-top: 1px solid rgba(197,165,114,0.2) !important; }
+      .filosofie-item:first-child { border-top: none !important; }
+      .video-float { max-width: min(280px, 80vw) !important; }
+      /* CTA section */
+      .over-cta-section { padding: 64px 24px !important; }
+    }
+  </style>
+  <link rel="stylesheet" href="buttons.css">
+  <link rel="stylesheet" href="glowing-effect.css">
+  <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+
+<div id="announcement-bar">Nieuw: <strong>Hydra Glow Lips</strong>, <a href="behandelingen.html">Ontdek de behandeling →</a></div>
+
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="media/fotos/Yoly_logo_transparant 1.png" alt="YolyLuxeSpa"></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="behandelingen.html" class="nav-link">Behandelingen</a>
+      <a href="over.html" class="nav-link active">Over</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <a href="afspraak.html" class="nav-cta">Reserveer</a>
+    <button class="nav-hamburger" id="hamburger-btn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mobile-menu" aria-modal="true" role="dialog" aria-label="Navigatiemenu">
+  <div class="mmenu-header">
+    <span class="mmenu-label">Menu</span>
+    <button class="mmenu-close" id="mobile-close-btn" aria-label="Menu sluiten">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/>
+      </svg>
+    </button>
+  </div>
+  <nav class="mmenu-nav">
+    <a href="index.html"          class="mmenu-link">Home</a>
+    <a href="behandelingen.html"  class="mmenu-link">Behandelingen</a>
+    <a href="over.html"           class="mmenu-link mmenu-link--active">Over</a>
+    <a href="blog.html"           class="mmenu-link">Blog</a>
+    <a href="contact.html"        class="mmenu-link">Contact</a>
+  </nav>
+  <div class="mmenu-footer">
+    <a href="afspraak.html" class="btn-primary mmenu-cta">Reserveer nu</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero-over">
+  <div class="hero-over-bg" aria-hidden="true">
+    <svg id="paths-svg" viewBox="-500 -300 1800 900" fill="none" preserveAspectRatio="xMidYMid slice"
+         style="position:absolute;inset:0;width:100%;height:100%;"></svg>
+  </div>
+  <div class="hero-over-overlay"></div>
+  <div class="hero-over-content">
+    <p style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;">Gecertificeerde schoonheidsspecialiste</p>
+    <h1 style="font-family:'Playfair Display',serif; font-size:clamp(2.5rem,5vw,4.5rem); font-weight:400; color:#3A2F2B; letter-spacing:-0.03em; line-height:1.1; margin:0;">Over Yoly</h1>
+  </div>
+</section>
+
+<!-- Philosophy — Asymmetric -->
+<section>
+  <div class="asymmetric-grid">
+    <div class="asymmetric-text reveal-fade">
+      <p class="section-label">Mijn verhaal</p>
+      <h2 class="section-title">Passie voor huid &amp; schoonheid</h2>
+      <p class="section-body">
+        Zolang ze zich kan herinneren, wist Yoly Ponce Montero dat haar roeping was om mensen te helpen zich goed te voelen in hun eigen huid. Niet alleen van buiten, maar van binnen. Dit vak is de vervulling van die kinderdroom: een plek waar schoonheid en gezondheid samenkomen, en elke klant persoonlijke aandacht en behandelingen op maat ontvangt.
+      </p>
+      <blockquote style="border-left: 2px solid var(--gold); padding-left: 16px; margin:0; font-family: 'Playfair Display', serif; font-style:italic; font-size:16px; color:var(--brown); line-height:1.7;">
+        "Elke huid vertelt een verhaal. Ik luister, observeer en creëer een behandeling die écht werkt voor jou."
+      </blockquote>
+    </div>
+    <div class="asymmetric-img-wrap glow-border reveal reveal-right">
+      <img src="media/fotos/Yoly aan het werk.jpeg" alt="Yoly in haar salon" class="asymmetric-img">
+    </div>
+  </div>
+</section>
+
+<!-- Credentials -->
+<section class="credentials">
+  <div style="text-align:center; margin-bottom:56px;" class="reveal">
+    <p class="section-label">Onze waarden</p>
+    <h2 class="section-title">Waarom YolyLuxeSpa?</h2>
+  </div>
+  <div class="credentials-grid">
+    <div class="credential-item">
+      <div class="reveal">
+        <p class="credential-number">✦</p>
+        <p class="credential-label">Eerlijk advies</p>
+        <p class="credential-desc">Ik raad je alleen aan wat je écht nodig hebt. Jouw vertrouwen is mijn grootste succes</p>
+      </div>
+    </div>
+    <div class="credential-item">
+      <div class="reveal reveal-d1">
+        <p class="credential-number">✦</p>
+        <p class="credential-label">Gecertificeerd</p>
+        <p class="credential-desc">Erkende schoonheidsspecialiste met professionele opleiding in huidverzorging</p>
+      </div>
+    </div>
+    <div class="credential-item">
+      <div class="reveal reveal-d2">
+        <p class="credential-number">✦</p>
+        <p class="credential-label">Persoonlijke aanpak</p>
+        <p class="credential-desc">Elke behandeling is volledig op maat, afgestemd op jouw huid en jouw behoeften</p>
+      </div>
+    </div>
+    <div class="credential-item">
+      <div class="reveal reveal-d3">
+        <p class="credential-number">✦</p>
+        <p class="credential-label">Zichtbaar resultaat</p>
+        <p class="credential-desc">Duurzame resultaten die je voelt én ziet, geen quick fixes, maar echte huidverbetering</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Studio Video -->
+<section style="background-color: #3A2F2B; background-image: repeating-linear-gradient(45deg, rgba(197,165,114,0.07) 0, rgba(197,165,114,0.07) 0.5px, transparent 0, transparent 20px), repeating-linear-gradient(135deg, rgba(197,165,114,0.07) 0, rgba(197,165,114,0.07) 0.5px, transparent 0, transparent 20px), linear-gradient(160deg, #3A2F2B 0%, #5C4D47 50%, #3A2F2B 100%); padding: 80px 48px;">
+  <div class="studio-grid" style="max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center;">
+
+    <!-- Video kolom -->
+    <div class="reveal">
+      <div class="video-float" style="position:relative; aspect-ratio:9/16; overflow:hidden; max-width:360px; margin:0 auto; border-radius:8px; box-shadow: inset 0 0 0 2px rgba(197,165,114,0.5), 0 32px 80px rgba(0,0,0,0.45), 0 8px 24px rgba(0,0,0,0.3);">
+        <video id="salon-video" muted loop playsinline style="width:100%; height:100%; object-fit:cover;">
+          <source src="media/videos/tiktok vid.mov" type="video/quicktime">
+          <source src="media/videos/tiktok vid.mov" type="video/mp4">
+        </video>
+        <div style="position:absolute; bottom:0; left:0; right:0; height:40%; background:linear-gradient(to top, rgba(58,47,43,0.6), transparent); pointer-events:none;"></div>
+      </div>
+      <p style="font-family:'DM Sans',system-ui,sans-serif; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-top:16px; text-align:center;">YolyLuxeSpa · Loenhout, België</p>
+    </div>
+
+    <!-- Tekst kolom -->
+    <div class="reveal reveal-d1" style="display:flex; flex-direction:column; gap:32px;">
+      <div>
+        <p class="section-label" style="font-family:'DM Sans',system-ui,sans-serif; color:rgba(197,165,114,0.7);">De salon</p>
+        <h2 class="section-title light" style="font-family:'Playfair Display',serif; margin-bottom:24px;">Een blik in<br>ons atelier</h2>
+        <p style="font-family:'DM Sans',system-ui,sans-serif; font-size:15px; font-weight:300; color:rgba(255,255,255,0.65); line-height:1.8;">
+          De salon van YolyLuxeSpa is een oase van rust midden in Loenhout. Een plek waar elke klant persoonlijke aandacht krijgt, van de eerste consultatie tot de laatste stap van de behandeling.
+        </p>
+      </div>
+
+      <!-- Filosofie pijlers -->
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; border-top:1px solid rgba(197,165,114,0.2); border-bottom:1px solid rgba(197,165,114,0.2); padding:24px 0;" class="reveal reveal-d2 filosofie-pijlers">
+        <div class="filosofie-item" style="text-align:center; padding:0 16px; border-right:1px solid rgba(197,165,114,0.2);">
+          <p style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:400; color:var(--gold); letter-spacing:-0.01em; line-height:1.2;">Eerlijkheid</p>
+          <p style="font-family:'DM Sans',system-ui,sans-serif; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-top:8px;">Altijd eerlijk advies</p>
+        </div>
+        <div class="filosofie-item" style="text-align:center; padding:0 16px; border-right:1px solid rgba(197,165,114,0.2);">
+          <p style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:400; color:var(--gold); letter-spacing:-0.01em; line-height:1.2;">Bescheidenheid</p>
+          <p style="font-family:'DM Sans',system-ui,sans-serif; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-top:8px;">Jij staat centraal</p>
+        </div>
+        <div class="filosofie-item" style="text-align:center; padding:0 16px;">
+          <p style="font-family:'Playfair Display',serif; font-size:1.25rem; font-weight:400; color:var(--gold); letter-spacing:-0.01em; line-height:1.2;">Toewijding</p>
+          <p style="font-family:'DM Sans',system-ui,sans-serif; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-top:8px;">100% voor jouw huid</p>
+        </div>
+      </div>
+
+      <!-- Citaat -->
+      <blockquote style="border-left:2px solid var(--gold); padding-left:24px; margin:0;" class="reveal reveal-d3">
+        <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:16px; color:rgba(255,255,255,0.8); line-height:1.75; margin:0;">
+          "In mijn salon staat jouw huid centraal. Ik neem de tijd om echt te luisteren en een behandeling op maat samen te stellen."
+        </p>
+        <p style="font-family:'DM Sans',system-ui,sans-serif; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(197,165,114,0.6); margin-top:16px;">· Yoly Ponce Montero</p>
+      </blockquote>
+
+      <div class="reveal reveal-d4">
+        <a href="afspraak.html" class="btn-primary">Maak een afspraak</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Responsive: stack op mobiel -->
+  <style>
+    @media (max-width: 768px) {
+      .studio-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+    }
+  </style>
+</section>
+
+<!-- CTA -->
+<section class="over-cta-section" style="background: var(--beige); padding: 96px 48px; text-align:center;">
+  <div style="max-width:520px; margin:0 auto;" class="reveal">
+    <p class="section-label">Jouw huid verdient het beste</p>
+    <h2 class="section-title" style="margin-bottom:24px;">Maak een afspraak</h2>
+    <p class="section-body" style="margin:0 auto 32px; text-align:center;">Neem contact op en laat Yoly het perfecte behandelplan voor jouw huid samenstellen.</p>
+    <a href="afspraak.html" class="btn-primary">Reserveer nu</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div>
+      <img src="media/fotos/Yoly_logo_transparant 1.png" alt="YolyLuxeSpa" class="footer-logo">
+      <p class="footer-tagline">Luxe huidverzorging door Yoly Ponce Montero, gecertificeerde schoonheidsspecialiste in Loenhout.</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/yolyluxespa" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+        <a href="https://wa.me/32469443144" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.133.558 4.133 1.535 5.866L.099 23.901l6.196-1.393A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.672-.5-5.207-1.378l-.374-.217-3.678.828.882-3.556-.235-.374A9.953 9.953 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10z"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <p class="footer-col-title">Navigatie</p>
+      <ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="behandelingen.html">Behandelingen</a></li><li><a href="over.html">Over Yoly</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Contact</p>
+      <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span>Wuustwezelseweg 125c<br>2990 Loenhout (Wuustwezel)</span></div>
+      <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.22 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.41a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>+32 469 44 31 44</span></div>
+      <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>y.poncemontero@gmail.com</span></div>
+    </div>
+  </div>
+  <hr style="border:none; border-top:1px solid rgba(255,255,255,0.08); max-width:1400px; margin:40px auto 24px;">
+  <div class="footer-bottom"><p class="footer-copy">© 2025 YolyLuxeSpa. Alle rechten voorbehouden.</p><div class="footer-legal"><a href="privacybeleid.html">Privacybeleid</a><a href="algemene-voorwaarden.html">Algemene voorwaarden</a><a href="cookiebeleid.html">Cookiebeleid</a></div></div>
+</footer>
+
+
+<script>
+  (function() {
+    var svg = document.getElementById('paths-svg');
+    if (!svg) return;
+    var tracked = [];
+
+    /* s = horizontal shift in SVG units; spreads groups across full width */
+    function buildPath(position, i, s) {
+      var y = 189 + i * 6;
+      var d = 'M'  + (-(380 - i*5*position) + s) + ' '  + y +
+              'C'  + (-(380 - i*5*position) + s) + ' '  + y +
+              ' '  + (-(312 - i*5*position) + s) + ' -' + (216 - i*6) +
+              ' '  + (  152 - i*5*position  + s) + ' -' + (343 - i*6) +
+              'S'  + (  684 - i*5*position  + s) + ' -' + (875 - i*6) +
+              ' '  + (  684 - i*5*position  + s) + ' -' + (875 - i*6);
+      var el = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      el.setAttribute('d', d);
+      el.setAttribute('stroke', '#C5A572');
+      el.setAttribute('stroke-width', String(0.5 + i * 0.03));
+      el.setAttribute('fill', 'none');
+      el.setAttribute('stroke-opacity', String(Math.min(0.1 + i * 0.03, 1)));
+      svg.appendChild(el);
+
+      var len = el.getTotalLength();
+      el.style.strokeDasharray = (len * 0.6).toFixed(2) + ' ' + (len * 0.4).toFixed(2);
+
+      tracked.push({
+        el:    el,
+        len:   len,
+        speed: 1 / (20 + Math.random() * 10),
+        phase: Math.random()
+      });
+    }
+
+    /* Each path gets its own x-shift evenly spaced across 0→900.
+       Multiplying i by a coprime of 54 (e.g. 17) shuffles the x-positions
+       so opacity doesn't correlate with horizontal position. */
+    for (var i = 0; i < 54; i++) {
+      var shuffled = (i * 17) % 54;
+      var s = Math.round(shuffled / 53 * 900);
+      buildPath(1,  i, s);
+      buildPath(-1, i, s);
+    }
+
+    var last = null;
+    function tick(ts) {
+      var dt = last === null ? 0 : (ts - last) / 1000;
+      last = ts;
+      for (var j = 0; j < tracked.length; j++) {
+        var p = tracked[j];
+        p.phase = (p.phase + p.speed * dt) % 1;
+        /* move dash segment along the path */
+        p.el.style.strokeDashoffset = String(-(p.phase * p.len));
+        /* gentle opacity pulse synced to position */
+        p.el.style.opacity = String(0.3 + 0.3 * Math.sin(p.phase * Math.PI * 2));
+      }
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+</script>
+<script src="glowing-effect.js"></script>
+<script src="animations.js" defer></script>
+<script>
+  (function() {
+    const menu = document.getElementById('mobile-menu');
+    const openBtn = document.getElementById('hamburger-btn');
+    const closeBtn = document.getElementById('mobile-close-btn');
+    function openMenu() { menu.classList.add('is-open'); menu.offsetHeight; menu.classList.add('is-visible'); document.body.style.overflow = 'hidden'; closeBtn.focus(); }
+    function closeMenu() { menu.classList.remove('is-visible'); document.body.style.overflow = ''; menu.addEventListener('transitionend', function h(e) { if (e.propertyName === 'opacity') { menu.classList.remove('is-open'); menu.removeEventListener('transitionend', h); } }); openBtn.focus(); }
+    openBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-visible')) closeMenu(); });
+    menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
+  })();
+  // Scroll reveal → zie animations.js
+  const salonVid = document.getElementById('salon-video');
+  if (salonVid) { const vObs = new IntersectionObserver((entries) => { entries.forEach(e => { e.isIntersecting ? salonVid.play() : salonVid.pause(); }); }, { threshold: 0.3 }); vObs.observe(salonVid); }
+</script>
+</body>
+</html>

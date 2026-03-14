@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cookiebeleid | YolyLuxeSpa</title>
+  <meta name="description" content="Cookiebeleid van YolyLuxeSpa. Informatie over het gebruik van cookies op onze website.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = { theme: { extend: { colors: { cream: '#FAF7F2', beige: '#E8DDD3', gold: '#C5A572', 'gold-dark': '#A8884E', brown: '#3A2F2B', 'brown-light': '#5C4D47' }, fontFamily: { serif: ['Playfair Display', 'Georgia', 'serif'], sans: ['DM Sans', 'system-ui', 'sans-serif'] } } } }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: #FAF7F2; color: #3A2F2B; overflow-x: hidden; }
+    :root { --cream: #FAF7F2; --beige: #E8DDD3; --gold: #C5A572; --gold-dark: #A8884E; --brown: #3A2F2B; --brown-light: #5C4D47; }
+
+    #announcement-bar { background: var(--brown); color: rgba(255,255,255,0.8); text-align: center; padding: 8px 16px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; z-index: 60; }
+    #announcement-bar a { color: var(--gold); font-weight: 500; text-decoration: none; }
+    #main-nav { position: sticky; top: 0; z-index: 50; background: rgba(250,247,242,0.97); box-shadow: 0 1px 0 rgba(58,47,43,0.08); }
+    .nav-inner { padding: 0 48px; height: 68px; display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; }
+    .nav-logo img { height: 64px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 40px; }
+    .nav-link { font-size: 11.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brown-light); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.2s ease, transform 0.12s ease; }
+    .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.2s ease; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:active { transform: translateY(2px) scale(0.95); }
+    .nav-link:hover { color: var(--brown); }
+    .nav-cta { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brown); text-decoration: none; border: 1px solid rgba(197,165,114,0.5); padding: 10px 24px; border-radius: 9999px; transition: background 0.2s, border-color 0.2s; }
+    .nav-cta:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 8px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--brown); }
+    #mobile-menu { display: none; position: fixed; inset: 0; background: var(--cream); z-index: 49; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+    #mobile-menu.open { display: flex; }
+    .mobile-nav-link { font-size: 22px; font-family: 'Playfair Display', serif; font-weight: 400; color: var(--brown); text-decoration: none; }
+    .mobile-close { position: absolute; top: 24px; right: 24px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--brown); }
+
+    .section-label { font-size: 10.5px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; letter-spacing: -0.03em; line-height: 1.15; color: var(--brown); }
+
+    /* Page Hero */
+    .page-hero {
+      position: relative;
+      padding: 100px 48px 80px;
+      text-align: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212,184,130,0.22) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 72% 100%, rgba(197,165,114,0.08) 0%, transparent 60%),
+        #FAF7F2;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(197,165,114,0.4) 30%, rgba(212,184,130,0.5) 50%, rgba(197,165,114,0.4) 70%, transparent);
+    }
+    .page-hero-grain { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .page-hero-content { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
+
+    /* Content Section */
+    .content-section { padding: 80px 48px 96px; background: var(--cream); }
+    .content-inner { max-width: 760px; margin: 0 auto; }
+
+    .content-block { margin-bottom: 48px; }
+    .content-block:last-child { margin-bottom: 0; }
+    .content-h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--brown);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(197,165,114,0.25);
+    }
+    .content-p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--brown-light);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .content-p:last-child { margin-bottom: 0; }
+    .content-p a { color: var(--gold-dark); text-decoration: none; border-bottom: 1px solid rgba(168,136,78,0.35); }
+    .content-p a:hover { color: var(--brown); }
+    .content-p strong { font-weight: 500; color: var(--brown); }
+    .content-ul { list-style: none; padding: 0; margin: 0 0 12px; }
+    .content-ul li { font-size: 15px; font-weight: 300; color: var(--brown-light); line-height: 1.75; padding-left: 20px; position: relative; margin-bottom: 8px; }
+    .content-ul li::before { content: '·'; position: absolute; left: 0; color: var(--gold); font-weight: 400; }
+
+    /* Cookie table */
+    .cookie-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 12px;
+      font-size: 14px;
+    }
+    .cookie-table th {
+      text-align: left;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      padding: 10px 16px;
+      background: rgba(197,165,114,0.08);
+      border-bottom: 1px solid rgba(197,165,114,0.2);
+    }
+    .cookie-table td {
+      padding: 12px 16px;
+      font-size: 13.5px;
+      font-weight: 300;
+      color: var(--brown-light);
+      border-bottom: 1px solid rgba(197,165,114,0.1);
+      line-height: 1.6;
+    }
+    .cookie-table tr:last-child td { border-bottom: none; }
+
+    .last-updated {
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: rgba(92,77,71,0.5);
+      text-transform: uppercase;
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(197,165,114,0.15);
+    }
+
+    /* Footer */
+    #footer { background: var(--brown); padding: 72px 48px 40px; }
+    .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+    .footer-logo { height: 48px; filter: none; opacity: 1; margin-bottom: 16px; background: #FAF7F2; border-radius: 6px; padding: 4px 8px; }
+    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 24px; max-width: 240px; }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { color: rgba(255,255,255,0.45); transition: color 0.2s; }
+    .footer-social a:hover { color: var(--gold); }
+    .footer-social svg { width: 18px; height: 18px; }
+    .footer-col-title { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+    .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-contact-item { display: flex; gap: 8px; margin-bottom: 16px; }
+    .footer-contact-item svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+    .footer-contact-item span { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+    .footer-bottom { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.6); }
+    .footer-legal a.active { color: var(--gold); }
+
+    @media (max-width: 1024px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-inner { padding: 0 24px; }
+      .page-hero { padding: 72px 24px 56px; }
+      .content-section { padding: 56px 24px 72px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      #footer { padding: 48px 24px 32px; }
+      .cookie-table th, .cookie-table td { padding: 10px 8px; }
+    }
+  </style>
+  <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+
+<div id="announcement-bar">Nieuw: <strong>Hydra Glow Lips</strong>, <a href="behandelingen.html">Ontdek de behandeling →</a></div>
+
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="media/fotos/Yoly_logo_transparant 1.png" alt="YolyLuxeSpa"></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="behandelingen.html" class="nav-link">Behandelingen</a>
+      <a href="over.html" class="nav-link">Over</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <a href="afspraak.html" class="nav-cta">Reserveer</a>
+    <button class="nav-hamburger" id="hamburger-btn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mobile-menu">
+  <button class="mobile-close" id="mobile-close-btn">✕</button>
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="behandelingen.html" class="mobile-nav-link">Behandelingen</a>
+  <a href="over.html" class="mobile-nav-link">Over</a>
+  <a href="blog.html" class="mobile-nav-link">Blog</a>
+  <a href="contact.html" class="mobile-nav-link">Contact</a>
+  <a href="afspraak.html" class="mobile-nav-link">Reserveer</a>
+</div>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <svg class="page-hero-grain" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#grain)" opacity="0.03"/>
+  </svg>
+  <div class="page-hero-content reveal">
+    <p class="section-label">Juridisch</p>
+    <h1 class="section-title" style="font-size:clamp(2.2rem,5vw,3.6rem); margin-bottom:16px;">Cookiebeleid</h1>
+    <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:1rem; color:var(--gold-dark); line-height:1.7;">
+      <em>Duidelijkheid over hoe wij cookies gebruiken.</em>
+    </p>
+  </div>
+</section>
+
+<!-- Content -->
+<section class="content-section">
+  <div class="content-inner">
+
+    <div class="content-block reveal">
+      <h2 class="content-h2">Wat zijn cookies?</h2>
+      <p class="content-p">
+        Cookies zijn kleine tekstbestanden die bij een bezoek aan een website worden opgeslagen op jouw apparaat. Ze helpen een website om bepaalde informatie te onthouden over jouw bezoek.
+      </p>
+    </div>
+
+    <div class="content-block reveal reveal-d1">
+      <h2 class="content-h2">Welke cookies gebruiken wij?</h2>
+      <p class="content-p">
+        De website van YolyLuxeSpa maakt gebruik van minimale cookies. Wij plaatsen <strong>geen tracking- of advertentiecookies</strong>. Er worden geen persoonsgegevens via cookies verzameld of doorgegeven aan derden.
+      </p>
+      <table class="cookie-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Doel</th>
+            <th>Bewaartermijn</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:var(--brown); font-weight:500;">Functioneel</strong></td>
+            <td>Noodzakelijk voor de basisfunctionaliteit van de website (bijv. navigatie, formulieren)</td>
+            <td>Sessie</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--brown); font-weight:500;">Derde partij (Calendly)</strong></td>
+            <td>Het ingebedde boekingsformulier van Calendly kan cookies plaatsen om de functionaliteit ervan te ondersteunen</td>
+            <td>Zie Calendly-beleid</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="content-p">
+        Wij plaatsen geen cookies voor analytische, marketing- of reclamedoeleinden.
+      </p>
+    </div>
+
+    <div class="content-block reveal reveal-d2">
+      <h2 class="content-h2">Cookies van derden</h2>
+      <p class="content-p">
+        Op de afspraken-pagina is een Calendly-widget ingebed. Calendly kan eigen cookies plaatsen. Voor meer informatie over hoe Calendly omgaat met cookies en gegevens, raadpleeg het privacybeleid van Calendly.
+      </p>
+    </div>
+
+    <div class="content-block reveal reveal-d3">
+      <h2 class="content-h2">Cookies beheren of weigeren</h2>
+      <p class="content-p">
+        Je kan cookies op elk moment beheren of verwijderen via de instellingen van jouw browser. Houd er rekening mee dat het uitschakelen van bepaalde cookies de functionaliteit van de website kan beperken.
+      </p>
+      <ul class="content-ul">
+        <li>Google Chrome: Instellingen → Privacy en beveiliging → Cookies</li>
+        <li>Firefox: Instellingen → Privacy en beveiliging → Cookies en sitegegevens</li>
+        <li>Safari: Voorkeuren → Privacy → Cookies beheren</li>
+      </ul>
+    </div>
+
+    <div class="content-block reveal reveal-d4">
+      <h2 class="content-h2">Contact</h2>
+      <p class="content-p">
+        Vragen over dit cookiebeleid? Neem contact op via <a href="mailto:y.poncemontero@gmail.com">y.poncemontero@gmail.com</a>.
+      </p>
+    </div>
+
+    <p class="last-updated">Laatst bijgewerkt: maart 2026</p>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div>
+      <img src="media/fotos/Yoly_logo_transparant 1.png" alt="YolyLuxeSpa" class="footer-logo">
+      <p class="footer-tagline">Luxe huidverzorging door Yoly Ponce Montero, gecertificeerde schoonheidsspecialiste in Loenhout.</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/yolyluxespa" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+        <a href="https://wa.me/32469443144" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.133.558 4.133 1.535 5.866L.099 23.901l6.196-1.393A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.672-.5-5.207-1.378l-.374-.217-3.678.828.882-3.556-.235-.374A9.953 9.953 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10z"/></svg></a>
+        
+      </div>
+    </div>
+    <div>
+      <p class="footer-col-title">Navigatie</p>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="behandelingen.html">Behandelingen</a></li>
+        <li><a href="over.html">Over Yoly</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Contact</p>
+      <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span>Wuustwezelseweg 125c<br>2990 Loenhout (Wuustwezel)</span></div>
+      <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.22 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.41a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>+32 469 44 31 44</span></div>
+      <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>y.poncemontero@gmail.com</span></div>
+    </div>
+  </div>
+  <hr style="border:none; border-top:1px solid rgba(255,255,255,0.08); max-width:1400px; margin:40px auto 24px;">
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 YolyLuxeSpa. Alle rechten voorbehouden.</p>
+    <div class="footer-legal">
+      <a href="privacybeleid.html">Privacybeleid</a>
+      <a href="algemene-voorwaarden.html">Algemene voorwaarden</a>
+      <a href="cookiebeleid.html" class="active">Cookiebeleid</a>
+    </div>
+  </div>
+</footer>
+
+<script src="animations.js" defer></script>
+<script>
+  document.getElementById('hamburger-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.add('open'));
+  document.getElementById('mobile-close-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('open'));
+</script>
+</body>
+</html>

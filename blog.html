@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog & Huidverzorging Tips | YolyLuxeSpa Loenhout</title>
+  <meta name="description" content="Expertadvies over huidverzorging van YolyLuxeSpa, schoonheidsspecialiste in Loenhout (Wuustwezel). Tips over gezichtsreiniging, HydraFacial, lipbehandelingen en meer.">
+  <meta name="keywords" content="schoonheidsspecialiste Loenhout, luxe facial Wuustwezel, gezichtsbehandeling Antwerpen, huidverzorging tips, YolyluxeSpa blog">
+  <meta property="og:title" content="Blog & Huidverzorging Tips | YolyLuxeSpa Loenhout">
+  <meta property="og:description" content="Expertadvies en huidverzorgingstips van Yoly Ponce Montero, gecertificeerde schoonheidsspecialiste in Loenhout, België.">
+  <meta property="og:type" content="website">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = { theme: { extend: { colors: { cream: '#FAF7F2', beige: '#E8DDD3', gold: '#C5A572', 'gold-dark': '#A8884E', brown: '#3A2F2B', 'brown-light': '#5C4D47' }, fontFamily: { serif: ['Playfair Display', 'Georgia', 'serif'], sans: ['DM Sans', 'system-ui', 'sans-serif'] } } } }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: #FAF7F2; color: #3A2F2B; overflow-x: hidden; }
+    :root { --cream: #FAF7F2; --beige: #E8DDD3; --gold: #C5A572; --gold-dark: #A8884E; --brown: #3A2F2B; --brown-light: #5C4D47; }
+
+    /* ── Announcement bar ── */
+    #announcement-bar { background: var(--brown); color: rgba(255,255,255,0.8); text-align: center; padding: 8px 16px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; z-index: 60; }
+    #announcement-bar a { color: var(--gold); font-weight: 500; text-decoration: none; }
+
+    /* ── Nav ── */
+    #main-nav { position: sticky; top: 0; z-index: 50; background: rgba(250,247,242,0.97); box-shadow: 0 1px 0 rgba(58,47,43,0.08); }
+    .nav-inner { padding: 0 48px; height: 68px; display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; }
+    .nav-logo img { height: 64px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 40px; }
+    .nav-link { font-size: 11.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brown-light); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.2s ease, transform 0.12s ease; }
+    .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.2s ease; }
+    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+    .nav-link:active { transform: translateY(2px) scale(0.95); }
+    .nav-link:hover, .nav-link.active { color: var(--brown); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 8px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--brown); }
+    /* ── Mobile Menu Overlay ── */
+    #mobile-menu { display: none; position: fixed; inset: 0; z-index: 200; background-color: rgba(26,18,14,0.97); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); flex-direction: column; overflow: hidden; opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.25,0.1,0.25,1); }
+    #mobile-menu.is-open { display: flex; pointer-events: all; }
+    #mobile-menu.is-visible { opacity: 1; }
+    .mmenu-header { display: flex; align-items: center; justify-content: space-between; padding: 24px 24px 0; flex-shrink: 0; }
+    .mmenu-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+    .mmenu-close { background: none; border: none; cursor: pointer; padding: 8px; color: rgba(250,247,242,0.7); display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: color 0.2s, background 0.2s; }
+    .mmenu-close:hover { color: var(--gold); background: rgba(197,165,114,0.12); }
+    .mmenu-close:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    .mmenu-close:active { transform: scale(0.92); }
+    .mmenu-nav { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 48px; }
+    .mmenu-link { display: block; font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 400; color: rgba(250,247,242,0.88); text-decoration: none; letter-spacing: -0.03em; line-height: 1.2; padding: 16px 0; border-bottom: 1px solid rgba(197,165,114,0.12); opacity: 0; transform: translateX(-24px); transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1), color 0.2s; }
+    .mmenu-link:last-child { border-bottom: none; }
+    .mmenu-link:hover { color: var(--gold); }
+    .mmenu-link:active { transform: translateX(4px); }
+    .mmenu-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px; }
+    .mmenu-link--active { color: var(--gold); }
+    .mmenu-link:nth-child(1) { transition-delay: 0s; } .mmenu-link:nth-child(2) { transition-delay: 0.05s; } .mmenu-link:nth-child(3) { transition-delay: 0.10s; } .mmenu-link:nth-child(4) { transition-delay: 0.15s; } .mmenu-link:nth-child(5) { transition-delay: 0.20s; }
+    #mobile-menu.is-visible .mmenu-link { opacity: 1; transform: translateX(0); }
+    #mobile-menu:not(.is-visible) .mmenu-link { transition-delay: 0s !important; }
+    .mmenu-footer { padding: 32px 24px 40px; flex-shrink: 0; }
+    .mmenu-cta { width: 100% !important; min-width: 0 !important; display: flex !important; justify-content: center; }
+
+    /* ── Page Hero ── */
+    .blog-hero { background: var(--beige); padding: 96px 48px 80px; text-align: center; position: relative; overflow: hidden; }
+    .blog-hero::before { content: ''; position: absolute; top: -40px; right: -40px; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle, rgba(197,165,114,0.12) 0%, transparent 70%); pointer-events: none; }
+    .blog-hero::after { content: ''; position: absolute; bottom: -40px; left: -40px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(197,165,114,0.08) 0%, transparent 70%); pointer-events: none; }
+    .section-label { font-size: 10.5px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; color: var(--brown); margin-bottom: 24px; }
+    .blog-hero-sub { font-size: 15px; font-weight: 300; color: var(--brown-light); line-height: 1.75; max-width: 560px; margin: 0 auto; }
+
+    /* ── Main layout ── */
+    .blog-main { max-width: 1400px; margin: 0 auto; padding: 72px 48px 96px; display: grid; grid-template-columns: 280px 1fr; gap: 64px; align-items: start; }
+
+    /* ── Sidebar ── */
+    .blog-sidebar { position: sticky; top: 100px; }
+    .sidebar-search { display: flex; margin-bottom: 48px; border: 1px solid var(--beige); border-radius: 8px; overflow: hidden; background: #fff; box-shadow: 0 2px 8px rgba(58,47,43,0.06); }
+    .sidebar-search input { flex: 1; padding: 16px; font-size: 13px; font-family: 'DM Sans', sans-serif; border: none; outline: none; background: transparent; color: var(--brown); }
+    .sidebar-search input::placeholder { color: rgba(58,47,43,0.35); }
+    .sidebar-search button { background: var(--gold); border: none; padding: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .sidebar-search button:hover { background: var(--gold-dark); }
+    .sidebar-search button svg { width: 16px; height: 16px; stroke: #fff; }
+    .sidebar-block { margin-bottom: 40px; }
+    .sidebar-block-title { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; padding-bottom: 8px; border-bottom: 1px solid var(--beige); }
+    .category-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0; }
+    .category-list li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(232,221,211,0.5); cursor: pointer; transition: color 0.2s; }
+    .category-list li:last-child { border-bottom: none; }
+    .category-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .category-list li span { font-size: 13px; color: var(--brown-light); transition: color 0.2s; }
+    .category-list li:hover span { color: var(--brown); }
+    .recent-list { display: flex; flex-direction: column; gap: 16px; }
+    .recent-item { display: flex; flex-direction: column; gap: 4px; cursor: pointer; }
+    .recent-item-title { font-size: 13px; color: var(--brown); line-height: 1.4; font-weight: 400; transition: color 0.2s; }
+    .recent-item:hover .recent-item-title { color: var(--gold-dark); }
+    .recent-item-date { font-size: 11px; color: rgba(58,47,43,0.4); letter-spacing: 0.04em; }
+
+    /* ── Artikel-kaarten ── */
+    .articles-list { display: flex; flex-direction: column; gap: 24px; }
+    .article-card { background: #fff; border-radius: 8px; overflow: hidden; display: flex; cursor: pointer; box-shadow: 0 2px 12px rgba(58,47,43,0.06); transition: box-shadow 0.3s cubic-bezier(0.25,0.1,0.25,1), transform 0.3s cubic-bezier(0.25,0.1,0.25,1); text-decoration: none; color: inherit; }
+    .article-card:hover { box-shadow: 0 8px 32px rgba(58,47,43,0.12); transform: translateY(-2px) scale(1.005); }
+    .article-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .article-card:active { transform: translateY(0) scale(0.998); }
+    .article-img-wrap { width: 264px; flex-shrink: 0; overflow: hidden; }
+    .article-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.25,0.1,0.25,1); }
+    .article-card:hover .article-img { transform: scale(1.05); }
+    /* Kaart zonder foto: goud accent-balk */
+    .article-card.no-img { border-left: 4px solid var(--gold); }
+    .article-card.no-img .article-content { padding-left: 32px; }
+    .article-content { padding: 32px 40px; display: flex; flex-direction: column; justify-content: center; gap: 12px; flex: 1; }
+    .article-cat-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown); background: rgba(197,165,114,0.15); border-radius: 40px; padding: 4px 12px; }
+    .article-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 400; color: var(--brown); line-height: 1.35; letter-spacing: -0.02em; }
+    .article-excerpt { font-size: 13px; font-weight: 300; color: var(--brown-light); line-height: 1.7; }
+    .article-meta { font-size: 11px; color: rgba(58,47,43,0.4); letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px; }
+    .article-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(58,47,43,0.3); }
+    .article-read-more { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-dark); display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; }
+    .article-read-more svg { width: 12px; height: 12px; transition: transform 0.2s; }
+    .article-card:hover .article-read-more svg { transform: translateX(3px); }
+
+    /* ── Modal ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(58,47,43,0.85); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.25,0.1,0.25,1); backdrop-filter: blur(4px); }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box { background: var(--cream); border-radius: 8px; max-width: 760px; width: 100%; max-height: 88vh; overflow-y: auto; position: relative; transform: translateY(24px); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-img { width: 100%; height: 280px; object-fit: cover; display: block; }
+    .modal-body { padding: 48px; }
+    .modal-close { position: absolute; top: 16px; right: 16px; background: rgba(250,247,242,0.9); border: 1px solid rgba(58,47,43,0.12); border-radius: 50%; width: 40px; height: 40px; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--brown); transition: background 0.2s, transform 0.15s; line-height: 1; z-index: 10; }
+    .modal-close:hover { background: var(--beige); transform: scale(1.08); }
+    .modal-close:active { transform: scale(0.94); }
+    .modal-cat { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 400; color: var(--brown); letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 24px; }
+    .modal-tldr { border-left: 3px solid var(--gold); padding: 16px 24px; background: rgba(197,165,114,0.08); border-radius: 0 8px 8px 0; margin-bottom: 32px; }
+    .modal-tldr strong { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 8px; }
+    .modal-tldr p { font-size: 13px; font-weight: 300; color: var(--brown-light); line-height: 1.7; margin: 0; }
+    .modal-content h2 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500; color: var(--brown); margin: 32px 0 12px; letter-spacing: -0.02em; }
+    .modal-content p { font-size: 14px; font-weight: 300; color: var(--brown-light); line-height: 1.75; margin-bottom: 16px; }
+    .modal-content ul { padding-left: 0; list-style: none; margin-bottom: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .modal-content ul li { font-size: 14px; font-weight: 300; color: var(--brown-light); line-height: 1.65; display: flex; gap: 10px; }
+    .modal-content ul li::before { content: '✦'; color: var(--gold); font-size: 10px; flex-shrink: 0; margin-top: 4px; }
+    .modal-cta-wrap { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--beige); }
+    .modal-meta { font-size: 12px; color: rgba(58,47,43,0.4); letter-spacing: 0.05em; margin-bottom: 32px; }
+
+    /* ── Footer ── */
+    #footer { background: var(--brown); padding: 72px 48px 40px; }
+    .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+    .footer-logo { height: 48px; filter: none; opacity: 1; margin-bottom: 16px; background: #FAF7F2; border-radius: 6px; padding: 4px 8px; }
+    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 24px; max-width: 240px; }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { color: rgba(255,255,255,0.45); transition: color 0.2s; }
+    .footer-social a:hover { color: var(--gold); }
+    .footer-social svg { width: 18px; height: 18px; }
+    .footer-col-title { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+    .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-contact-item { display: flex; gap: 8px; margin-bottom: 16px; }
+    .footer-contact-item svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+    .footer-contact-item span { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+    .footer-newsletter form { display: flex; }
+    .footer-newsletter input { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 16px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; }
+    .footer-newsletter input::placeholder { color: rgba(255,255,255,0.3); }
+    .footer-newsletter button { background: var(--gold); color: var(--brown); padding: 16px 24px; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; }
+    .footer-newsletter button:hover { background: var(--gold-dark); color: #fff; }
+    .footer-bottom { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .blog-main { grid-template-columns: 240px 1fr; gap: 40px; padding: 56px 32px 80px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-inner { padding: 0 24px; }
+      .blog-hero { padding: 64px 24px 56px; }
+      .blog-main { grid-template-columns: 1fr; padding: 40px 24px 64px; }
+      .blog-sidebar { position: static; }
+      .article-img-wrap { width: 120px; }
+      .article-content { padding: 24px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      #footer { padding: 48px 24px 32px; }
+      .modal-body { padding: 32px 24px; }
+    }
+    @media (max-width: 480px) {
+      .article-card { flex-direction: column; }
+      .article-img-wrap { width: 100%; height: 200px; }
+    }
+  </style>
+  <link rel="stylesheet" href="buttons.css">
+  <link rel="stylesheet" href="glowing-effect.css">
+  <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+
+<div id="announcement-bar">Nieuw: <strong>Hydra Glow Lips</strong>, <a href="behandelingen.html">Ontdek de behandeling →</a></div>
+
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="media/fotos/Yoly_logo_transparant 1.png" alt="YolyLuxeSpa"></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="behandelingen.html" class="nav-link">Behandelingen</a>
+      <a href="over.html" class="nav-link">Over</a>
+      <a href="blog.html" class="nav-link active">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <a href="afspraak.html" class="nav-cta">Reserveer</a>
+    <button class="nav-hamburger" id="hamburger-btn"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mobile-menu" aria-modal="true" role="dialog" aria-label="Navigatiemenu">
+  <div class="mmenu-header">
+    <span class="mmenu-label">Menu</span>
+    <button class="mmenu-close" id="mobile-close-btn" aria-label="Menu sluiten">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/>
+      </svg>
+    </button>
+  </div>
+  <nav class="mmenu-nav">
+    <a href="index.html"          class="mmenu-link">Home</a>
+    <a href="behandelingen.html"  class="mmenu-link">Behandelingen</a>
+    <a href="over.html"           class="mmenu-link">Over</a>
+    <a href="blog.html"           class="mmenu-link mmenu-link--active">Blog</a>
+    <a href="contact.html"        class="mmenu-link">Contact</a>
+  </nav>
+  <div class="mmenu-footer">
+    <a href="afspraak.html" class="btn-primary mmenu-cta">Reserveer nu</a>
+  </div>
+</div>
+
+<!-- Page Hero -->
+<section class="blog-hero reveal">
+  <div style="max-width:600px; margin:0 auto; position:relative; z-index:1;">
+    <p class="section-label">Tips &amp; Inzichten</p>
+    <h1 class="section-title">Artikelen &amp; Gidsen</h1>
+    <p class="blog-hero-sub">Blijf op de hoogte met de nieuwste huidverzorgingstips, expertadvies en behandelingsinformatie van Yoly Ponce Montero, schoonheidsspecialiste in Loenhout.</p>
+  </div>
+</section>
+
+<!-- Blog Main: Sidebar + Articles -->
+<div class="blog-main">
+
+  <!-- Sidebar -->
+  <aside class="blog-sidebar">
+    <div class="sidebar-search">
+      <input type="text" placeholder="Zoek een artikel…" id="search-input" aria-label="Zoek artikelen">
+      <button aria-label="Zoeken" onclick="handleSearch()">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+    </div>
+
+    <div class="sidebar-block">
+      <p class="sidebar-block-title">Categorieën</p>
+      <ul class="category-list" id="cat-list">
+        <li onclick="filterCat('')"><span>Alle artikelen</span></li>
+        <li onclick="filterCat('huidverzorging')"><span>Huidverzorging</span></li>
+        <li onclick="filterCat('lipbehandelingen')"><span>Lipbehandelingen</span></li>
+        <li onclick="filterCat('anti-aging')"><span>Anti-aging</span></li>
+        <li onclick="filterCat('hydrafacial')"><span>HydraFacial</span></li>
+        <li onclick="filterCat('thuis-verzorging')"><span>Thuis verzorging</span></li>
+        <li onclick="filterCat('over-yolyluxespa')"><span>Over YolyLuxeSpa</span></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-block">
+      <p class="sidebar-block-title">Recente Artikelen</p>
+      <div class="recent-list">
+        <div class="recent-item" onclick="openModal('a1')">
+          <span class="recent-item-title">Diepe gezichtsreiniging in Loenhout</span>
+          <span class="recent-item-date">10 februari 2026</span>
+        </div>
+        <div class="recent-item" onclick="openModal('a2')">
+          <span class="recent-item-title">Hydra Glow Lips: volle lippen zonder injectie</span>
+          <span class="recent-item-date">3 februari 2026</span>
+        </div>
+        <div class="recent-item" onclick="openModal('a3')">
+          <span class="recent-item-title">Wat is een HydraFacial en voor wie?</span>
+          <span class="recent-item-date">27 januari 2026</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Articles List -->
+  <main>
+    <div class="articles-list" id="articles-list">
+
+      <!-- Artikel 1: Diepe Gezichtsreiniging -->
+      <article class="article-card no-img" data-cat="huidverzorging" onclick="openModal('a1')" tabindex="0" role="button" aria-label="Lees artikel over diepe gezichtsreiniging">
+        <div class="article-content">
+          <span class="article-cat-tag">Huidverzorging</span>
+          <h2 class="article-title">Diepe gezichtsreiniging in Loenhout: waarom jouw huid het nodig heeft</h2>
+          <p class="article-excerpt">Dagelijkse blootstelling aan zon, vervuiling en stress verstopt jouw poriën. Ontdek waarom een professionele diepe reiniging bij YolyLuxeSpa het verschil maakt voor jouw huidgezondheid.</p>
+          <div class="article-meta">
+            <span>10 februari 2026</span>
+            <span class="article-meta-dot"></span>
+            <span>5 min leestijd</span>
+          </div>
+          <span class="article-read-more">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </article>
+
+      <!-- Artikel 2: Hydra Glow Lips -->
+      <article class="article-card no-img" data-cat="lipbehandelingen" onclick="openModal('a2')" tabindex="0" role="button" aria-label="Lees artikel over Hydra Glow Lips">
+        <div class="article-content">
+          <span class="article-cat-tag">Lipbehandelingen</span>
+          <h2 class="article-title">Hydra Glow Lips: volle lippen zonder injectie: hoe werkt het?</h2>
+          <p class="article-excerpt">De Hydra Glow Lips behandeling geeft je diep gehydrateerde, volle en stralende lippen, volledig niet-invasief. Yoly legt uit hoe het werkt en wat je mag verwachten.</p>
+          <div class="article-meta">
+            <span>3 februari 2026</span>
+            <span class="article-meta-dot"></span>
+            <span>4 min leestijd</span>
+          </div>
+          <span class="article-read-more">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </article>
+
+      <!-- Artikel 3: HydraFacial — GEEN foto -->
+      <article class="article-card no-img" data-cat="hydrafacial" onclick="openModal('a3')" tabindex="0" role="button" aria-label="Lees artikel over HydraFacial">
+        <div class="article-content">
+          <span class="article-cat-tag">HydraFacial</span>
+          <h2 class="article-title">Wat is een HydraFacial en voor wie is het geschikt?</h2>
+          <p class="article-excerpt">De HydraFacial combineert reiniging, exfoliatie, peeling en hydratatie in één behandeling. Maar wat maakt het zo bijzonder en wie heeft er het meest baat bij?</p>
+          <div class="article-meta">
+            <span>27 januari 2026</span>
+            <span class="article-meta-dot"></span>
+            <span>6 min leestijd</span>
+          </div>
+          <span class="article-read-more">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </article>
+
+      <!-- Artikel 4: Gouden Masker — GEEN foto -->
+      <article class="article-card no-img" data-cat="anti-aging" onclick="openModal('a4')" tabindex="0" role="button" aria-label="Lees artikel over het gouden masker">
+        <div class="article-content">
+          <span class="article-cat-tag">Anti-aging</span>
+          <h2 class="article-title">De voordelen van een gouden masker voor jouw huid</h2>
+          <p class="article-excerpt">Meer dan een luxe beleving: het gouden masker heeft bewezen anti-aging voordelen. Yoly legt uit hoe goud de huid stimuleert en waarom het zo populair is bij haar klanten.</p>
+          <div class="article-meta">
+            <span>20 januari 2026</span>
+            <span class="article-meta-dot"></span>
+            <span>5 min leestijd</span>
+          </div>
+          <span class="article-read-more">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </article>
+
+      <!-- Artikel 5: Thuis basisroutine — GEEN foto -->
+      <article class="article-card no-img" data-cat="thuis-verzorging" onclick="openModal('a5')" tabindex="0" role="button" aria-label="Lees artikel over thuis huidroutine">
+        <div class="article-content">
+          <span class="article-cat-tag">Thuis verzorging</span>
+          <h2 class="article-title">Huidverzorging thuis: de basisroutine na een professionele behandeling</h2>
+          <p class="article-excerpt">Na een behandeling bij YolyLuxeSpa wil je de resultaten zo lang mogelijk vasthouden. Yoly deelt haar aanbevolen thuisroutine voor elke huidtype.</p>
+          <div class="article-meta">
+            <span>13 januari 2026</span>
+            <span class="article-meta-dot"></span>
+            <span>4 min leestijd</span>
+          </div>
+          <span class="article-read-more">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </article>
+
+      <!-- Artikel 6: Schoonheidsspecialiste — GEEN foto -->
+      <article class="article-card no-img" data-cat="over-yolyluxespa" onclick="openModal('a6')" tabindex="0" role="button" aria-label="Lees artikel over professionele huidverzorging">
+        <div class="article-content">
+          <span class="article-cat-tag">Over YolyLuxeSpa</span>
+          <h2 class="article-title">Wat doet een professionele schoonheidsspecialiste en waarom maakt het verschil voor jouw huid?</h2>
+          <p class="article-excerpt">Yoly Ponce Montero is gecertificeerde schoonheidsspecialiste in Loenhout. Ze legt uit wat professionele huidverzorging inhoudt en waarom het zoveel meer biedt dan thuiszorg.</p>
+          <div class="article-meta">
+            <span>6 januari 2026</span>
+            <span class="article-meta-dot"></span>
+            <span>5 min leestijd</span>
+          </div>
+          <span class="article-read-more">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </article>
+
+    </div><!-- /articles-list -->
+  </main>
+</div><!-- /blog-main -->
+
+<!-- ═══════════════════════════════════════════════════════════════
+     ARTIKEL MODALS
+════════════════════════════════════════════════════════════════ -->
+
+<!-- Modal 1: Diepe Gezichtsreiniging -->
+<div class="modal-overlay" id="modal-a1" role="dialog" aria-modal="true" aria-labelledby="modal-a1-title">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('a1')" aria-label="Sluit artikel">✕</button>
+    <div class="modal-body" style="padding-top:56px;">
+      <p class="modal-cat">Huidverzorging</p>
+      <h1 class="modal-title" id="modal-a1-title">Diepe gezichtsreiniging in Loenhout: waarom jouw huid het nodig heeft</h1>
+      <p class="modal-meta">10 februari 2026 · 5 min leestijd · YolyLuxeSpa, Loenhout (Wuustwezel)</p>
+      <div class="modal-tldr">
+        <strong>TL;DR</strong>
+        <p>YolyLuxeSpa in Loenhout biedt professionele diepe gezichtsreiniging door gecertificeerde schoonheidsspecialiste Yoly Ponce Montero. De behandeling verwijdert diep zittende onzuiverheden, verbetert de huidstructuur en geeft direct een stralend resultaat, iets wat thuisreiniging niet kan bereiken. Prijs: vanaf €35.</p>
+      </div>
+      <div class="modal-content">
+        <p>Je huid wordt elke dag blootgesteld aan zon, vervuiling, make-up en stress. Met de tijd zorgen deze factoren voor verstopte poriën, verlies van uitstraling en vroegtijdige huidveroudering. Een diepe gezichtsreiniging is de meest effectieve manier om je huid een grondige reset te geven.</p>
+        <h2>Wat is een diepe gezichtsreiniging?</h2>
+        <p>Een professionele diepe reiniging verwijdert onzuiverheden, dode huidcellen, overtollig talg en vervuilingsresten uit de diepere huidlagen, zonder schade aan de huid. Bij YolyLuxeSpa in Loenhout gebruik ik professionele technieken en producten die je thuis niet kunt bereiken. De behandeling wordt uitgevoerd in een rustige, hygiënische omgeving voor veilige en effectieve resultaten.</p>
+        <h2>Voordelen van een professionele reiniging</h2>
+        <ul>
+          <li>Verwijdert diep zittende onzuiverheden en toxines die thuisreiniging niet verwijdert</li>
+          <li>Verstopte poriën open, minder mee-eters en acne-uitbraken</li>
+          <li>Verbeterde bloedcirculatie en zuurstoftoevoer naar de huidcellen</li>
+          <li>Verhoogt de absorptie van je dagelijkse verzorgingsproducten</li>
+          <li>Vertraagt huidveroudering door actieve celregeneratie te stimuleren</li>
+          <li>Direct zichtbaar resultaat: frissere, stralendere huid na één behandeling</li>
+        </ul>
+        <h2>Voor wie is het geschikt?</h2>
+        <p>De diepe gezichtsreiniging is geschikt voor vrijwel elk huidtype. Of je nu acnegevoelig bent, last hebt van een matte huid of gewoon jouw huid optimaal wilt onderhouden, een professionele reiniging bij YolyLuxeSpa in Wuustwezel is een uitstekende basis voor elk huidverzorgingsplan. Ik adviseer altijd op basis van jouw specifieke huidtype.</p>
+        <h2>Nazorg</h2>
+        <p>Na de behandeling adviseer ik: vermijd make-up de eerste 24 uur, ga niet in direct zonlicht zonder SPF, en gebruik kalmerende, hydraterende crèmes. Thuis: handhaaf een basisroutine van reiniger → toner → hydratatie → zonnebescherming.</p>
+      </div>
+      <div class="modal-cta-wrap">
+        <a href="afspraak.html" class="btn-primary" style="display:inline-block; text-decoration:none;">Boek een behandeling in Loenhout →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2: Hydra Glow Lips -->
+<div class="modal-overlay" id="modal-a2" role="dialog" aria-modal="true" aria-labelledby="modal-a2-title">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('a2')" aria-label="Sluit artikel">✕</button>
+    <div class="modal-body" style="padding-top:56px;">
+      <p class="modal-cat">Lipbehandelingen</p>
+      <h1 class="modal-title" id="modal-a2-title">Hydra Glow Lips: volle lippen zonder injectie: hoe werkt het?</h1>
+      <p class="modal-meta">3 februari 2026 · 4 min leestijd · YolyLuxeSpa, Loenhout (Wuustwezel)</p>
+      <div class="modal-tldr">
+        <strong>TL;DR</strong>
+        <p>Hydra Glow Lips is een niet-invasieve lippenbehandeling bij YolyLuxeSpa in Loenhout. Met behulp van de Dermapen en een serum op basis van hyaluronzuur krijg je diep gehydrateerde, volle en stralende lippen, zonder injecties. Prijs: €35. Beschikbaar in Wuustwezel, regio Antwerpen.</p>
+      </div>
+      <div class="modal-content">
+        <p>Volle, zachte, stralende lippen zijn iets wat veel mensen wensen, maar een injectie is voor velen een stap te ver. Hydra Glow Lips biedt het beste van twee werelden: een zichtbaar resultaat zonder naalden, pijn of hersteltijd.</p>
+        <h2>Hoe werkt Hydra Glow Lips?</h2>
+        <p>Bij de Hydra Glow Lips behandeling gebruik ik een hoogwaardige serum op basis van hyaluronzuur en vitamines, aangebracht via de Dermapen. Deze micro-naalden brengen het serum diep in de huid van de lippen aan, waar het collageen en elastine stimuleert van binnenuit. De behandeling wordt afgesloten met een intensief hydraterend masker voor een onmiddellijk voelbaar resultaat.</p>
+        <h2>De 5 voordelen</h2>
+        <ul>
+          <li>Diepe hydratatie: lippen die er vol en sappig uitzien</li>
+          <li>Stralender en gezonder lippenaspect</li>
+          <li>Egalisering van de liptint voor een uniformer uiterlijk</li>
+          <li>Subtiel volumizerend effect zonder overdreven resultaat</li>
+          <li>Algehele revitalisering: zichtbaar gezondere lippen na één sessie</li>
+        </ul>
+        <h2>Voor wie is het geschikt?</h2>
+        <p>Hydra Glow Lips is ideaal voor iedereen die last heeft van droge, dunne of kleurloze lippen, en voor wie injecties geen optie zijn. De behandeling is volledig niet-invasief en geschikt voor de meeste huidtypes. Na de behandeling zijn de lippen direct stralend, zonder hersteltijd.</p>
+        <h2>Hoe lang duurt het resultaat?</h2>
+        <p>Het resultaat van Hydra Glow Lips is direct zichtbaar en houdt gemiddeld 4 tot 6 weken aan, afhankelijk van je huidtype en dagelijkse liproutine. Voor optimaal resultaat adviseer ik een behandeling elke 4-6 weken.</p>
+      </div>
+      <div class="modal-cta-wrap">
+        <a href="afspraak.html" class="btn-primary" style="display:inline-block; text-decoration:none;">Boek Hydra Glow Lips bij YolyLuxeSpa →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 3: HydraFacial -->
+<div class="modal-overlay" id="modal-a3" role="dialog" aria-modal="true" aria-labelledby="modal-a3-title">
+  <div class="modal-box">
+    <div class="modal-body" style="padding-top:56px;">
+      <p class="modal-cat">HydraFacial</p>
+      <h1 class="modal-title" id="modal-a3-title">Wat is een HydraFacial en voor wie is het geschikt?</h1>
+      <p class="modal-meta">27 januari 2026 · 6 min leestijd · YolyLuxeSpa, Loenhout (Wuustwezel)</p>
+      <div class="modal-tldr">
+        <strong>TL;DR</strong>
+        <p>De HydraFacial bij YolyLuxeSpa in Loenhout is een premium gezichtsbehandeling die reiniging, exfoliatie, peeling en intensieve hydratatie combineert in één sessie. Het is de meest complete gezichtsbehandeling die Yoly aanbiedt, geschikt voor alle huidtypes. Prijs: €70 in Wuustwezel, regio Antwerpen.</p>
+      </div>
+      <div class="modal-content">
+        <p>De HydraFacial is wereldwijd een van de meest populaire huidbehandelingen, en dat is niet zonder reden. In tegenstelling tot een gewone facial combineert de HydraFacial meerdere behandelstappen in één sessie, waardoor de resultaten direct zichtbaar en langdurig zijn.</p>
+        <h2>Wat zijn de 4 stappen van een HydraFacial?</h2>
+        <ul>
+          <li><strong>Reiniging:</strong> Grondige verwijdering van oppervlakkige onzuiverheden en overtollig talg</li>
+          <li><strong>Exfoliatie:</strong> Zachte verwijdering van dode huidcellen voor een gladder huidoppervlak</li>
+          <li><strong>Peeling:</strong> Diepgaande behandeling die de huidstructuur verbetert en poriën verfijnt</li>
+          <li><strong>Hydratatie:</strong> Intensieve vochtinjectie met hoogwaardige serums op maat van jouw huid</li>
+        </ul>
+        <h2>Wat maakt de HydraFacial anders?</h2>
+        <p>Bij YolyLuxeSpa pas ik elke HydraFacial volledig aan op jouw huidtype en huidproblemen. Of je nu kampt met acne, droge huid, hyperpigmentatie of rimpels. De behandeling wordt altijd afgestemd op wat jouw huid nodig heeft. Het resultaat: een vernieuwde huid met maximale uitstraling, direct na de eerste behandeling.</p>
+        <h2>Voor wie is het geschikt?</h2>
+        <p>De HydraFacial bij YolyLuxeSpa in Loenhout is geschikt voor vrijwel elk huidtype, inclusief gevoelige huid. Het is bijzonder effectief voor mensen met: matte of doffe huid, verstopte poriën, fijne lijntjes, acnelittekens of onregelmatige huidstructuur.</p>
+        <h2>Hoe vaak herhalen?</h2>
+        <p>Voor optimale en langdurige resultaten adviseer ik een HydraFacial elke 4 tot 6 weken. Veel klanten combineren het met andere behandelingen in hun persoonlijk huidverzorgingsplan bij YolyLuxeSpa.</p>
+      </div>
+      <div class="modal-cta-wrap">
+        <a href="afspraak.html" class="btn-primary" style="display:inline-block; text-decoration:none;">Boek een HydraFacial in Loenhout →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 4: Gouden Masker -->
+<div class="modal-overlay" id="modal-a4" role="dialog" aria-modal="true" aria-labelledby="modal-a4-title">
+  <div class="modal-box">
+    <div class="modal-body" style="padding-top:56px;">
+      <p class="modal-cat">Anti-aging</p>
+      <h1 class="modal-title" id="modal-a4-title">De voordelen van een gouden masker voor jouw huid</h1>
+      <p class="modal-meta">20 januari 2026 · 5 min leestijd · YolyLuxeSpa, Loenhout (Wuustwezel)</p>
+      <div class="modal-tldr">
+        <strong>TL;DR</strong>
+        <p>Het gouden masker bij YolyLuxeSpa in Loenhout is een luxe anti-aging behandeling met bewezen huidvoordelen. Goud stimuleert de celvernieuwing, versterkt de huidstructuur en geeft een direct stralend resultaat. Beschikbaar als onderdeel van de behandelingen bij Yoly Ponce Montero, schoonheidsspecialiste in Wuustwezel.</p>
+      </div>
+      <div class="modal-content">
+        <p>Een gouden masker lijkt misschien een louter luxe beleving, maar er zit serieuze huidwetenschap achter. Goud als actief ingrediënt in huidverzorging heeft al eeuwen een reputatie, en moderne dermatologie bevestigt de voordelen.</p>
+        <h2>Wat doet goud voor de huid?</h2>
+        <ul>
+          <li>Stimuleert de aanmaak van collageen en elastine voor een strakker huidbeeld</li>
+          <li>Verbetert de bloedmicrocirculatie voor een gezondere, stralende huidskleur</li>
+          <li>Heeft antioxidante eigenschappen die vrije radicalen neutraliseren</li>
+          <li>Vermindert de zichtbaarheid van fijne lijntjes en rimpels</li>
+          <li>Geeft de huid een onmiddellijke glow en zachte uitstraling</li>
+        </ul>
+        <h2>Hoe verloopt de behandeling bij YolyLuxeSpa?</h2>
+        <p>Na een grondige reiniging wordt het gouden masker aangebracht en inwerkend gelaten. Tijdens het masker geniet je van een korte ontspannende massage. Na het verwijderen van het masker is de huid direct stralend, verfijnd en zachter. De behandeling duurt gemiddeld 45 minuten en is verkrijgbaar in de salon in Loenhout.</p>
+        <h2>Voor wie is het gouden masker ideaal?</h2>
+        <p>Het gouden masker is bij uitstek geschikt voor mensen die tekenen van huidveroudering willen aanpakken, een speciale gelegenheid hebben of gewoon de meest luxe beleving bij YolyLuxeSpa willen meemaken. Geschikt voor alle huidtypes, inclusief gevoelige huid.</p>
+      </div>
+      <div class="modal-cta-wrap">
+        <a href="afspraak.html" class="btn-primary" style="display:inline-block; text-decoration:none;">Boek het gouden masker bij YolyLuxeSpa →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 5: Thuis Basisroutine -->
+<div class="modal-overlay" id="modal-a5" role="dialog" aria-modal="true" aria-labelledby="modal-a5-title">
+  <div class="modal-box">
+    <div class="modal-body" style="padding-top:56px;">
+      <p class="modal-cat">Thuis verzorging</p>
+      <h1 class="modal-title" id="modal-a5-title">Huidverzorging thuis: de basisroutine na een professionele behandeling</h1>
+      <p class="modal-meta">13 januari 2026 · 4 min leestijd · Yoly Ponce Montero, schoonheidsspecialiste Loenhout</p>
+      <div class="modal-tldr">
+        <strong>TL;DR</strong>
+        <p>Na een behandeling bij YolyLuxeSpa in Loenhout wil je de resultaten zo lang mogelijk vasthouden. Yoly Ponce Montero adviseert een eenvoudige vierstappige thuisroutine: reiniger, toner, vochtinbrengende crème en zonnebescherming. Zo houd je jouw huid optimaal en verleng je het effect van elke professionele behandeling.</p>
+      </div>
+      <div class="modal-content">
+        <p>Een professionele behandeling bij YolyLuxeSpa geeft jouw huid een uitstekende basis. Maar wat je daarna thuis doet, bepaalt voor een groot deel hoe lang je van de resultaten geniet. Met een eenvoudige, consistente routine maak je het verschil.</p>
+        <h2>De 4 stappen van de basisroutine</h2>
+        <ul>
+          <li><strong>Reiniger:</strong> Begin elke ochtend en avond met een zachte reiniger die past bij jouw huidtype. Vermijd zeep of agressieve scrubs.</li>
+          <li><strong>Toner:</strong> Een goede toner brengt de pH van de huid in balans en bereidt de huid voor op de volgende stappen. Kies een alcohol-vrije formule.</li>
+          <li><strong>Vochtinbrengende crème:</strong> Hydratatie is de basis van een gezonde huid. Gebruik een crème die past bij jouw huidtype: lichter voor vette huid, rijker voor droge huid.</li>
+          <li><strong>Zonnebescherming (SPF):</strong> Elke ochtend, ook in de winter. UV-straling is de grootste oorzaak van vroegtijdige huidveroudering.</li>
+        </ul>
+        <h2>Extra tips na een behandeling bij YolyLuxeSpa</h2>
+        <ul>
+          <li>Vermijd make-up de eerste 24 uur na een reiniging of peeling</li>
+          <li>Ga niet in direct zonlicht de eerste 48 uur na een chemische behandeling</li>
+          <li>Gebruik geen producten met alcohol of agressieve zuren de eerste week</li>
+          <li>Drink voldoende water, hydratatie van binnenuit werkt samen met je huidverzorging</li>
+        </ul>
+        <h2>Wanneer een professionele behandeling herhalen?</h2>
+        <p>Voor het beste resultaat combineer je een goede thuisroutine met regelmatige professionele behandelingen bij YolyLuxeSpa in Loenhout. Afhankelijk van jouw huidtype en doelen adviseer ik een behandeling elke 4 tot 8 weken. In een persoonlijk consult stel ik een plan op maat voor je op.</p>
+      </div>
+      <div class="modal-cta-wrap">
+        <a href="afspraak.html" class="btn-primary" style="display:inline-block; text-decoration:none;">Plan een consult bij YolyLuxeSpa →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 6: Schoonheidsspecialiste -->
+<div class="modal-overlay" id="modal-a6" role="dialog" aria-modal="true" aria-labelledby="modal-a6-title">
+  <div class="modal-box">
+    <div class="modal-body" style="padding-top:56px;">
+      <p class="modal-cat">Over YolyLuxeSpa</p>
+      <h1 class="modal-title" id="modal-a6-title">Wat doet een professionele schoonheidsspecialiste en waarom maakt het verschil voor jouw huid?</h1>
+      <p class="modal-meta">6 januari 2026 · 5 min leestijd · Yoly Ponce Montero, YolyLuxeSpa Loenhout</p>
+      <div class="modal-tldr">
+        <strong>TL;DR</strong>
+        <p>Yoly Ponce Montero is gecertificeerde schoonheidsspecialiste in Loenhout (Wuustwezel) met meer dan 10 jaar ervaring in professionele huidverzorging. Bij YolyLuxeSpa staat elke behandeling in teken van diepgaande huidkennis, professionele technieken en producten op maat, ver voorbij wat thuiszorg kan bieden.</p>
+      </div>
+      <div class="modal-content">
+        <p>Veel mensen verzorgen hun huid thuis met goede producten, en dat is een mooie basis. Maar wat een gecertificeerde schoonheidsspecialiste doet, gaat veel verder dan reinigen en hydrateren. Het verschil zit in opleiding, analyse en vakmanschap.</p>
+        <h2>Wat doet een schoonheidsspecialiste?</h2>
+        <p>Een gecertificeerde schoonheidsspecialiste heeft een grondige opleiding gevolgd in huidfysiologie, huidtypes en -aandoeningen, professionele behandelingstechnieken en de werking van actieve cosmetische ingrediënten. Ze analyseert jouw huid, stelt een behandelplan op maat samen en gebruikt professionele apparatuur en producten die je in een gewone winkel niet vindt.</p>
+        <h2>Wat maakt YolyLuxeSpa bijzonder?</h2>
+        <ul>
+          <li>Persoonlijke huidanalyse bij elke behandeling</li>
+          <li>Gebruik van professionele technieken zoals diepe gezichtsreiniging, stoombehandeling en specialistische maskers</li>
+          <li>Behandelingen op maat afgestemd op jouw huidtype en huidbehoeften</li>
+          <li>Werkt uitsluitend met professionele producten voor optimale resultaten</li>
+          <li>Kan huidproblemen zoals onzuiverheden, uitdroging en huidveroudering gericht aanpakken</li>
+        </ul>
+        <h2>Yoly's filosofie: eerlijkheid, bescheidenheid en toewijding</h2>
+        <p>Bij YolyLuxeSpa in Loenhout werk ik vanuit drie kernwaarden: eerlijkheid, bescheidenheid en toewijding. Ik zal je nooit iets aanbevelen wat je niet nodig hebt. Jouw vertrouwen is mijn grootste succes, en jouw tevredenheid is mijn enige doel. <em>YolyLuxeSpa, huid aan huid.</em></p>
+        <h2>Professionele huidverzorging in de regio Wuustwezel</h2>
+        <p>Bij YolyLuxeSpa in Loenhout combineer ik vakkennis, persoonlijke aandacht en luxe beleving. Als je écht iets wilt doen voor de gezondheid en uitstraling van jouw huid, dan ben je bij Yoly aan het juiste adres.</p>
+      </div>
+      <div class="modal-cta-wrap">
+        <a href="afspraak.html" class="btn-primary" style="display:inline-block; text-decoration:none;">Maak een afspraak in Loenhout →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div>
+      <img src="media/fotos/Yoly_logo_transparant 1.png" alt="YolyLuxeSpa" class="footer-logo">
+      <p class="footer-tagline">Luxe huidverzorging door Yoly Ponce Montero, gecertificeerde schoonheidsspecialiste in Loenhout.</p>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/yolyluxespa" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+        <a href="https://wa.me/32469443144" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.133.558 4.133 1.535 5.866L.099 23.901l6.196-1.393A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.672-.5-5.207-1.378l-.374-.217-3.678.828.882-3.556-.235-.374A9.953 9.953 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10z"/></svg></a>
+
+      </div>
+    </div>
+    <div>
+      <p class="footer-col-title">Navigatie</p>
+      <ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="behandelingen.html">Behandelingen</a></li><li><a href="over.html">Over Yoly</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Contact</p>
+      <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span>Wuustwezelseweg 125C<br>2990 Loenhout, België</span></div>
+      <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.22 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.41a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>+32 469 44 31 44</span></div>
+      <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>y.poncemontero@gmail.com</span></div>
+    </div>
+  </div>
+  <hr style="border:none; border-top:1px solid rgba(255,255,255,0.08); max-width:1400px; margin:40px auto 24px;">
+  <div class="footer-bottom"><p class="footer-copy">© 2026 YolyLuxeSpa. Alle rechten voorbehouden.</p><div class="footer-legal"><a href="privacybeleid.html">Privacybeleid</a><a href="algemene-voorwaarden.html">Algemene voorwaarden</a><a href="cookiebeleid.html">Cookiebeleid</a></div></div>
+</footer>
+
+
+<!-- JSON-LD: BeautySalon + Blog Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BeautySalon",
+      "name": "YolyLuxeSpa",
+      "description": "Luxe huidverzorging door Yoly Ponce Montero, gecertificeerde schoonheidsspecialiste in Loenhout (Wuustwezel), België. Specialisatie in gezichtsbehandelingen, HydraFacial, Hydra Glow Lips en anti-aging behandelingen.",
+      "url": "https://yolyluxespa.be",
+      "telephone": "+32-XXX-XX-XX-XX",
+      "email": "y.poncemontero@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Wuustwezelseweg 125C",
+        "addressLocality": "Loenhout",
+        "addressRegion": "Wuustwezel",
+        "postalCode": "2990",
+        "addressCountry": "BE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "51.39",
+        "longitude": "4.60"
+      },
+      "priceRange": "€€",
+      "image": "https://yolyluxespa.be/media/fotos/Yoly_logo_transparant 1.png",
+      "founder": {
+        "@type": "Person",
+        "name": "Yoly Ponce Montero",
+        "jobTitle": "Schoonheidsspecialiste"
+      }
+    },
+    {
+      "@type": "Blog",
+      "name": "YolyLuxeSpa Blog, Huidverzorging Tips",
+      "description": "Expertadvies en huidverzorgingstips van Yoly Ponce Montero, gecertificeerde schoonheidsspecialiste in Loenhout, Wuustwezel.",
+      "url": "https://yolyluxespa.be/blog.html",
+      "publisher": {
+        "@type": "Organization",
+        "name": "YolyLuxeSpa"
+      },
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Diepe gezichtsreiniging in Loenhout: waarom jouw huid het nodig heeft",
+          "datePublished": "2026-02-10",
+          "author": { "@type": "Person", "name": "Yoly Ponce Montero" },
+          "keywords": "diepe gezichtsreiniging, schoonheidsspecialiste Loenhout, gezichtsbehandeling Wuustwezel"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Hydra Glow Lips: volle lippen zonder injectie",
+          "datePublished": "2026-02-03",
+          "author": { "@type": "Person", "name": "Yoly Ponce Montero" },
+          "keywords": "Hydra Glow Lips, lipbehandeling Loenhout, volle lippen zonder injectie"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Wat is een HydraFacial en voor wie is het geschikt?",
+          "datePublished": "2026-01-27",
+          "author": { "@type": "Person", "name": "Yoly Ponce Montero" },
+          "keywords": "HydraFacial Wuustwezel, gezichtsbehandeling Loenhout"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Wat doet een professionele schoonheidsspecialiste en waarom maakt het verschil?",
+          "datePublished": "2026-01-06",
+          "author": { "@type": "Person", "name": "Yoly Ponce Montero" },
+          "keywords": "schoonheidsspecialiste Loenhout, YolyluxeSpa Wuustwezel, luxe facial Antwerpen"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script src="glowing-effect.js"></script>
+<script src="animations.js" defer></script>
+<script>
+  // Nav hamburger
+  (function() {
+    const menu = document.getElementById('mobile-menu');
+    const openBtn = document.getElementById('hamburger-btn');
+    const closeBtn = document.getElementById('mobile-close-btn');
+    function openMenu() { menu.classList.add('is-open'); menu.offsetHeight; menu.classList.add('is-visible'); document.body.style.overflow = 'hidden'; closeBtn.focus(); }
+    function closeMenu() { menu.classList.remove('is-visible'); document.body.style.overflow = ''; menu.addEventListener('transitionend', function h(e) { if (e.propertyName === 'opacity') { menu.classList.remove('is-open'); menu.removeEventListener('transitionend', h); } }); openBtn.focus(); }
+    openBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-visible')) closeMenu(); });
+    menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
+  })();
+
+  // Modal open/close
+  function openModal(id) {
+    const overlay = document.getElementById('modal-' + id);
+    if (!overlay) return;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Focus trap: focus close button
+    const closeBtn = overlay.querySelector('.modal-close');
+    if (closeBtn) setTimeout(() => closeBtn.focus(), 50);
+  }
+
+  function closeModal(id) {
+    const overlay = document.getElementById('modal-' + id);
+    if (!overlay) return;
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close on overlay click
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === this) {
+        const id = this.id.replace('modal-', '');
+        closeModal(id);
+      }
+    });
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(overlay => {
+        const id = overlay.id.replace('modal-', '');
+        closeModal(id);
+      });
+    }
+  });
+
+  // Keyboard: Enter/Space on article card
+  document.querySelectorAll('.article-card[tabindex]').forEach(card => {
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
+      }
+    });
+  });
+
+  // Category filter
+  function filterCat(cat) {
+    const cards = document.querySelectorAll('#articles-list .article-card');
+    cards.forEach(card => {
+      if (!cat || card.dataset.cat === cat) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    // Highlight active category
+    document.querySelectorAll('#cat-list li').forEach(li => {
+      li.style.fontWeight = '';
+      li.querySelector('span').style.color = '';
+    });
+    // Find matching li (by index: first = all, rest = cats)
+    const cats = ['', 'huidverzorging', 'lipbehandelingen', 'anti-aging', 'hydrafacial', 'thuis-verzorging', 'over-yolyluxespa'];
+    const idx = cats.indexOf(cat);
+    const lis = document.querySelectorAll('#cat-list li');
+    if (lis[idx]) lis[idx].querySelector('span').style.color = 'var(--brown)';
+  }
+
+  // Simple search
+  function handleSearch() {
+    const q = document.getElementById('search-input').value.toLowerCase().trim();
+    if (!q) { filterCat(''); return; }
+    document.querySelectorAll('#articles-list .article-card').forEach(card => {
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(q) ? 'flex' : 'none';
+    });
+  }
+  document.getElementById('search-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleSearch();
+  });
+</script>
+</body>
+</html>

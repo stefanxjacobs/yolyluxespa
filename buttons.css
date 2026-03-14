@@ -1,0 +1,225 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   YolyLuxeSpa — Animated Gradient Buttons
+   Applies to: .btn-primary, .btn-outline, .nav-cta
+   Technique: @property registered custom properties allow CSS transitions
+   to interpolate colors & percentages for smooth animated gradients.
+───────────────────────────────────────────────────────────────────────── */
+
+/* ── Animatable custom property registrations ── */
+@property --gbtn-pos-x    { syntax: '<percentage>'; initial-value: 11.14%;  inherits: false; }
+@property --gbtn-pos-y    { syntax: '<percentage>'; initial-value: 140%;    inherits: false; }
+@property --gbtn-spread-x { syntax: '<percentage>'; initial-value: 150%;    inherits: false; }
+@property --gbtn-spread-y { syntax: '<percentage>'; initial-value: 180%;    inherits: false; }
+@property --gbtn-c1       { syntax: '<color>';      initial-value: #A8884E; inherits: false; }
+@property --gbtn-c2       { syntax: '<color>';      initial-value: #C5A572; inherits: false; }
+@property --gbtn-c3       { syntax: '<color>';      initial-value: #D4B882; inherits: false; }
+@property --gbtn-c4       { syntax: '<color>';      initial-value: #EDD9A8; inherits: false; }
+@property --gbtn-c5       { syntax: '<color>';      initial-value: #FFFFFF; inherits: false; }
+@property --gbtn-ba       { syntax: '<angle>';      initial-value: 20deg;   inherits: false; }
+@property --gbtn-bc1      { syntax: '<color>';      initial-value: hsla(0, 0%, 100%, 0.15); inherits: false; }
+@property --gbtn-bc2      { syntax: '<color>';      initial-value: hsla(0, 0%, 100%, 0.65); inherits: false; }
+@property --gbtn-s1       { syntax: '<percentage>'; initial-value: 37.35%;  inherits: false; }
+@property --gbtn-s2       { syntax: '<percentage>'; initial-value: 61.36%;  inherits: false; }
+@property --gbtn-s3       { syntax: '<percentage>'; initial-value: 78.42%;  inherits: false; }
+@property --gbtn-s4       { syntax: '<percentage>'; initial-value: 89.52%;  inherits: false; }
+@property --gbtn-s5       { syntax: '<percentage>'; initial-value: 100%;    inherits: false; }
+
+/* ── Shared gradient button base ── */
+.btn-primary,
+.nav-cta,
+.btn-outline {
+  position: relative;
+  appearance: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  text-decoration: none;
+  color: #3A2F2B !important;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 9999px;
+  background: radial-gradient(
+    var(--gbtn-spread-x) var(--gbtn-spread-y) at var(--gbtn-pos-x) var(--gbtn-pos-y),
+    var(--gbtn-c1) var(--gbtn-s1),
+    var(--gbtn-c2) var(--gbtn-s2),
+    var(--gbtn-c3) var(--gbtn-s3),
+    var(--gbtn-c4) var(--gbtn-s4),
+    var(--gbtn-c5) var(--gbtn-s5)
+  );
+  transition:
+    --gbtn-pos-x 0.5s,
+    --gbtn-pos-y 0.5s,
+    --gbtn-spread-x 0.5s,
+    --gbtn-spread-y 0.5s,
+    --gbtn-c1 0.5s,
+    --gbtn-c2 0.5s,
+    --gbtn-c3 0.5s,
+    --gbtn-c4 0.5s,
+    --gbtn-c5 0.5s,
+    --gbtn-ba 0.5s,
+    --gbtn-bc1 0.5s,
+    --gbtn-bc2 0.5s,
+    --gbtn-s1 0.5s,
+    --gbtn-s2 0.5s,
+    --gbtn-s3 0.5s,
+    --gbtn-s4 0.5s,
+    --gbtn-s5 0.5s,
+    transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.12s ease;
+}
+
+/* ── Press / active state ── */
+.btn-primary:active,
+.nav-cta:active,
+.btn-outline:active {
+  transform: scale(0.94) translateY(2px);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.25);
+}
+
+/* ── Shared border shimmer ── */
+.btn-primary::before,
+.nav-cta::before,
+.btn-outline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 9999px;
+  background: linear-gradient(var(--gbtn-ba), var(--gbtn-bc1), var(--gbtn-bc2));
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+}
+
+/* ════════════════════════════════════════════════════════
+   .btn-primary — "Gold Radiance" (deep gold → white glow)
+   padding: 14px 32px (full size) + min-width for symmetry
+════════════════════════════════════════════════════════ */
+.btn-primary {
+  padding: 16px 32px;
+  min-width: 240px;
+  --gbtn-c1: #A8884E;
+  --gbtn-c2: #C5A572;
+  --gbtn-c3: #D4B882;
+  --gbtn-c4: #F0E0B8;
+  --gbtn-c5: #FFFFFF;
+  --gbtn-ba: 20deg;
+  --gbtn-bc1: hsla(0, 0%, 100%, 0.15);
+  --gbtn-bc2: hsla(0, 0%, 100%, 0.75);
+}
+
+.btn-primary:hover {
+  --gbtn-pos-x: 0%;
+  --gbtn-pos-y: 91.51%;
+  --gbtn-spread-x: 120.24%;
+  --gbtn-spread-y: 103.18%;
+  --gbtn-c1: #FFFFFF;
+  --gbtn-c2: #F0E0B8;
+  --gbtn-c3: #D4B882;
+  --gbtn-c4: #C5A572;
+  --gbtn-c5: #A8884E;
+  --gbtn-ba: 190deg;
+  --gbtn-bc1: hsla(0, 0%, 100%, 0.2);
+  --gbtn-bc2: hsla(0, 0%, 100%, 0.9);
+  --gbtn-s1: 0%;
+  --gbtn-s2: 8.8%;
+  --gbtn-s3: 21.44%;
+  --gbtn-s4: 71.34%;
+  --gbtn-s5: 85.76%;
+}
+
+/* ════════════════════════════════════════════════════════
+   .nav-cta — "Gold Radiance" compact (same colors, tighter padding)
+════════════════════════════════════════════════════════ */
+.nav-cta {
+  padding: 8px 24px;
+  --gbtn-c1: #A8884E;
+  --gbtn-c2: #C5A572;
+  --gbtn-c3: #D4B882;
+  --gbtn-c4: #F0E0B8;
+  --gbtn-c5: #FFFFFF;
+  --gbtn-ba: 20deg;
+  --gbtn-bc1: hsla(0, 0%, 100%, 0.15);
+  --gbtn-bc2: hsla(0, 0%, 100%, 0.75);
+}
+
+.nav-cta:hover {
+  --gbtn-pos-x: 0%;
+  --gbtn-pos-y: 91.51%;
+  --gbtn-spread-x: 120.24%;
+  --gbtn-spread-y: 103.18%;
+  --gbtn-c1: #FFFFFF;
+  --gbtn-c2: #F0E0B8;
+  --gbtn-c3: #D4B882;
+  --gbtn-c4: #C5A572;
+  --gbtn-c5: #A8884E;
+  --gbtn-ba: 190deg;
+  --gbtn-bc1: hsla(0, 0%, 100%, 0.2);
+  --gbtn-bc2: hsla(0, 0%, 100%, 0.9);
+  --gbtn-s1: 0%;
+  --gbtn-s2: 8.8%;
+  --gbtn-s3: 21.44%;
+  --gbtn-s4: 71.34%;
+  --gbtn-s5: 85.76%;
+}
+
+/* ════════════════════════════════════════════════════════
+   .btn-outline — "Gold Radiance" variant (same palette, shifted angle)
+   padding: 14px 32px + min-width for symmetry
+════════════════════════════════════════════════════════ */
+.btn-outline {
+  padding: 16px 32px;
+  min-width: 240px;
+  --gbtn-c1: #A8884E;
+  --gbtn-c2: #C5A572;
+  --gbtn-c3: #D4B882;
+  --gbtn-c4: #F0E0B8;
+  --gbtn-c5: #FFFFFF;
+  --gbtn-ba: 200deg;
+  --gbtn-bc1: hsla(0, 0%, 100%, 0.15);
+  --gbtn-bc2: hsla(0, 0%, 100%, 0.65);
+}
+
+.btn-outline:hover {
+  --gbtn-pos-x: 0%;
+  --gbtn-pos-y: 95.51%;
+  --gbtn-spread-x: 110.24%;
+  --gbtn-spread-y: 110.2%;
+  --gbtn-c1: #FFFFFF;
+  --gbtn-c2: #F0E0B8;
+  --gbtn-c3: #D4B882;
+  --gbtn-c4: #C5A572;
+  --gbtn-c5: #A8884E;
+  --gbtn-ba: 210deg;
+  --gbtn-bc1: hsla(0, 0%, 100%, 0.2);
+  --gbtn-bc2: hsla(0, 0%, 100%, 0.85);
+  --gbtn-s1: 0%;
+  --gbtn-s2: 10%;
+  --gbtn-s3: 35.44%;
+  --gbtn-s4: 71.34%;
+  --gbtn-s5: 90.76%;
+}
+
+/* ── Override scrolled-nav state (gradient stays, dark text stays) ── */
+#main-nav.scrolled .nav-cta {
+  color: #3A2F2B !important;
+}
+
+/* ── Mobile: hide nav CTA, reset min-width on buttons ── */
+@media (max-width: 768px) {
+  .nav-cta {
+    display: none !important;
+  }
+  .btn-primary,
+  .btn-outline {
+    min-width: 0;
+  }
+}

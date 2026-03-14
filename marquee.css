@@ -1,0 +1,75 @@
+/* ═══════════════════════════════════════════════
+   Marquee Strip — YolyLuxeSpa behandelingnamen
+   ═══════════════════════════════════════════════ */
+
+.marquee-strip {
+  background: #3A2F2B;
+  overflow: hidden;
+  padding: 16px 0;
+  position: relative;
+}
+
+/* fade edges */
+.marquee-strip::before,
+.marquee-strip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 140px;
+  z-index: 2;
+  pointer-events: none;
+}
+.marquee-strip::before {
+  left: 0;
+  background: linear-gradient(to right, #3A2F2B 10%, transparent 100%);
+}
+.marquee-strip::after {
+  right: 0;
+  background: linear-gradient(to left, #3A2F2B 10%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-item {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  color: #C5A572;
+  padding: 0 40px;
+  user-select: none;
+}
+
+.marquee-sep {
+  display: inline-flex;
+  align-items: center;
+  color: #A8884E;
+  font-style: normal;
+  font-size: 8px;
+  opacity: 0.65;
+  padding: 0 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
