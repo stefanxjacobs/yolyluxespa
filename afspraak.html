@@ -122,7 +122,8 @@
         0 12px 32px rgba(168,136,78,0.12);
       transform: translateY(-1px);
     }
-    .treatment-select-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; } /* 1×8 */
+    .treatment-select-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .treatment-select-top + .treatment-select-meta { display: block; margin-top: 8px; } /* 1×8 */
     .treatment-select-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400; color: var(--brown); letter-spacing: -0.01em; }
     .treatment-select-price { font-size: 14px; font-weight: 500; color: var(--gold-dark); white-space: nowrap; }
     .treatment-select-meta { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(92,77,71,0.55); }
@@ -271,47 +272,53 @@
 
       <div class="treatment-select-list">
 
-        <div class="treatment-select-card">
+        <div class="treatment-select-card" data-treatment="basis">
           <div class="treatment-select-top">
-            <span class="treatment-select-name">Hydra Glow Lips</span>
-            <span class="treatment-select-price">€35</span>
+            <span class="treatment-select-name">Yoly Luxe Basic Facial</span>
+            <span class="treatment-select-price">€55</span>
           </div>
-          <span class="treatment-select-meta">45 min</span>
+          <span class="treatment-select-meta">± 60 min</span>
         </div>
 
-        <div class="treatment-select-card">
+        <div class="treatment-select-card" data-treatment="diepe">
+          <div class="treatment-select-top">
+            <span class="treatment-select-name">Deep Clean Facial</span>
+            <span class="treatment-select-price">€75</span>
+          </div>
+          <span class="treatment-select-meta">± 75 min</span>
+        </div>
+
+        <div class="treatment-select-card" data-treatment="hydrafacial">
           <div class="treatment-select-top">
             <span class="treatment-select-name">HydraFacial</span>
-            <span class="treatment-select-price">€70</span>
+            <span class="treatment-select-price">€95</span>
           </div>
-          <span class="treatment-select-meta">75 min</span>
+          <span class="treatment-select-meta">± 75–90 min</span>
         </div>
 
-        <div class="treatment-select-card">
+        <div class="treatment-select-card" data-treatment="dermapen">
           <div class="treatment-select-top">
-            <span class="treatment-select-name">Diepe Gezichtsreiniging</span>
-            <span class="treatment-select-price">€50</span>
+            <span class="treatment-select-name">Dermapen</span>
+            <span class="treatment-select-price">€55</span>
           </div>
-          <span class="treatment-select-meta">60 min</span>
+          <span class="treatment-select-meta">± 45–60 min</span>
         </div>
 
-        <div class="treatment-select-card">
+        <div class="treatment-select-card" data-treatment="lips">
           <div class="treatment-select-top">
-            <span class="treatment-select-name">Basis Reiniging</span>
-            <span class="treatment-select-price">€35</span>
+            <span class="treatment-select-name">Lip Hydration</span>
+            <span class="treatment-select-price">€30</span>
           </div>
-          <span class="treatment-select-meta">45 min</span>
+          <span class="treatment-select-meta">± 20–30 min</span>
         </div>
 
-      </div>
-
-      <!-- Gouden Masker info -->
-      <div style="margin-top:24px; padding:16px 20px; background:rgba(197,165,114,0.08); border:1px solid rgba(197,165,114,0.28); border-radius:8px; display:flex; gap:12px; align-items:flex-start;">
-        <svg style="width:18px;height:18px;flex-shrink:0;margin-top:2px;color:#A8884E;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        <div>
-          <p style="font-size:13px;font-weight:500;color:#3A2F2B;margin:0 0 4px;">Gouden Masker, op aanvraag</p>
-          <p style="font-size:12.5px;color:rgba(92,77,71,0.7);line-height:1.6;margin:0;">Het gouden masker is een luxe extra optie die je kunt aanvragen bij het boeken van je behandeling. Vermeld dit in de notities van je afspraak of neem <a href="contact.html" style="color:#A8884E;text-decoration:none;font-weight:500;">contact op met Yoly</a>.</p>
+        <div class="treatment-select-card" data-treatment="melanin">
+          <div class="treatment-select-top">
+            <span class="treatment-select-name">Melanin Glow</span>
+            <span class="treatment-select-price">Prijs op aanvraag</span>
+          </div>
         </div>
+
       </div>
     </div>
 
