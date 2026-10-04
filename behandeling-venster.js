@@ -87,7 +87,7 @@
     opener = terug || kaart; // waar de focus na sluiten naartoe gaat
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
-    if (sluitknop) sluitknop.focus({ preventScroll: true });
+    if (sluitknop) sluitknop.focus();
   }
 
   function sluitVenster() {
