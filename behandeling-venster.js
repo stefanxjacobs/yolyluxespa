@@ -14,6 +14,7 @@
  *   [data-veld="extra"]             optioneel: de regel onder de lijst
  *   [data-veld="duur"]              optioneel: "± 60 min"
  *   <img>                           de foto
+ *   button[data-open-venster]       optioneel: een knop in de kaart die het venster opent (dan hoeft de kaart geen tabindex)
  *
  * Wat de pagina moet bevatten: #treatment-modal met de onderdelen
  * #modal-img, #modal-price, #modal-duur, #modal-title-el, #modal-desc,
@@ -65,7 +66,7 @@
     el.hidden = teksten.length === 0;
   }
 
-  function openVenster(kaart) {
+  function openVenster(kaart, terug) {
     var naam = velden(kaart, 'naam')[0] || '';
     var foto = kaart.querySelector('img');
     var punten = Array.prototype.map.call(kaart.querySelectorAll('li'), function (li) { return schoon(li.textContent); });
@@ -83,7 +84,7 @@
     zet(extraKop, velden(kaart, 'extra-kop')[0]);
     zet(extra, velden(kaart, 'extra')[0]);
 
-    opener = kaart;
+    opener = terug || kaart; // waar de focus na sluiten naartoe gaat
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
     var paneel = modal.querySelector('.modal-panel');
@@ -102,8 +103,12 @@
   Array.prototype.forEach.call(document.querySelectorAll('[data-treatment]'), function (kaart) {
     kaart.addEventListener('click', function (e) {
       // Links en knoppen op de kaart (bv. "Afspraak maken") doen hun eigen werk.
-      if (e.target.closest('a, button')) return;
-      openVenster(kaart);
+      // Uitzondering: een knop met data-open-venster (de foto in een behandelrij) opent het venster.
+      var bediening = e.target.closest('a, button');
+      if (bediening && !bediening.hasAttribute('data-open-venster')) return;
+      // Heeft de kaart zo'n knop (behandelrij), dan opent verder alleen de naam het venster, niet de hele rij.
+      if (!bediening && kaart.querySelector('[data-open-venster]') && !e.target.closest('[data-veld="naam"]')) return;
+      openVenster(kaart, bediening);
     });
     kaart.addEventListener('keydown', function (e) {
       if (e.target !== kaart) return;

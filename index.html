@@ -12,595 +12,317 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            cream: '#FAF7F2', beige: '#E8DDD3', gold: '#C5A572',
-            'gold-dark': '#A8884E', brown: '#3A2F2B', 'brown-light': '#5C4D47',
-          },
-          fontFamily: {
-            serif: ['Playfair Display', 'Georgia', 'serif'],
-            sans: ['DM Sans', 'system-ui', 'sans-serif'],
-          },
-        }
-      }
-    }
+    tailwind.config = { corePlugins: { preflight: false }, theme: { extend: {
+      colors: { cream: '#FAF7F2', beige: '#E8DDD3', gold: '#C5A572', 'gold-dark': '#A8884E', brown: '#3A2F2B', 'brown-light': '#5C4D47' },
+      fontFamily: { serif: ['Playfair Display', 'Georgia', 'serif'], sans: ['DM Sans', 'system-ui', 'sans-serif'] } } } }
   </script>
+  <link rel="stylesheet" href="buttons.css">
+  <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="marquee.css">
+  <link rel="stylesheet" href="theme.css">
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', system-ui, sans-serif; background: #FAF7F2; color: #3A2F2B; overflow-x: hidden; }
-    :root {
-      --cream: #FAF7F2; --beige: #E8DDD3; --gold: #C5A572;
-      --gold-dark: #A8884E; --brown: #3A2F2B; --brown-light: #5C4D47;
-    }
+    /* Alleen wat eigen is aan de startpagina. Balk, menu, knoppen, tegels, venster en footer: theme.css. */
 
-    /* ── Announcement bar ── */
-    #announcement-bar {
-      background: var(--brown); color: rgba(255,255,255,0.8);
-      text-align: center; padding: 8px 16px; font-size: 12px;
-      letter-spacing: 0.06em; font-family: 'DM Sans', sans-serif;
-      position: relative; z-index: 60; text-transform: uppercase;
-    }
-    #announcement-bar a { color: var(--gold); font-weight: 500; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
-    #announcement-bar a:hover { border-bottom-color: var(--gold); }
-
-    /* ── Navigation ── */
+    /* ── Menu: doorzichtig over de held, daarna het vaste menu van theme.css ── */
     #main-nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-      transition: background 0.4s ease, box-shadow 0.4s ease;
-      background: transparent;
+      position: fixed; left: 0; right: 0;
+      background: transparent; box-shadow: none;
+      backdrop-filter: none; -webkit-backdrop-filter: none;
     }
-    #main-nav.scrolled {
-      background: rgba(250,247,242,0.97);
+    #main-nav::before {
+      content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       box-shadow: 0 1px 0 rgba(58,47,43,0.08);
+      opacity: 0; transition: opacity 0.4s ease;
     }
-    .nav-inner {
-      padding: 0 48px; height: 68px; display: flex; align-items: center;
-      justify-content: space-between; max-width: 1400px; margin: 0 auto;
-    }
-    .nav-logo img { height: 64px; width: auto; object-fit: contain; }
-    .nav-links { display: flex; align-items: center; gap: 40px; }
-    .nav-link {
-      font-size: 11.5px; font-weight: 500; letter-spacing: 0.2em;
-      text-transform: uppercase; color: rgba(255,255,255,0.88);
-      text-decoration: none; position: relative; padding-bottom: 4px;
-      transition: color 0.2s ease, transform 0.12s ease;
-    }
-    .nav-link::after {
-      content: ''; position: absolute; bottom: 0; left: 0;
-      width: 0; height: 1px; background: var(--gold);
-      transition: width 0.2s ease;
-    }
-    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-    .nav-link:active { transform: translateY(2px) scale(0.95); color: var(--gold-dark); }
-    #main-nav.scrolled .nav-link { color: var(--brown-light); }
-    .nav-link:hover, .nav-link.active { color: var(--gold); }
-    #main-nav.scrolled .nav-link:hover, #main-nav.scrolled .nav-link.active { color: var(--brown); }
-    /* .nav-cta styles moved to buttons.css */
-    .nav-hamburger { display: none; flex-direction: column; gap: 8px; cursor: pointer; padding: 4px; }
-    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: rgba(255,255,255,0.85); transition: background 0.2s; }
-    #main-nav.scrolled .nav-hamburger span { background: var(--brown); }
-    /* ── Mobile Menu Overlay ── */
-    #mobile-menu {
-      display: none; position: fixed; inset: 0; z-index: 200;
-      background-color: rgba(26,18,14,0.97);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-      flex-direction: column; overflow: hidden;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.3s cubic-bezier(0.25,0.1,0.25,1);
-    }
-    #mobile-menu.is-open  { display: flex; pointer-events: all; }
-    #mobile-menu.is-visible { opacity: 1; }
-    .mmenu-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 24px 24px 0; flex-shrink: 0;
-    }
-    .mmenu-label {
-      font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500;
-      letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
-    }
-    .mmenu-close {
-      background: none; border: none; cursor: pointer; padding: 8px;
-      color: rgba(250,247,242,0.7); display: flex; align-items: center;
-      justify-content: center; border-radius: 50%;
-      transition: color 0.2s, background 0.2s;
-    }
-    .mmenu-close:hover  { color: var(--gold); background: rgba(197,165,114,0.12); }
-    .mmenu-close:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-    .mmenu-close:active { transform: scale(0.92); }
-    .mmenu-nav {
-      flex: 1; display: flex; flex-direction: column;
-      justify-content: center; padding: 0 48px;
-    }
-    .mmenu-link {
-      display: block; font-family: 'Playfair Display', serif; font-size: 40px;
-      font-weight: 400; color: rgba(250,247,242,0.88); text-decoration: none;
-      letter-spacing: -0.03em; line-height: 1.2; padding: 16px 0;
-      border-bottom: 1px solid rgba(197,165,114,0.12);
-      opacity: 0; transform: translateX(-24px);
-      transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1),
-                  transform 0.4s cubic-bezier(0.16,1,0.3,1),
-                  color 0.2s;
-    }
-    .mmenu-link:last-child { border-bottom: none; }
-    .mmenu-link:hover { color: var(--gold); }
-    .mmenu-link:active { transform: translateX(4px); }
-    .mmenu-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px; }
-    .mmenu-link--active { color: var(--gold); }
-    .mmenu-link:nth-child(1) { transition-delay: 0s; }
-    .mmenu-link:nth-child(2) { transition-delay: 0.05s; }
-    .mmenu-link:nth-child(3) { transition-delay: 0.10s; }
-    .mmenu-link:nth-child(4) { transition-delay: 0.15s; }
-    .mmenu-link:nth-child(5) { transition-delay: 0.20s; }
-    #mobile-menu.is-visible .mmenu-link { opacity: 1; transform: translateX(0); }
-    #mobile-menu:not(.is-visible) .mmenu-link { transition-delay: 0s !important; }
-    .mmenu-footer { padding: 32px 24px 40px; flex-shrink: 0; }
-    .mmenu-cta { width: 100% !important; min-width: 0 !important; display: flex !important; justify-content: center; }
+    #main-nav.scrolled::before { opacity: 1; }
+    #main-nav:not(.scrolled) .nav-link { color: rgba(255,255,255,0.88); }
+    #main-nav:not(.scrolled) .nav-link::after { background: var(--gold); }
+    #main-nav:not(.scrolled) .nav-link:hover,
+    #main-nav:not(.scrolled) .nav-link.active { color: #fff; }
+    #main-nav:not(.scrolled) .nav-link.active:hover { color: var(--gold); }
+    #main-nav:not(.scrolled) .nav-hamburger span { background: #fff; }
+    #main-nav:not(.scrolled) :focus-visible { outline-color: var(--cream); }
 
-    /* ── Hero ── */
+    /* ── Held met video ── */
     #hero {
       position: relative; width: 100%; min-height: 100vh;
       display: flex; align-items: center; justify-content: center;
-      overflow: hidden;
+      overflow: hidden; background: var(--brown);
     }
-    #hero-video {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; z-index: 0;
-    }
+    #hero-video { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; z-index: 0; }
     #hero-overlay {
       position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(160deg, rgba(0,0,0,0.15) 0%, rgba(30,20,15,0.72) 100%);
+      background:
+        linear-gradient(160deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.4) 100%),
+        linear-gradient(160deg, rgba(58,47,43,0.1) 0%, rgba(58,47,43,0.65) 100%);
     }
     #hero-content {
       position: relative; z-index: 2; text-align: center;
-      padding: 0 24px; max-width: 1100px;
+      padding: var(--s8) var(--s3) var(--s7); max-width: 1000px;
     }
-    .hero-eyebrow {
-      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--gold); font-weight: 500; margin-bottom: 24px;
+    .hero-place {
+      font-size: 15px; color: var(--gold); margin-bottom: var(--s3);
       opacity: 0; transform: translateY(14px);
-      animation: fadeUp 0.7s cubic-bezier(0.25,0.1,0.25,1) 0.3s forwards;
+      animation: fadeUp 0.7s var(--ease-out) 0.3s forwards;
     }
     .hero-title {
-      font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 6rem);
-      font-weight: 400; color: #fff; line-height: 1.1; letter-spacing: -0.03em;
-      margin-bottom: 24px;
+      font-size: clamp(2.75rem, 6vw, 5.25rem); color: #fff; margin-bottom: var(--s3);
       opacity: 0; transform: translateY(20px);
-      animation: fadeUp 0.8s cubic-bezier(0.25,0.1,0.25,1) 0.5s forwards;
+      animation: fadeUp 0.8s var(--ease-out) 0.5s forwards;
     }
-    .hero-word-row {
-      display: block;
-      overflow: hidden;
-      line-height: 1.15;
-    }
-    .hero-word {
-      display: block;
-      color: #C5A572;
-      font-style: italic;
-      will-change: transform, opacity;
-    }
+    .hero-word-row { display: block; overflow: hidden; line-height: 1.2; padding-bottom: 0.08em; }
+    .hero-word { display: block; color: var(--gold); font-style: italic; will-change: transform, opacity; }
     .hero-subtitle {
-      font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.75);
-      letter-spacing: 0.02em; margin-bottom: 32px; line-height: 1.7;
+      font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.85);
+      margin: 0 auto var(--s4); max-width: 34em;
       opacity: 0; transform: translateY(14px);
-      animation: fadeUp 0.7s cubic-bezier(0.25,0.1,0.25,1) 0.7s forwards;
+      animation: fadeUp 0.7s var(--ease-out) 0.7s forwards;
     }
-    .btn-full-text { display: inline; }
-    .btn-short-text { display: none; }
     .hero-actions {
-      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      display: flex; gap: var(--s2); justify-content: center; flex-wrap: wrap;
       opacity: 0; transform: translateY(14px);
-      animation: fadeUp 0.7s cubic-bezier(0.25,0.1,0.25,1) 0.9s forwards;
+      animation: fadeUp 0.7s var(--ease-out) 0.9s forwards;
     }
-    /* .btn-primary / .btn-outline styles moved to buttons.css */
+    #hero .btn-primary:focus-visible, #hero .btn-outline:focus-visible { outline-color: var(--cream); }
+    .btn-short-text { display: none; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* ── Section common ── */
-    .section-label {
-      font-size: 10.5px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 16px;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 400; letter-spacing: -0.03em; line-height: 1.15;
-      color: var(--brown);
-    }
-    .section-title.light { color: #fff; }
-    .section-body {
-      font-size: 15px; font-weight: 300; line-height: 1.75;
-      color: var(--brown-light); max-width: 520px;
-    }
-    .section-body.light { color: rgba(255,255,255,0.72); }
-    .link-underline {
-      font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--brown); text-decoration: none;
-      border-bottom: 1px solid var(--gold); padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .link-underline:hover { color: var(--gold-dark); }
-    .link-underline.light { color: rgba(255,255,255,0.9); border-bottom-color: rgba(255,255,255,0.4); }
-    .link-underline.light:hover { color: #fff; border-bottom-color: #fff; }
+    /* ── Blokken ── */
+    .block { padding: var(--s7) 0; }
+    .block-head { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--s3); margin-bottom: var(--s5); }
+    .body-text { color: var(--brown-light); max-width: 34em; }
 
-    /* ── Treatments grid ── */
-    .treatments-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    /* tekstlink */
+    .text-link {
+      display: inline-block; font-size: 15px; font-weight: 500; color: var(--brown);
+      text-decoration: underline; text-decoration-thickness: 1px;
+      text-decoration-color: var(--gold-dark); text-underline-offset: 5px;
+      transition: opacity 0.2s ease, transform 0.15s var(--ease-spring);
     }
-    .treatment-card { position: relative; overflow: hidden; cursor: pointer; display: block; text-decoration: none; }
-    .treatment-card-img {
-      width: 100%; aspect-ratio: 3/4; object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.25,0.1,0.25,1);
-    }
-    .treatment-card:hover .treatment-card-img { transform: scale(1.03); }
-    .treatment-card:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: -2px; }
-    .treatment-card:active .treatment-card-img { transform: scale(1.01); }
-    .treatment-card-body { padding: 16px 0 28px; }
-    .treatment-card-price { font-size: 12px; font-weight: 300; color: var(--gold); letter-spacing: 0.04em; margin-bottom: 8px; }
-    .treatment-card-name {
-      font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 400;
-      color: var(--brown); letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 8px;
-    }
-    .treatment-card-desc { font-size: 13px; font-weight: 300; color: var(--brown-light); line-height: 1.6; }
+    .text-link:hover { color: var(--gold-dark); }
+    .text-link:active { opacity: 0.6; transform: translateY(1px); }
+    .text-link.on-dark { color: var(--cream); text-decoration-color: var(--gold); }
+    .text-link.on-dark:hover { color: var(--gold); }
+    .text-link.on-dark:focus-visible { outline-color: var(--gold); }
 
-    /* ── Experience / asymmetric ── */
-    .experience-grid {
-      display: grid; grid-template-columns: 3fr 2fr; min-height: 600px;
+    /* ronde pijl naar alle behandelingen */
+    .round-link {
+      flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; margin-bottom: 4px; border-radius: 50%;
+      color: var(--brown); box-shadow: inset 0 0 0 1px rgba(58,47,43,0.28);
+      transition: transform 0.2s var(--ease-spring);
     }
-    .experience-img-wrap { position: relative; overflow: hidden; }
-    .experience-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s cubic-bezier(0.25,0.1,0.25,1); }
-    .experience-img-wrap:hover .experience-img { transform: scale(1.03); }
-    .experience-text {
-      background: var(--beige); padding: 72px 56px;
-      display: flex; flex-direction: column; justify-content: center; gap: 24px;
-    }
+    .round-link:hover { background: var(--brown); color: var(--cream); box-shadow: inset 0 0 0 1px var(--brown); transform: translateX(3px); }
+    .round-link:active { transform: scale(0.92); }
+    .round-link:focus-visible { outline: 2px solid var(--brown); outline-offset: 3px; border-radius: 50%; }
 
-    /* ── Video spotlight ── */
-    .video-spotlight {
-      background: var(--brown); padding: 80px 0; text-align: center; position: relative; overflow: hidden;
+    /* ── Het verhaal van Yoly ── */
+    .cinematic-story {
+      position: relative; isolation: isolate; padding: var(--s7) 0;
+      background:
+        radial-gradient(55% 75% at 8% 12%, rgba(197,165,114,0.24) 0%, rgba(197,165,114,0) 70%),
+        radial-gradient(60% 80% at 100% 100%, rgba(232,221,211,0.95) 0%, rgba(232,221,211,0) 72%),
+        radial-gradient(40% 50% at 60% 0%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 80%),
+        var(--cream);
     }
-    .video-container {
-      position: relative; max-width: 760px; margin: 0 auto;
-      aspect-ratio: 9/16; overflow: hidden;
+    .cinematic-story::before { content: ''; position: absolute; inset: 0; background-image: var(--grain); z-index: -1; pointer-events: none; }
+    .cinematic-grid { display: grid; grid-template-columns: 5fr 7fr; gap: var(--s6); align-items: center; }
+    .cinematic-video-wrap { display: flex; flex-direction: column; align-items: center; gap: var(--s2); }
+    .cinematic-video-card {
+      position: relative; aspect-ratio: 9 / 16; width: 100%; max-width: 360px; overflow: hidden;
+      border-radius: var(--r-media); background: var(--beige); box-shadow: var(--shadow-float);
     }
-    @media (min-width: 768px) { .video-container { aspect-ratio: 16/9; } }
-    .video-container video { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .video-caption {
-      margin-top: 32px; font-size: 11px; font-weight: 500;
-      letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5);
+    .cinematic-video { width: 100%; height: 100%; object-fit: cover; }
+    .cinematic-video-overlay {
+      position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(to top, rgba(58,47,43,0.42) 0%, rgba(58,47,43,0) 55%);
     }
+    .cinematic-video-caption { font-size: 13.5px; color: var(--brown-light); text-align: center; }
+    .cinematic-panel { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s3); }
+    .cinematic-quote {
+      margin: 0; padding-left: var(--s3); border-left: 2px solid var(--gold); max-width: 28em;
+      font-family: 'Playfair Display', Georgia, serif; font-style: italic;
+      font-size: 1.25rem; line-height: 1.6; color: var(--brown);
+    }
+    .cinematic-actions { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; margin-top: var(--s1); }
 
-    /* ── Before/After ── */
-    .ba-section { background: var(--beige); padding: 96px 48px; }
-    .ba-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-    .ba-slider-wrap { position: relative; overflow: hidden; user-select: none; aspect-ratio: 4/5; }
-    .ba-before { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; z-index: 0; }
-    .ba-after { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; z-index: 1; clip-path: inset(0 0 0 50%); }
+    /* ── Voor en na ── */
+    .ba-section { background: var(--beige); padding: var(--s7) 0; }
+    .ba-inner { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s6); align-items: center; }
+    .ba-copy .body-text { margin-top: var(--s3); }
+    .ba-copy .text-link { margin-top: var(--s4); }
+    .ba-slider-wrap {
+      position: relative; overflow: hidden; user-select: none; aspect-ratio: 4 / 5;
+      border-radius: var(--r-media); background: var(--cream); box-shadow: var(--shadow-float);
+    }
+    .ba-before { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; }
+    .ba-after { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 1; clip-path: inset(0 0 0 50%); }
     .ba-handle {
       position: absolute; top: 0; bottom: 0; width: 2px;
       background: linear-gradient(to bottom, #A8884E, #C5A572, #D4B882, #F0E0B8);
-      cursor: ew-resize; z-index: 3;
-      left: 50%; transform: translateX(-50%);
+      cursor: ew-resize; z-index: 3; left: 50%; transform: translateX(-50%);
     }
     .ba-handle-btn {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 36px; height: 56px; border-radius: 6px;
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 36px; height: 56px; border-radius: var(--r-small);
       background: linear-gradient(135deg, #A8884E 0%, #C5A572 40%, #D4B882 70%, #F0E0B8 100%);
       border: 1px solid rgba(255,255,255,0.4);
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 16px rgba(165,133,78,0.45), 0 1px 4px rgba(0,0,0,0.2);
-      cursor: ew-resize;
+      box-shadow: 0 2px 16px rgba(168,136,78,0.45), 0 1px 4px rgba(58,47,43,0.25);
+      cursor: ew-resize; transition: transform 0.2s var(--ease-spring);
     }
     .ba-handle-btn:hover { transform: translate(-50%, -50%) scale(1.08); }
-    .ba-handle-btn svg { width: 16px; height: 16px; color: #3A2F2B; }
+    .ba-handle-btn:active { transform: translate(-50%, -50%) scale(0.96); }
+    .ba-handle-btn svg { width: 16px; height: 16px; color: var(--brown); }
     .ba-label {
-      position: absolute; bottom: 16px; font-size: 10px; letter-spacing: 0.12em;
-      text-transform: uppercase; color: #fff; font-weight: 500;
-      background: rgba(0,0,0,0.35); padding: 4px 10px;
+      position: absolute; bottom: 16px; padding: 6px 14px; border-radius: var(--r-pill);
+      font-size: 13.5px; line-height: 1.4; color: var(--cream);
+      background: rgba(58,47,43,0.6); box-shadow: inset 0 0 0 1px rgba(197,165,114,0.4);
     }
-    .ba-label-before { left: 12px; z-index: 2; }
-    .ba-label-after { right: 12px; z-index: 2; }
+    .ba-label-before { left: 16px; z-index: 2; }
+    .ba-label-after { right: 16px; z-index: 2; }
     .ba-na-wrap { position: absolute; inset: 0; z-index: 2; clip-path: inset(0 0 0 50%); pointer-events: none; }
     .ba-voor-wrap { position: absolute; inset: 0; z-index: 2; clip-path: inset(0 50% 0 0); pointer-events: none; }
 
-    /* ── Testimonials ── */
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--beige); }
-    .testimonial-card { background: var(--cream); padding: 48px 40px; }
-    .testimonial-stars { color: var(--gold); font-size: 14px; letter-spacing: 2px; margin-bottom: 24px; }
-    .testimonial-quote { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; line-height: 1.7; color: var(--brown); margin-bottom: 24px; }
-    .testimonial-author { font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
-    .testimonial-treatment { font-size: 12px; color: var(--brown-light); margin-top: 2px; }
+    /* ── Reviews: het ene bruine blok ── */
+    .reviews {
+      position: relative; isolation: isolate; padding: var(--s7) 0; color: var(--cream);
+      background:
+        radial-gradient(55% 70% at 88% 0%, rgba(197,165,114,0.22) 0%, rgba(197,165,114,0) 70%),
+        radial-gradient(50% 60% at 0% 100%, rgba(92,77,71,0.9) 0%, rgba(92,77,71,0) 70%),
+        var(--brown);
+    }
+    .reviews::before { content: ''; position: absolute; inset: 0; background-image: var(--grain); z-index: -1; pointer-events: none; }
+    .reviews-head { text-align: center; }
+    .reviews-score { display: flex; align-items: center; justify-content: center; gap: var(--s1); margin-top: var(--s2); }
+    .reviews-score span + span { font-size: 15px; color: rgba(250,247,242,0.7); }
+    .stars { color: var(--gold); font-size: 16px; letter-spacing: 2px; line-height: 1.4; }
+    .reviews-grid { margin-top: var(--s5); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); }
+    .review {
+      padding: var(--s4); border-radius: var(--r-media);
+      background: rgba(250,247,242,0.05);
+      box-shadow: inset 0 0 0 1px rgba(197,165,114,0.28), 0 24px 48px -24px rgba(0,0,0,0.45);
+    }
+    .review-quote {
+      margin: var(--s2) 0 0;
+      font-family: 'Playfair Display', Georgia, serif; font-style: italic;
+      font-size: 1.125rem; line-height: 1.65; color: var(--cream);
+    }
+    .review-author { margin-top: var(--s3); font-weight: 500; color: var(--gold); }
+    .review-treatment { font-size: 15px; color: rgba(250,247,242,0.65); }
+    .reviews-cta { margin-top: var(--s5); text-align: center; }
 
-    /* ── Blog Asymmetric ── */
-    .blog-asymmetric { display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 24px; align-items: center; max-width: 1400px; margin: 0 auto; padding: 0 48px 96px; }
-    .blog-acard { display: block; text-decoration: none; border-left: 3px solid var(--gold); border-radius: 8px; padding: 32px; background: var(--cream); box-shadow: 0 2px 12px rgba(58,47,43,0.06); transition: box-shadow 0.3s cubic-bezier(0.25,0.1,0.25,1), transform 0.3s cubic-bezier(0.25,0.1,0.25,1); }
-    .blog-acard:hover { box-shadow: 0 8px 32px rgba(58,47,43,0.12); transform: translateY(-4px); }
-    .blog-acard:active { transform: translateY(-1px); }
-    .blog-acard:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-    .blog-acard.featured { border-left-width: 6px; padding: 48px; background: var(--cream); box-shadow: 0 8px 40px rgba(58,47,43,0.14); transform: translateY(-16px); }
-    .blog-acard.featured:hover { box-shadow: 0 16px 56px rgba(58,47,43,0.18); transform: translateY(-20px); }
-    .blog-acard-label { font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
-    .blog-acard-cat { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-    .blog-acard-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 400; color: var(--brown); line-height: 1.35; margin-bottom: 12px; letter-spacing: -0.02em; }
-    .blog-acard.featured .blog-acard-title { font-size: 22px; margin-bottom: 16px; }
-    .blog-acard-excerpt { font-size: 13px; font-weight: 300; color: var(--brown-light); line-height: 1.65; margin-bottom: 16px; }
-    .blog-acard-meta { font-size: 11px; color: rgba(58,47,43,0.4); letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
-    .blog-acard-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(58,47,43,0.3); }
-    .blog-acard-link { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-dark); display: inline-flex; align-items: center; gap: 6px; }
-    .blog-acard-link svg { width: 12px; height: 12px; transition: transform 0.2s; }
+    /* ── Blog ── */
+    .blog-asymmetric { display: grid; grid-template-columns: 1fr 1.25fr 1fr; gap: var(--s3); align-items: center; }
+    .blog-acard {
+      display: flex; flex-direction: column; align-items: flex-start;
+      padding: var(--s4); border-radius: var(--r-media);
+      background: #fff; color: var(--brown); text-decoration: none;
+      box-shadow: var(--shadow-raised);
+      transition: transform 0.3s var(--ease-out);
+    }
+    .blog-acard:hover { transform: translateY(-4px); box-shadow: var(--shadow-float); }
+    .blog-acard:active { transform: translateY(-1px) scale(0.99); }
+    .blog-acard:focus-visible { outline: 2px solid var(--brown); outline-offset: 4px; border-radius: var(--r-media); }
+    .blog-acard.featured { padding: var(--s5) var(--s4); box-shadow: var(--shadow-float); }
+    .blog-acard-label { font-size: 13.5px; font-weight: 500; color: var(--gold-dark); margin-bottom: var(--s2); }
+    .blog-acard-cat { font-size: 13.5px; color: var(--gold-dark); margin-bottom: var(--s1); }
+    .blog-acard-title {
+      font-family: 'Playfair Display', Georgia, serif; font-weight: 400;
+      font-size: 1.25rem; line-height: 1.3; letter-spacing: -0.02em; color: var(--brown);
+    }
+    .blog-acard.featured .blog-acard-title { font-size: 1.625rem; line-height: 1.22; }
+    .blog-acard-excerpt { margin-top: var(--s2); font-size: 15px; line-height: 1.65; color: var(--brown-light); }
+    .blog-acard-meta { margin-top: var(--s2); display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: rgba(58,47,43,0.6); }
+    .blog-acard-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(58,47,43,0.4); }
+    .blog-acard-link {
+      margin-top: var(--s3); display: inline-flex; align-items: center; gap: 6px;
+      font-size: 15px; font-weight: 500; color: var(--brown);
+      text-decoration: underline; text-decoration-thickness: 1px;
+      text-decoration-color: var(--gold-dark); text-underline-offset: 5px;
+    }
+    .blog-acard-link svg { width: 14px; height: 14px; transition: transform 0.2s var(--ease-out); }
+    .blog-acard:hover .blog-acard-link { color: var(--gold-dark); }
     .blog-acard:hover .blog-acard-link svg { transform: translateX(3px); }
 
-    /* ── Footer ── */
-    #footer { background: var(--brown); padding: 72px 48px 40px; }
-    .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
-    .footer-logo { height: 48px; filter: none; opacity: 1; margin-bottom: 16px; background: #FAF7F2; border-radius: 6px; padding: 4px 8px; }
-    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 24px; max-width: 240px; }
-    .footer-social { display: flex; gap: 16px; }
-    .footer-social a { color: rgba(255,255,255,0.45); transition: color 0.2s; }
-    .footer-social a:hover { color: var(--gold); }
-    .footer-social svg { width: 18px; height: 18px; }
-    .footer-col-title { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
-    .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: #fff; }
-    .footer-contact-item { display: flex; gap: 8px; margin-bottom: 16px; }
-    .footer-contact-item svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
-    .footer-contact-item span { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
-    .footer-newsletter form { display: flex; gap: 0; margin-top: 4px; }
-    .footer-newsletter input {
-      flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
-      color: #fff; padding: 16px; font-size: 13px; font-family: 'DM Sans', sans-serif;
-      outline: none; transition: border-color 0.2s;
-    }
-    .footer-newsletter input::placeholder { color: rgba(255,255,255,0.3); }
-    .footer-newsletter input:focus { border-color: var(--gold); }
-    .footer-newsletter button {
-      background: var(--gold); color: var(--brown); padding: 16px 24px;
-      font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
-      border: none; cursor: pointer; font-family: 'DM Sans', sans-serif;
-      transition: background 0.2s;
-    }
-    .footer-newsletter button:hover { background: var(--gold-dark); color: #fff; }
-    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 40px 0 24px; }
-    .footer-bottom { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
-    .footer-legal { display: flex; gap: 24px; }
-    .footer-legal a { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
-    .footer-legal a:hover { color: rgba(255,255,255,0.6); }
-
-    /* ── Reveal animations → zie animations.css ── */
-
-
-    /* ── Cinematic Story Section ── */
-    .cinematic-story {
-      display: grid; grid-template-columns: 1fr 1fr;
-      width: 100%;
-      padding: 80px 48px;
-      align-items: center;
-      gap: 72px;
-      background-color: #3A2F2B;
-      background-image:
-        repeating-linear-gradient(45deg, rgba(197,165,114,0.07) 0, rgba(197,165,114,0.07) 0.5px, transparent 0, transparent 20px),
-        repeating-linear-gradient(135deg, rgba(197,165,114,0.07) 0, rgba(197,165,114,0.07) 0.5px, transparent 0, transparent 20px),
-        linear-gradient(160deg, #3A2F2B 0%, #5C4D47 50%, #3A2F2B 100%);
-    }
-    .cinematic-video-wrap {
-      display: flex; flex-direction: column;
-      align-items: center; gap: 16px;
-    }
-    .cinematic-video-card {
-      position: relative; aspect-ratio: 9/16; overflow: hidden;
-      max-width: 360px; width: 100%; border-radius: 8px;
-      box-shadow: inset 0 0 0 2px rgba(197,165,114,0.5),
-                  0 32px 80px rgba(0,0,0,0.45),
-                  0 8px 24px rgba(0,0,0,0.3);
-    }
-    .cinematic-video {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-    }
-    .cinematic-video-overlay {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
-      background: linear-gradient(to top, rgba(58,47,43,0.6), transparent);
-      pointer-events: none;
-    }
-    .cinematic-video-caption {
-      font-family: 'DM Sans', system-ui, sans-serif; font-size: 10px;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: rgba(255,255,255,0.35); text-align: center; margin: 0;
-    }
-    .cinematic-unmute {
-      position: absolute; bottom: 28px; right: 28px; z-index: 2;
-      width: 40px; height: 40px; border-radius: 50%;
-      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; backdrop-filter: blur(4px);
-      transition: background 0.2s, transform 0.12s cubic-bezier(0.25,0.1,0.25,1);
-    }
-    .cinematic-unmute:hover { background: rgba(255,255,255,0.22); transform: scale(1.08); }
-    .cinematic-unmute:active { transform: scale(0.94) translateY(1px); }
-    .cinematic-unmute:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-    .cinematic-unmute svg { width: 16px; height: 16px; color: #fff; }
-    .cinematic-panel {
-      padding: 0;
-      display: flex; flex-direction: column; justify-content: center; gap: 32px;
-    }
-    .cinematic-quote {
-      border-left: 2px solid var(--gold); padding-left: 24px; margin: 0;
-      font-family: 'Playfair Display', serif; font-style: italic;
-      font-size: 17px; color: rgba(255,255,255,0.82); line-height: 1.75;
-    }
-    .cinematic-actions {
-      display: flex; flex-direction: column; gap: 16px; align-items: flex-start;
-    }
-
-    /* ── Responsive ── */
+    /* ── Kleiner scherm ── */
     @media (max-width: 1024px) {
-      .treatments-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .cinematic-grid, .ba-inner { gap: var(--s5); }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .blog-asymmetric { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
-      .nav-links, .nav-cta { display: none; }
-      .nav-hamburger { display: flex; }
-      .nav-inner { padding: 0 24px; }
-      .hero-actions { flex-direction: row; align-items: center; justify-content: center; gap: 8px; padding: 0; flex-wrap: nowrap; }
-      .hero-actions .btn-primary, .hero-actions .btn-outline { flex: 0 1 auto; width: 136px; padding: 10px 0; font-size: 9px; text-align: center; }
-      .btn-full-text { display: none; }
-      .btn-short-text { display: inline; }
-      .treatments-grid { grid-template-columns: repeat(2, 1fr); }
-      .experience-grid { grid-template-columns: 1fr; }
-      .experience-text { padding: 48px 24px; }
-      .cinematic-story { grid-template-columns: 1fr; padding: 48px 24px 56px; gap: 40px; }
+      #hero-content { padding: var(--s7) var(--s3) var(--s6); }
+      .hero-subtitle { font-size: 17px; }
+      .hero-subtitle br { display: none; }
+      .hero-actions { flex-direction: column; align-items: center; gap: 12px; }
+      .hero-actions .btn-primary, .hero-actions .btn-outline { width: 100%; max-width: 300px; }
+      .block, .cinematic-story, .ba-section, .reviews { padding: var(--s6) 0; }
+      .block-head { margin-bottom: var(--s4); }
+      .cinematic-grid, .ba-inner { grid-template-columns: 1fr; gap: var(--s5); }
       .cinematic-video-card { max-width: 280px; }
-      .cinematic-panel { padding: 0; }
-      .cinematic-unmute { bottom: 12px; right: 12px; }
-      .ba-inner { grid-template-columns: 1fr; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-      .blog-asymmetric { grid-template-columns: 1fr; padding-bottom: 64px; }
-      .blog-acard.featured { transform: translateY(0); }
-      .blog-acard.featured:hover { transform: translateY(-4px); }
-      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
-      #footer { padding: 48px 24px 32px; }
-      .ba-section { padding: 64px 24px; }
-    }
-    @media (max-width: 480px) {
-      .treatments-grid { grid-template-columns: 1fr; gap: 0; }
-      .hero-title { font-size: 2.8rem; }
-    }
-
-    /* ── Treatment Modal ────────────────────────────── */
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 200;
-      background: rgba(58,47,43,0.72);
-      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center; padding: 24px;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal-panel {
-      background: var(--cream); border-radius: 4px;
-      max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto;
-      position: relative;
-      transform: translateY(32px);
-      transition: transform 0.38s cubic-bezier(0.25,0.1,0.25,1);
-      box-shadow: 0 32px 96px rgba(58,47,43,0.28), 0 4px 20px rgba(58,47,43,0.12);
-    }
-    .modal-overlay.open .modal-panel { transform: translateY(0); }
-    .modal-close {
-      position: absolute; top: 16px; right: 16px; z-index: 10;
-      background: none; border: none; font-size: 18px; color: var(--brown-light);
-      cursor: pointer; width: 36px; height: 36px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, color 0.2s;
-    }
-    .modal-close:hover { background: var(--beige); color: var(--gold-dark); }
-    .modal-close:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: 2px; }
-    .modal-close:active { transform: scale(0.92); }
-    .modal-panel [hidden] { display: none; }
-    .modal-inner { display: grid; grid-template-columns: 1fr 1fr; min-height: 460px; }
-    .modal-img-col { overflow: hidden; border-radius: 4px 0 0 4px; position: relative; }
-    .modal-img-col::after { content: ''; position: absolute; inset: 0; border: 3px solid rgba(197,165,114,0.65); pointer-events: none; border-radius: 4px 0 0 4px; z-index: 1; }
-    .modal-img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 320px; }
-    .modal-content-col { padding: 56px 48px 48px; display: flex; flex-direction: column; }
-    .modal-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
-    .modal-price-badge {
-      font-size: 12.5px; font-weight: 400; color: var(--gold-dark); letter-spacing: 0.05em;
-      background: rgba(197,165,114,0.12); border: 1px solid rgba(197,165,114,0.3);
-      padding: 8px 16px; border-radius: 100px;
-    }
-    .modal-duur-badge { font-size: 12px; font-weight: 300; color: var(--brown-light); letter-spacing: 0.06em; }
-    .modal-divider { width: 32px; height: 1px; background: var(--gold); opacity: 0.4; margin-bottom: 16px; }
-    .modal-title {
-      font-family: 'Playfair Display', serif; font-size: clamp(1.4rem,2.2vw,1.9rem);
-      font-weight: 400; color: var(--brown); letter-spacing: -0.02em;
-      line-height: 1.2; margin-bottom: 16px;
-    }
-    .modal-desc { font-size: 13.5px; font-weight: 300; color: var(--brown-light); line-height: 1.78; margin-bottom: 24px; }
-    .modal-benefits-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
-    .modal-benefits { list-style: none; padding: 0; margin: 0 0 32px; display: flex; flex-direction: column; gap: 8px; }
-    .modal-benefits li { font-size: 13px; font-weight: 300; color: var(--brown); display: flex; align-items: flex-start; gap: 8px; line-height: 1.55; }
-    .modal-benefits li::before { content: '✦'; color: var(--gold); font-size: 9px; flex-shrink: 0; margin-top: 4px; }
-    .modal-desc p + p { margin-top: 12px; }
-    .modal-cta { margin-top: auto; align-self: flex-start; text-decoration: none; }
-    .modal-extra { margin-bottom: 32px; }
-    @media (max-width: 640px) {
-      .modal-inner { grid-template-columns: 1fr; }
-      .modal-img-col { height: 200px; border-radius: 4px 4px 0 0; }
-      .modal-img { min-height: 200px; }
-      .modal-content-col { padding: 32px 24px 40px; }
+      .cinematic-actions .btn-primary { width: 100%; }
+      .review { padding: var(--s3); }
+      .blog-acard, .blog-acard.featured { padding: var(--s3); }
     }
   </style>
-  <link rel="stylesheet" href="buttons.css">
-  <link rel="stylesheet" href="glowing-effect.css">
-  <link rel="stylesheet" href="animations.css">
-  <link rel="stylesheet" href="marquee.css">
 </head>
 <body>
 
-<!-- Announcement Bar -->
 <div id="announcement-bar">
   Nieuw: <strong>Yoly Luxe Packages.</strong> Voordeliger bij 3 of 5 behandelingen.
-  <a href="behandelingen.html#packages">Bekijk de pakketten →</a>
+  <a href="behandelingen.html#packages">Bekijk de pakketten</a>
 </div>
 
-<!-- Navigation -->
 <nav id="main-nav">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="media/fotos/Yoly_logo_transparant 1.png" alt="YolyLuxeSpa">
-    </a>
+    <a href="index.html" class="nav-logo"><img src="media/fotos/Yoly_logo_transparant 1.png" alt="YolyLuxeSpa"></a>
     <div class="nav-links">
-      <a href="index.html" class="nav-link active">Home</a>
+      <a href="index.html" class="nav-link active" aria-current="page">Home</a>
       <a href="behandelingen.html" class="nav-link">Behandelingen</a>
       <a href="over.html" class="nav-link">Over</a>
       <a href="blog.html" class="nav-link">Blog</a>
       <a href="contact.html" class="nav-link">Contact</a>
     </div>
     <a href="afspraak.html" class="nav-cta">Reserveer</a>
-    <button class="nav-hamburger" id="hamburger-btn" aria-label="Menu openen">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="nav-hamburger" id="hamburger-btn" aria-label="Menu openen"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<!-- Mobile Menu -->
 <div id="mobile-menu" aria-modal="true" role="dialog" aria-label="Navigatiemenu">
   <div class="mmenu-header">
     <span class="mmenu-label">Menu</span>
     <button class="mmenu-close" id="mobile-close-btn" aria-label="Menu sluiten">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/>
-      </svg>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/></svg>
     </button>
   </div>
   <nav class="mmenu-nav">
-    <a href="index.html"          class="mmenu-link mmenu-link--active">Home</a>
-    <a href="behandelingen.html"  class="mmenu-link">Behandelingen</a>
-    <a href="over.html"           class="mmenu-link">Over</a>
-    <a href="blog.html"           class="mmenu-link">Blog</a>
-    <a href="contact.html"        class="mmenu-link">Contact</a>
+    <a href="index.html" class="mmenu-link mmenu-link--active">Home</a>
+    <a href="behandelingen.html" class="mmenu-link">Behandelingen</a>
+    <a href="over.html" class="mmenu-link">Over</a>
+    <a href="blog.html" class="mmenu-link">Blog</a>
+    <a href="contact.html" class="mmenu-link">Contact</a>
   </nav>
-  <div class="mmenu-footer">
-    <a href="afspraak.html" class="btn-primary mmenu-cta">Reserveer nu</a>
-  </div>
+  <div class="mmenu-footer"><a href="afspraak.html" class="btn-primary mmenu-cta">Reserveer nu</a></div>
 </div>
 
-<!-- Hero -->
+<!-- Held -->
 <section id="hero">
   <video id="hero-video" autoplay muted loop playsinline>
     <source src="https://res.cloudinary.com/do0coejzs/video/upload/v1773449244/hero_section_video_yoly.mp4" type="video/mp4">
   </video>
   <div id="hero-overlay"></div>
   <div id="hero-content">
-    <p class="hero-eyebrow">Schoonheidsspecialiste · Loenhout</p>
-    <h1 class="hero-title">
+    <p class="hero-place">Schoonheidsspecialiste · Loenhout</p>
+    <h1 class="display hero-title">
       Jouw huid verdient het
       <span class="hero-word-row">
         <span class="hero-word" id="hero-word">beste</span>
       </span>
     </h1>
-    <p class="hero-subtitle">Luxe huidverzorging door Yoly Ponce Montero,<br>gecertificeerde schoonheidsspecialiste in Wuustwezel, België.</p>
+    <p class="hero-subtitle">Luxe huidverzorging door Yoly Ponce Montero, <br>gecertificeerde schoonheidsspecialiste in Wuustwezel, België.</p>
     <div class="hero-actions">
       <a href="behandelingen.html" class="btn-primary">
         <span class="btn-full-text">Ontdek behandelingen</span>
@@ -611,163 +333,136 @@
   </div>
 </section>
 
-<!-- Featured Treatments -->
-<section style="background: var(--cream); padding: 80px 48px 80px;">
-  <div style="max-width:1400px; margin:0 auto;">
-    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px;" class="reveal">
-      <div>
-        <p class="section-label">Onze specialiteiten</p>
-        <h2 class="section-title">Behandelingen</h2>
-      </div>
-      <a href="behandelingen.html" aria-label="Alle behandelingen" style="margin-bottom:8px; display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; border:1.5px solid var(--gold); color:var(--gold); transition:background 0.2s, color 0.2s; flex-shrink:0;" onmouseover="this.style.background='var(--gold)';this.style.color='#fff';" onmouseout="this.style.background='transparent';this.style.color='var(--gold)';">
+<!-- De 6 behandelingen als tegels -->
+<section class="block">
+  <div class="wrap">
+    <div class="block-head reveal">
+      <h2 class="heading">Behandelingen</h2>
+      <a href="behandelingen.html" aria-label="Alle behandelingen" class="round-link">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
     </div>
-    <div class="treatments-grid">
-      <div data-treatment="basis" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
-        <div style="overflow:hidden;">
-          <img src="media/fotos/basis behandeling yoly.jpg" alt="Yoly Luxe Basic Facial" class="treatment-card-img">
+    <div class="tiles">
+      <article data-treatment="basis" class="tile reveal-fade" role="button" tabindex="0" aria-haspopup="dialog">
+        <div class="media tile-media"><img src="media/fotos/basis behandeling yoly.jpg" alt="Yoly Luxe Basic Facial"></div>
+        <div class="t-head"><h3 class="t-name" data-veld="naam">Yoly Luxe Basic Facial</h3><span class="t-leader" aria-hidden="true"></span><p class="t-price" data-veld="prijs">€55</p></div>
+        <p class="tile-desc" data-veld="zin">Een zachte en verzorgende gezichtsbehandeling voor een frisse, schone en verzorgde huid.</p>
+        <a href="behandelingen.html#basis" class="text-link tile-link">Bekijk de behandeling</a>
+        <!-- Alleen voor het venster (behandeling-venster.js leest de kaart); gelijk aan behandelingen.html -->
+        <div hidden>
+          <p data-veld="lijstkop">De behandeling omvat</p>
+          <ul>
+            <li>Reiniging van de huid</li>
+            <li>Diepe reiniging</li>
+            <li>Exfoliatie</li>
+            <li>Masker afgestemd op de huid</li>
+            <li>Hydratatie</li>
+            <li>Verzorgende afsluiting</li>
+          </ul>
+          <p data-veld="extra-kop">Ideaal voor</p>
+          <p data-veld="extra">Een eerste kennismaking met professionele gezichtsverzorging of als regelmatig onderhoud van de huid.</p>
+          <p data-veld="duur">± 60 min</p>
         </div>
-        <div class="treatment-card-body reveal reveal-d1" style="padding:16px 24px 32px;">
-          <p class="treatment-card-price" data-veld="prijs">€55</p>
-          <h3 class="treatment-card-name" data-veld="naam">Yoly Luxe Basic Facial</h3>
-          <p class="treatment-card-desc" data-veld="zin">Een zachte en verzorgende gezichtsbehandeling voor een frisse, schone en verzorgde huid.</p>
-          <!-- Alleen voor het venster (behandeling-venster.js leest de kaart); gelijk aan behandelingen.html -->
-          <div hidden>
-            <p data-veld="lijstkop">De behandeling omvat</p>
-            <ul>
-              <li>Reiniging van de huid</li>
-              <li>Diepe reiniging</li>
-              <li>Exfoliatie</li>
-              <li>Masker afgestemd op de huid</li>
-              <li>Hydratatie</li>
-              <li>Verzorgende afsluiting</li>
-            </ul>
-            <p data-veld="extra-kop">Ideaal voor</p>
-            <p data-veld="extra">Een eerste kennismaking met professionele gezichtsverzorging of als regelmatig onderhoud van de huid.</p>
-            <p data-veld="duur">± 60 min</p>
-          </div>
+      </article>
+      <article data-treatment="diepe" class="tile reveal-fade reveal-d1" role="button" tabindex="0" aria-haspopup="dialog">
+        <div class="media tile-media"><img src="media/fotos/diep gezichtsbehandeling.jpg" alt="Deep Clean Facial"></div>
+        <div class="t-head"><h3 class="t-name" data-veld="naam">Deep Clean Facial</h3><span class="t-leader" aria-hidden="true"></span><p class="t-price" data-veld="prijs">€75</p></div>
+        <p class="tile-desc" data-veld="zin">Een intensievere gezichtsbehandeling gericht op het grondig reinigen van de huid en het verwijderen van onzuiverheden.</p>
+        <a href="behandelingen.html#diepe" class="text-link tile-link">Bekijk de behandeling</a>
+        <!-- Alleen voor het venster (behandeling-venster.js leest de kaart); gelijk aan behandelingen.html -->
+        <div hidden>
+          <p data-veld="lijstkop">De behandeling omvat</p>
+          <ul>
+            <li>Dubbele reiniging</li>
+            <li>Exfoliatie</li>
+            <li>Intensieve poriënreiniging</li>
+            <li>Verwijdering van mee-eters en onzuiverheden</li>
+            <li>Verzorgend masker</li>
+            <li>Hydratatie</li>
+            <li>Afwerking met passende huidverzorging</li>
+          </ul>
+          <p data-veld="extra-kop">Ideaal voor</p>
+          <p data-veld="extra">Een huid met verstopte poriën, mee-eters en zichtbare onzuiverheden.</p>
+          <p data-veld="duur">± 75 min</p>
         </div>
-      </div>
-      <div data-treatment="diepe" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
-        <div style="overflow:hidden;">
-          <img src="media/fotos/diep gezichtsbehandeling.jpg" alt="Deep Clean Facial" class="treatment-card-img">
+      </article>
+      <article data-treatment="hydrafacial" class="tile reveal-fade reveal-d2" role="button" tabindex="0" aria-haspopup="dialog">
+        <div class="media tile-media"><img src="media/fotos/steaming foto.jpg" alt="HydraFacial"></div>
+        <div class="t-head"><h3 class="t-name" data-veld="naam">HydraFacial</h3><span class="t-leader" aria-hidden="true"></span><p class="t-price" data-veld="prijs">€95</p></div>
+        <p class="tile-desc" data-veld="zin">Een intensieve behandeling voor een diep gereinigde, gehydrateerde en stralende huid.</p>
+        <a href="behandelingen.html#hydrafacial" class="text-link tile-link">Bekijk de behandeling</a>
+        <!-- Alleen voor het venster (behandeling-venster.js leest de kaart); gelijk aan behandelingen.html -->
+        <div hidden>
+          <p data-veld="zin">De huid wordt grondig gereinigd en onzuiverheden worden verwijderd, terwijl de huid tegelijkertijd wordt verzorgd en gehydrateerd.</p>
+          <p data-veld="lijstkop">De behandeling omvat</p>
+          <ul>
+            <li>Reiniging</li>
+            <li>Exfoliatie</li>
+            <li>Diepe poriënreiniging</li>
+            <li>Verwijdering van onzuiverheden</li>
+            <li>Intensieve hydratatie</li>
+            <li>Verzorgende finishing treatment</li>
+          </ul>
+          <p data-veld="extra-kop">Resultaat</p>
+          <p data-veld="extra">Een frisse, zachte en zichtbaar stralende huid.</p>
+          <p data-veld="duur">± 75–90 min</p>
         </div>
-        <div class="treatment-card-body reveal reveal-d2" style="padding:16px 24px 32px;">
-          <p class="treatment-card-price" data-veld="prijs">€75</p>
-          <h3 class="treatment-card-name" data-veld="naam">Deep Clean Facial</h3>
-          <p class="treatment-card-desc" data-veld="zin">Een intensievere gezichtsbehandeling gericht op het grondig reinigen van de huid en het verwijderen van onzuiverheden.</p>
-          <!-- Alleen voor het venster (behandeling-venster.js leest de kaart); gelijk aan behandelingen.html -->
-          <div hidden>
-            <p data-veld="lijstkop">De behandeling omvat</p>
-            <ul>
-              <li>Dubbele reiniging</li>
-              <li>Exfoliatie</li>
-              <li>Intensieve poriënreiniging</li>
-              <li>Verwijdering van mee-eters en onzuiverheden</li>
-              <li>Verzorgend masker</li>
-              <li>Hydratatie</li>
-              <li>Afwerking met passende huidverzorging</li>
-            </ul>
-            <p data-veld="extra-kop">Ideaal voor</p>
-            <p data-veld="extra">Een huid met verstopte poriën, mee-eters en zichtbare onzuiverheden.</p>
-            <p data-veld="duur">± 75 min</p>
-          </div>
+      </article>
+      <article data-treatment="dermapen" class="tile reveal-fade" role="button" tabindex="0" aria-haspopup="dialog">
+        <div class="media tile-media"><img src="media/fotos/puisten trekker foto.jpg" alt="Dermapen"></div>
+        <div class="t-head"><h3 class="t-name" data-veld="naam">Dermapen</h3><span class="t-leader" aria-hidden="true"></span><p class="t-price" data-veld="prijs">€55</p></div>
+        <p class="tile-desc" data-veld="zin">Een professionele behandeling die de huid stimuleert en de natuurlijke huidvernieuwing ondersteunt.</p>
+        <a href="behandelingen.html#dermapen" class="text-link tile-link">Bekijk de behandeling</a>
+        <!-- Alleen voor het venster (behandeling-venster.js leest de kaart); gelijk aan behandelingen.html -->
+        <div hidden>
+          <p data-veld="zin">Dermapen wordt toegepast om de huidtextuur te verfijnen en de huid een gladdere en egalere uitstraling te geven.</p>
+          <p data-veld="lijstkop">Geschikt voor</p>
+          <ul>
+            <li>Oneffen huidstructuur</li>
+            <li>Grove poriën</li>
+            <li>Huid die haar glans heeft verloren</li>
+            <li>Fijne lijntjes</li>
+            <li>Acne-littekentjes</li>
+          </ul>
+          <p data-veld="duur">± 45–60 min</p>
         </div>
-      </div>
-      <div data-treatment="hydrafacial" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
-        <div style="overflow:hidden;">
-          <img src="media/fotos/steaming foto.jpg" alt="HydraFacial" class="treatment-card-img">
+      </article>
+      <article data-treatment="lips" class="tile reveal-fade reveal-d1" role="button" tabindex="0" aria-haspopup="dialog">
+        <div class="media tile-media"><img src="media/fotos/glossy lips rose.jpg" alt="Lip Hydration"></div>
+        <div class="t-head"><h3 class="t-name" data-veld="naam">Lip Hydration</h3><span class="t-leader" aria-hidden="true"></span><p class="t-price" data-veld="prijs">€30</p></div>
+        <p class="tile-desc" data-veld="zin">Een verzorgende behandeling voor zachte, gehydrateerde en mooi verzorgde lippen.</p>
+        <a href="behandelingen.html#lips" class="text-link tile-link">Bekijk de behandeling</a>
+        <!-- Alleen voor het venster (behandeling-venster.js leest de kaart); gelijk aan behandelingen.html -->
+        <div hidden>
+          <p data-veld="lijstkop">De behandeling omvat</p>
+          <ul>
+            <li>Zachte exfoliatie</li>
+            <li>Intensieve hydratatie</li>
+            <li>Verzorgende lip treatment</li>
+          </ul>
+          <p data-veld="extra">Perfect als kleine beauty treatment of als aanvulling op een gezichtsbehandeling.</p>
+          <p data-veld="duur">± 20–30 min</p>
         </div>
-        <div class="treatment-card-body reveal reveal-d3" style="padding:16px 24px 32px;">
-          <p class="treatment-card-price" data-veld="prijs">€95</p>
-          <h3 class="treatment-card-name" data-veld="naam">HydraFacial</h3>
-          <p class="treatment-card-desc" data-veld="zin">Een intensieve behandeling voor een diep gereinigde, gehydrateerde en stralende huid.</p>
-          <!-- Alleen voor het venster (behandeling-venster.js leest de kaart); gelijk aan behandelingen.html -->
-          <div hidden>
-            <p data-veld="zin">De huid wordt grondig gereinigd en onzuiverheden worden verwijderd, terwijl de huid tegelijkertijd wordt verzorgd en gehydrateerd.</p>
-            <p data-veld="lijstkop">De behandeling omvat</p>
-            <ul>
-              <li>Reiniging</li>
-              <li>Exfoliatie</li>
-              <li>Diepe poriënreiniging</li>
-              <li>Verwijdering van onzuiverheden</li>
-              <li>Intensieve hydratatie</li>
-              <li>Verzorgende finishing treatment</li>
-            </ul>
-            <p data-veld="extra-kop">Resultaat</p>
-            <p data-veld="extra">Een frisse, zachte en zichtbaar stralende huid.</p>
-            <p data-veld="duur">± 75–90 min</p>
-          </div>
+      </article>
+      <article data-treatment="melanin" class="tile reveal-fade reveal-d2" role="button" tabindex="0" aria-haspopup="dialog">
+        <div class="media tile-media"><img src="media/fotos/gouden masker.jpg" alt="Melanin Glow"></div>
+        <div class="t-head"><h3 class="t-name" data-veld="naam">Melanin Glow</h3><span class="t-leader" aria-hidden="true"></span><p class="t-price on-request" data-veld="prijs">Prijs op aanvraag</p></div>
+        <p class="tile-desc" data-veld="zin">Professionele verzorging voor een mooie, egale en stralende huid</p>
+        <a href="behandelingen.html#melanin" class="text-link tile-link">Bekijk de behandeling</a>
+        <!-- Alleen voor het venster (behandeling-venster.js leest de kaart); gelijk aan behandelingen.html -->
+        <div hidden>
+          <p data-veld="zin">Een behandeling speciaal afgestemd op de behoeften van een huid met meer melanine.</p>
+          <p data-veld="zin">De focus ligt op een gezonde huidbarrière, hydratatie, een egale uitstraling en een mooie natuurlijke glow.</p>
+          <p data-veld="zin">De behandeling wordt afgestemd op de conditie en behoeften van jouw huid.</p>
         </div>
-      </div>
-      <div data-treatment="dermapen" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
-        <div style="overflow:hidden;">
-          <img src="media/fotos/puisten trekker foto.jpg" alt="Dermapen" class="treatment-card-img">
-        </div>
-        <div class="treatment-card-body reveal reveal-d1" style="padding:16px 24px 32px;">
-          <p class="treatment-card-price" data-veld="prijs">€55</p>
-          <h3 class="treatment-card-name" data-veld="naam">Dermapen</h3>
-          <p class="treatment-card-desc" data-veld="zin">Een professionele behandeling die de huid stimuleert en de natuurlijke huidvernieuwing ondersteunt.</p>
-          <!-- Alleen voor het venster (behandeling-venster.js leest de kaart); gelijk aan behandelingen.html -->
-          <div hidden>
-            <p data-veld="zin">Dermapen wordt toegepast om de huidtextuur te verfijnen en de huid een gladdere en egalere uitstraling te geven.</p>
-            <p data-veld="lijstkop">Geschikt voor</p>
-            <ul>
-              <li>Oneffen huidstructuur</li>
-              <li>Grove poriën</li>
-              <li>Huid die haar glans heeft verloren</li>
-              <li>Fijne lijntjes</li>
-              <li>Acne-littekentjes</li>
-            </ul>
-            <p data-veld="duur">± 45–60 min</p>
-          </div>
-        </div>
-      </div>
-      <div data-treatment="lips" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
-        <div style="overflow:hidden;">
-          <img src="media/fotos/glossy lips rose.jpg" alt="Lip Hydration" class="treatment-card-img">
-        </div>
-        <div class="treatment-card-body reveal reveal-d2" style="padding:16px 24px 32px;">
-          <p class="treatment-card-price" data-veld="prijs">€30</p>
-          <h3 class="treatment-card-name" data-veld="naam">Lip Hydration</h3>
-          <p class="treatment-card-desc" data-veld="zin">Een verzorgende behandeling voor zachte, gehydrateerde en mooi verzorgde lippen.</p>
-          <!-- Alleen voor het venster (behandeling-venster.js leest de kaart); gelijk aan behandelingen.html -->
-          <div hidden>
-            <p data-veld="lijstkop">De behandeling omvat</p>
-            <ul>
-              <li>Zachte exfoliatie</li>
-              <li>Intensieve hydratatie</li>
-              <li>Verzorgende lip treatment</li>
-            </ul>
-            <p data-veld="extra">Perfect als kleine beauty treatment of als aanvulling op een gezichtsbehandeling.</p>
-            <p data-veld="duur">± 20–30 min</p>
-          </div>
-        </div>
-      </div>
-      <div data-treatment="melanin" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
-        <div style="overflow:hidden;">
-          <img src="media/fotos/gouden masker.jpg" alt="Melanin Glow" class="treatment-card-img">
-        </div>
-        <div class="treatment-card-body reveal reveal-d3" style="padding:16px 24px 32px;">
-          <p class="treatment-card-price" data-veld="prijs">Prijs op aanvraag</p>
-          <h3 class="treatment-card-name" data-veld="naam">Melanin Glow</h3>
-          <p class="treatment-card-desc" data-veld="zin">Professionele verzorging voor een mooie, egale en stralende huid</p>
-          <!-- Alleen voor het venster (behandeling-venster.js leest de kaart); gelijk aan behandelingen.html -->
-          <div hidden>
-            <p data-veld="zin">Een behandeling speciaal afgestemd op de behoeften van een huid met meer melanine.</p>
-            <p data-veld="zin">De focus ligt op een gezonde huidbarrière, hydratatie, een egale uitstraling en een mooie natuurlijke glow.</p>
-            <p data-veld="zin">De behandeling wordt afgestemd op de conditie en behoeften van jouw huid.</p>
-          </div>
-        </div>
-      </div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════ MARQUEE STRIP ═══════════════════════ -->
+<!-- Tekstband met de zes namen -->
 <div id="tekstband" class="marquee-strip" aria-hidden="true">
   <div class="marquee-track">
     <span class="marquee-item">Yoly Luxe Basic Facial</span>
@@ -797,44 +492,44 @@
   </div>
 </div>
 
-<!-- Cinematic Story + Video -->
+<!-- Het verhaal van Yoly + video -->
 <section class="cinematic-story reveal-fade" id="cinematic-story">
-  <div class="cinematic-video-wrap">
-    <div class="cinematic-video-card video-float">
-      <video class="cinematic-video" autoplay muted loop playsinline id="cinematic-vid">
-        <source src="https://res.cloudinary.com/do0coejzs/video/upload/v1773449254/vid_met_jan_mooi.mp4" type="video/mp4">
-      </video>
-      <div class="cinematic-video-overlay"></div>
+  <div class="wrap cinematic-grid">
+    <div class="cinematic-video-wrap">
+      <div class="cinematic-video-card">
+        <video class="cinematic-video" autoplay muted loop playsinline id="cinematic-vid">
+          <source src="https://res.cloudinary.com/do0coejzs/video/upload/v1773449254/vid_met_jan_mooi.mp4" type="video/mp4">
+        </video>
+        <div class="cinematic-video-overlay"></div>
+      </div>
+      <p class="cinematic-video-caption">YolyLuxeSpa · Loenhout, België</p>
     </div>
-    <p class="cinematic-video-caption">YolyLuxeSpa · Loenhout, België</p>
-  </div>
-  <div class="cinematic-panel">
-    <p class="section-label">Het verhaal</p>
-    <h2 class="section-title light">Huidverzorging<br><em>met hart</em></h2>
-    <p class="section-body light">
-      Zolang ze zich kan herinneren, wist Yoly Ponce Montero dat haar roeping was om mensen te helpen zich goed te voelen in hun eigen huid. Dit vak is de vervulling van die droom: een plek waar schoonheid en gezondheid samenkomen, en jij centraal staat.
-    </p>
-    <blockquote class="cinematic-quote">
-      "Elke huid vertelt een verhaal. Ik luister, en creëer een behandeling die écht werkt."
-    </blockquote>
-    <div class="cinematic-actions">
-      <a href="over.html" class="link-underline light">Meer over Yoly</a>
-      <a href="afspraak.html" class="btn-primary">Reserveer nu</a>
+    <div class="cinematic-panel">
+      <h2 class="heading">Huidverzorging<br><em>met hart</em></h2>
+      <p class="body-text">
+        Zolang ze zich kan herinneren, wist Yoly Ponce Montero dat haar roeping was om mensen te helpen zich goed te voelen in hun eigen huid. Dit vak is de vervulling van die droom: een plek waar schoonheid en gezondheid samenkomen, en jij centraal staat.
+      </p>
+      <blockquote class="cinematic-quote">
+        "Elke huid vertelt een verhaal. Ik luister, en creëer een behandeling die écht werkt."
+      </blockquote>
+      <div class="cinematic-actions">
+        <a href="afspraak.html" class="btn-primary">Reserveer nu</a>
+        <a href="over.html" class="text-link">Meer over Yoly</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Before & After -->
+<!-- Voor en na -->
 <section class="ba-section">
-  <div class="ba-inner">
-    <div class="reveal">
-      <p class="section-label">Zichtbare resultaten</p>
-      <h2 class="section-title">Voor & Na</h2>
-      <p class="section-body" style="margin-top:16px; margin-bottom:32px;">
+  <div class="wrap ba-inner">
+    <div class="ba-copy reveal">
+      <h2 class="heading">Voor & Na</h2>
+      <p class="body-text">
         Echte resultaten van echte klanten. Onze behandelingen zijn zorgvuldig afgestemd op jouw huid,
         voor een resultaat dat je voelt én ziet.
       </p>
-      <a href="afspraak.html" class="link-underline">Maak een afspraak</a>
+      <a href="afspraak.html" class="text-link">Maak een afspraak</a>
     </div>
     <div class="ba-slider-wrap reveal reveal-d2" id="ba-slider">
       <img src="media/fotos/lips before.jpg" alt="Voor behandeling" class="ba-before">
@@ -861,112 +556,99 @@
   </div>
 </section>
 
-<!-- Testimonials -->
-<section style="background: var(--cream); padding: 0;">
-  <div style="max-width:1400px; margin:0 auto; padding: 80px 48px 40px;" class="reveal">
-    <div style="text-align:center; margin-bottom:56px;">
-      <p class="section-label">Wat klanten zeggen</p>
-      <h2 class="section-title">Reviews</h2>
-      <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:16px;">
-        <span style="color:var(--gold); font-size:16px; letter-spacing:2px;">★★★★★</span>
-        <span style="font-size:13px; color:var(--brown-light);">4.9/5</span>
+<!-- Reviews -->
+<section class="reviews">
+  <div class="wrap">
+    <div class="reviews-head reveal">
+      <h2 class="heading on-dark">Reviews</h2>
+      <div class="reviews-score">
+        <span class="stars">★★★★★</span>
+        <span>4.9/5</span>
       </div>
     </div>
-  </div>
-  <div class="testimonials-grid">
-    <div class="testimonial-card">
-      <div class="reveal">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">"Yoly heeft mijn huid volledig getransformeerd. Na de HydraFacial voelde mijn huid zo zacht en stralend, ik was meteen verkocht!"</p>
-        <p class="testimonial-author">Sarah V.</p>
-        <p class="testimonial-treatment" data-quote-label="behandeling">HydraFacial</p>
+    <div class="reviews-grid">
+      <div class="review reveal">
+        <div class="stars">★★★★★</div>
+        <blockquote class="review-quote">"Yoly heeft mijn huid volledig getransformeerd. Na de HydraFacial voelde mijn huid zo zacht en stralend, ik was meteen verkocht!"</blockquote>
+        <p class="review-author">Sarah V.</p>
+        <p class="review-treatment" data-quote-label="behandeling">HydraFacial</p>
+      </div>
+      <div class="review reveal reveal-d1">
+        <div class="stars">★★★★★</div>
+        <blockquote class="review-quote">"De Hydra Glow Lips behandeling is fantastisch. Mijn lippen zien er voller en mooier uit zonder dat het overdreven is. Een must!"</blockquote>
+        <p class="review-author">Lisa M.</p>
+        <p class="review-treatment" data-quote-label="behandeling">Lipbehandeling</p>
+      </div>
+      <div class="review reveal reveal-d2">
+        <div class="stars">★★★★★</div>
+        <blockquote class="review-quote">"Professioneel, zorgzaam en ongelooflijk vakkundig. Yoly weet precies wat je huid nodig heeft. Ik kom hier altijd terug!"</blockquote>
+        <p class="review-author">Emma R.</p>
+        <p class="review-treatment" data-quote-label="behandeling">Deep Clean Facial</p>
       </div>
     </div>
-    <div class="testimonial-card">
-      <div class="reveal reveal-d2">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">"De Hydra Glow Lips behandeling is fantastisch. Mijn lippen zien er voller en mooier uit zonder dat het overdreven is. Een must!"</p>
-        <p class="testimonial-author">Lisa M.</p>
-        <p class="testimonial-treatment" data-quote-label="behandeling">Lipbehandeling</p>
-      </div>
+    <div class="reviews-cta">
+      <a href="afspraak.html" class="text-link on-dark">Reserveer een behandeling</a>
     </div>
-    <div class="testimonial-card">
-      <div class="reveal reveal-d3">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">"Professioneel, zorgzaam en ongelooflijk vakkundig. Yoly weet precies wat je huid nodig heeft. Ik kom hier altijd terug!"</p>
-        <p class="testimonial-author">Emma R.</p>
-        <p class="testimonial-treatment" data-quote-label="behandeling">Deep Clean Facial</p>
-      </div>
-    </div>
-  </div>
-  <div style="padding: 48px 48px; text-align:center;">
-    <a href="afspraak.html" class="link-underline">Reserveer een behandeling</a>
   </div>
 </section>
 
-<!-- Blog Preview -->
-<section style="background: var(--cream); padding: 96px 0 0;">
-  <div style="max-width:1400px; margin:0 auto; padding:0 48px; display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:48px;" class="reveal">
-    <div>
-      <p class="section-label">Kennis &amp; inspiratie</p>
-      <h2 class="section-title">Ons blog</h2>
+<!-- Blog -->
+<section class="block">
+  <div class="wrap">
+    <div class="block-head reveal">
+      <h2 class="heading">Ons blog</h2>
+      <a href="blog.html" class="text-link">Alle artikelen</a>
     </div>
-    <a href="blog.html" class="link-underline" style="margin-bottom:8px;">Alle artikelen</a>
-  </div>
-  <div class="blog-asymmetric">
-    <!-- Kaart 1: links, kleiner -->
-    <a href="blog.html" class="blog-acard">
-      <p class="blog-acard-cat">Huidverzorging</p>
-      <h3 class="blog-acard-title">Deep Clean Facial in Loenhout: waarom jouw huid het nodig heeft</h3>
-      <p class="blog-acard-excerpt">Dagelijkse blootstelling aan zon, vervuiling en stress verstopt jouw poriën. Ontdek hoe een professionele reiniging het verschil maakt.</p>
-      <div class="blog-acard-meta">
-        <span>10 feb 2026</span>
-        <span class="blog-acard-meta-dot"></span>
-        <span>5 min</span>
-      </div>
-      <span class="blog-acard-link">Lees meer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-    </a>
-    <!-- Kaart 2: midden, uitgelicht, groter -->
-    <a href="blog.html" class="blog-acard featured">
-      <p class="blog-acard-label">✦ Uitgelicht</p>
-      <p class="blog-acard-cat">Lipbehandelingen</p>
-      <h3 class="blog-acard-title">Lip Hydration: zachte en gehydrateerde lippen, hoe werkt het?</h3>
-      <p class="blog-acard-excerpt">De Lip Hydration behandeling geeft je zachte, gehydrateerde en mooi verzorgde lippen. Yoly legt uit hoe het werkt.</p>
-      <div class="blog-acard-meta">
-        <span>3 feb 2026</span>
-        <span class="blog-acard-meta-dot"></span>
-        <span>4 min</span>
-      </div>
-      <span class="blog-acard-link">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-    </a>
-    <!-- Kaart 3: rechts, kleiner -->
-    <a href="blog.html" class="blog-acard">
-      <p class="blog-acard-cat">HydraFacial</p>
-      <h3 class="blog-acard-title">Wat is een HydraFacial en voor wie is het geschikt?</h3>
-      <p class="blog-acard-excerpt">De HydraFacial combineert reiniging, exfoliatie, peeling en hydratatie in één behandeling. Maar wat maakt het zo bijzonder?</p>
-      <div class="blog-acard-meta">
-        <span>27 jan 2026</span>
-        <span class="blog-acard-meta-dot"></span>
-        <span>6 min</span>
-      </div>
-      <span class="blog-acard-link">Lees meer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-    </a>
+    <div class="blog-asymmetric">
+      <!-- Kaart 1: links, kleiner -->
+      <a href="blog.html" class="blog-acard">
+        <p class="blog-acard-cat">Huidverzorging</p>
+        <h3 class="blog-acard-title">Deep Clean Facial in Loenhout: waarom jouw huid het nodig heeft</h3>
+        <p class="blog-acard-excerpt">Dagelijkse blootstelling aan zon, vervuiling en stress verstopt jouw poriën. Ontdek hoe een professionele reiniging het verschil maakt.</p>
+        <div class="blog-acard-meta">
+          <span>10 feb 2026</span>
+          <span class="blog-acard-meta-dot"></span>
+          <span>5 min</span>
+        </div>
+        <span class="blog-acard-link">Lees meer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <!-- Kaart 2: midden, uitgelicht, groter -->
+      <a href="blog.html" class="blog-acard featured">
+        <p class="blog-acard-label">✦ Uitgelicht</p>
+        <p class="blog-acard-cat">Lipbehandelingen</p>
+        <h3 class="blog-acard-title">Lip Hydration: zachte en gehydrateerde lippen, hoe werkt het?</h3>
+        <p class="blog-acard-excerpt">De Lip Hydration behandeling geeft je zachte, gehydrateerde en mooi verzorgde lippen. Yoly legt uit hoe het werkt.</p>
+        <div class="blog-acard-meta">
+          <span>3 feb 2026</span>
+          <span class="blog-acard-meta-dot"></span>
+          <span>4 min</span>
+        </div>
+        <span class="blog-acard-link">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+      <!-- Kaart 3: rechts, kleiner -->
+      <a href="blog.html" class="blog-acard">
+        <p class="blog-acard-cat">HydraFacial</p>
+        <h3 class="blog-acard-title">Wat is een HydraFacial en voor wie is het geschikt?</h3>
+        <p class="blog-acard-excerpt">De HydraFacial combineert reiniging, exfoliatie, peeling en hydratatie in één behandeling. Maar wat maakt het zo bijzonder?</p>
+        <div class="blog-acard-meta">
+          <span>27 jan 2026</span>
+          <span class="blog-acard-meta-dot"></span>
+          <span>6 min</span>
+        </div>
+        <span class="blog-acard-link">Lees meer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- Footer -->
-<footer id="footer" style="margin-top:80px;">
+<footer id="footer">
   <div class="footer-inner">
     <div>
       <img src="media/fotos/Yoly_logo_transparant 1.png" alt="YolyLuxeSpa" class="footer-logo">
       <p class="footer-tagline">Luxe huidverzorging door Yoly Ponce Montero, gecertificeerde schoonheidsspecialiste in Loenhout.</p>
       <div class="footer-social">
-        <a href="https://www.instagram.com/yolyluxespa" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
-        </a>
-        <a href="https://wa.me/32469443144" aria-label="WhatsApp">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.133.558 4.133 1.535 5.866L.099 23.901l6.196-1.393A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.672-.5-5.207-1.378l-.374-.217-3.678.828.882-3.556-.235-.374A9.953 9.953 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10z"/></svg>
-        </a>
+        <a href="https://www.instagram.com/yolyluxespa" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+        <a href="https://wa.me/32469443144" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.133.558 4.133 1.535 5.866L.099 23.901l6.196-1.393A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.672-.5-5.207-1.378l-.374-.217-3.678.828.882-3.556-.235-.374A9.953 9.953 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10z"/></svg></a>
       </div>
     </div>
     <div>
@@ -981,95 +663,66 @@
     </div>
     <div>
       <p class="footer-col-title">Contact</p>
-      <div class="footer-contact-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        <span>Wuustwezelseweg 125c<br>2990 Loenhout (Wuustwezel)</span>
-      </div>
-      <div class="footer-contact-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.22 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.41a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-        <span>+32 469 44 31 44</span>
-      </div>
-      <div class="footer-contact-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        <span>y.poncemontero@gmail.com</span>
-      </div>
+      <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span>Wuustwezelseweg 125c<br>2990 Loenhout (Wuustwezel)</span></div>
+      <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.22 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.41a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span>+32 469 44 31 44</span></div>
+      <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>y.poncemontero@gmail.com</span></div>
     </div>
   </div>
-  <hr class="footer-divider" style="max-width:1400px; margin:40px auto 20px;">
-  <div class="footer-bottom">
-    <p class="footer-copy">© 2025 YolyLuxeSpa. Alle rechten voorbehouden.</p>
-    <div class="footer-legal">
-      <a href="privacybeleid.html">Privacybeleid</a>
-      <a href="algemene-voorwaarden.html">Algemene voorwaarden</a>
-      <a href="cookiebeleid.html">Cookiebeleid</a>
-    </div>
-  </div>
+  <hr class="footer-rule">
+  <div class="footer-bottom"><p class="footer-copy">© 2026 YolyLuxeSpa. Alle rechten voorbehouden.</p><div class="footer-legal"><a href="privacybeleid.html">Privacybeleid</a><a href="algemene-voorwaarden.html">Algemene voorwaarden</a><a href="cookiebeleid.html">Cookiebeleid</a></div></div>
 </footer>
 
+<!-- Venster bij een behandeling (gevuld door behandeling-venster.js) -->
+<div id="treatment-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-el">
+  <div class="modal-panel">
+    <button type="button" class="modal-close" aria-label="Sluiten">✕</button>
+    <div class="modal-inner">
+      <div class="modal-img-col"><img id="modal-img" alt="" class="modal-img"></div>
+      <div class="modal-content-col">
+        <h2 id="modal-title-el" class="modal-title"></h2>
+        <div class="modal-meta"><span id="modal-price" class="modal-price-badge"></span><span id="modal-duur" class="modal-duur-badge"></span></div>
+        <div id="modal-desc" class="modal-desc"></div>
+        <p id="modal-list-label" class="modal-benefits-label"></p>
+        <ul id="modal-benefits" class="modal-benefits"></ul>
+        <a href="afspraak.html" class="btn-primary modal-cta">Afspraak maken</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-  // Nav scroll — tracks announcement bar height + appears after hero
+  // Menu: blijft onder de balk hangen zolang die in beeld is; krijgt de vaste achtergrond voorbij de held
   const nav = document.getElementById('main-nav');
   const heroEl = document.getElementById('hero');
   const announcementBar = document.getElementById('announcement-bar');
 
   function updateNav() {
-    // Keep nav below announcement bar as it scrolls away
     const barBottom = Math.max(0, announcementBar.getBoundingClientRect().bottom);
     nav.style.top = barBottom + 'px';
-    // Show solid background after hero
     const heroBottom = heroEl.getBoundingClientRect().bottom;
     nav.classList.toggle('scrolled', heroBottom < window.innerHeight * 0.5);
   }
 
   window.addEventListener('scroll', updateNav, { passive: true });
-  updateNav(); // set initial position
+  window.addEventListener('resize', updateNav, { passive: true });
+  updateNav();
 
-  // Mobile menu
+  // Mobiel menu
   (function() {
-    const menu     = document.getElementById('mobile-menu');
-    const openBtn  = document.getElementById('hamburger-btn');
+    const menu = document.getElementById('mobile-menu');
+    const openBtn = document.getElementById('hamburger-btn');
     const closeBtn = document.getElementById('mobile-close-btn');
-    function openMenu() {
-      menu.classList.add('is-open');
-      menu.offsetHeight;
-      menu.classList.add('is-visible');
-      document.body.style.overflow = 'hidden';
-      closeBtn.focus();
-    }
-    function closeMenu() {
-      menu.classList.remove('is-visible');
-      document.body.style.overflow = '';
-      menu.addEventListener('transitionend', function handler(e) {
-        if (e.propertyName === 'opacity') {
-          menu.classList.remove('is-open');
-          menu.removeEventListener('transitionend', handler);
-        }
-      });
-      openBtn.focus();
-    }
+    function openMenu() { menu.classList.add('is-open'); menu.offsetHeight; menu.classList.add('is-visible'); document.body.style.overflow = 'hidden'; closeBtn.focus(); }
+    function closeMenu() { menu.classList.remove('is-visible'); document.body.style.overflow = ''; menu.addEventListener('transitionend', function h(e) { if (e.propertyName === 'opacity') { menu.classList.remove('is-open'); menu.removeEventListener('transitionend', h); } }); openBtn.focus(); }
     openBtn.addEventListener('click', openMenu);
     closeBtn.addEventListener('click', closeMenu);
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-visible')) closeMenu(); });
     menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
   })();
 
-  // Scroll reveal → zie animations.js
+  // Scroll-reveal → zie animations.js
 
-  // Cinematic section — unmute toggle
-  (function() {
-    const vid = document.getElementById('cinematic-vid');
-    const btn = document.getElementById('cinematic-unmute');
-    if (!vid || !btn) return;
-    const iconMuted = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>`;
-    const iconSound = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>`;
-    btn.addEventListener('click', () => {
-      vid.muted = !vid.muted;
-      btn.innerHTML = vid.muted ? iconMuted : iconSound;
-    });
-  })();
-
-  // Before/After Slider
+  // Voor/na-schuif
   const slider = document.getElementById('ba-slider');
   const afterImg = document.getElementById('ba-after-img');
   const handle = document.getElementById('ba-handle');
@@ -1097,7 +750,7 @@
 </script>
 
 <script>
-/* ── Animated hero word ── */
+/* ── Wisselend woord in de held ── */
 (function () {
   const words = ["beste", "mooiste", "puurste", "meest stralende", "meest verwennende"];
   let idx = 0;
@@ -1105,7 +758,7 @@
   if (!el) return;
 
   function cycleWord() {
-    // Slide current word out upward
+    // Huidige woord schuift omhoog weg
     el.style.transition = 'transform 1.95s cubic-bezier(0.4,0,0.2,1), opacity 1.85s ease';
     el.style.transform = 'translateY(-110%)';
     el.style.opacity = '0';
@@ -1113,11 +766,10 @@
     setTimeout(function () {
       idx = (idx + 1) % words.length;
       el.textContent = words[idx];
-      // Reset position below — no transition
+      // Zet het nieuwe woord onderaan klaar, zonder overgang
       el.style.transition = 'none';
       el.style.transform = 'translateY(110%)';
       el.style.opacity = '0';
-      // Force reflow then spring in
       requestAnimationFrame(function () {
         requestAnimationFrame(function () {
           el.style.transition = 'transform 0.55s cubic-bezier(0.34,1.4,0.64,1), opacity 0.4s ease';
@@ -1132,35 +784,8 @@
 })();
 </script>
 
-<!-- Treatment Modal -->
-<div id="treatment-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-el">
-  <div class="modal-panel">
-    <button type="button" class="modal-close" aria-label="Sluiten">✕</button>
-    <div class="modal-inner">
-      <div class="modal-img-col">
-        <img id="modal-img" alt="" class="modal-img">
-      </div>
-      <div class="modal-content-col">
-        <div class="modal-meta">
-          <span id="modal-price" class="modal-price-badge"></span>
-          <span id="modal-duur" class="modal-duur-badge"></span>
-        </div>
-        <div class="modal-divider"></div>
-        <h2 id="modal-title-el" class="modal-title"></h2>
-        <div id="modal-desc" class="modal-desc"></div>
-        <p id="modal-list-label" class="modal-benefits-label"></p>
-        <ul id="modal-benefits" class="modal-benefits"></ul>
-        <p id="modal-extra-label" class="modal-benefits-label"></p>
-        <p id="modal-extra" class="modal-desc modal-extra"></p>
-        <a href="afspraak.html" class="btn-primary modal-cta">Afspraak maken →</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Venster van de behandelingen: behandeling-venster.js leest alles uit de kaarten -->
+<!-- Venster van de behandelingen: behandeling-venster.js leest alles uit de tegels -->
 <script src="behandeling-venster.js"></script>
-<script src="glowing-effect.js"></script>
 <script src="animations.js" defer></script>
 </body>
 </html>

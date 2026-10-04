@@ -38,8 +38,8 @@
   background: conic-gradient(
     from calc(var(--glow-angle, 0deg) - 40deg),
     transparent          0deg,
-    rgba(122, 92, 32, 0) 5deg,
-    #7A5C20             25deg,
+    rgba(168,136,78, 0) 5deg,
+    #A8884E             25deg,
     #A8884E             40deg,
     #C5A572             55deg,
     #D4B882             68deg,

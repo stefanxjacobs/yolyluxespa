@@ -12,260 +12,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { cream: '#FAF7F2', beige: '#E8DDD3', gold: '#C5A572', 'gold-dark': '#A8884E', brown: '#3A2F2B', 'brown-light': '#5C4D47' },
-          fontFamily: { serif: ['Playfair Display', 'Georgia', 'serif'], sans: ['DM Sans', 'system-ui', 'sans-serif'] },
-        }
-      }
-    }
+    tailwind.config = { corePlugins: { preflight: false }, theme: { extend: {
+      colors: { cream: '#FAF7F2', beige: '#E8DDD3', gold: '#C5A572', 'gold-dark': '#A8884E', brown: '#3A2F2B', 'brown-light': '#5C4D47' },
+      fontFamily: { serif: ['Playfair Display', 'Georgia', 'serif'], sans: ['DM Sans', 'system-ui', 'sans-serif'] } } } }
   </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', system-ui, sans-serif; background: #FAF7F2; color: #3A2F2B; overflow-x: hidden; }
-    :root { --cream: #FAF7F2; --beige: #E8DDD3; --gold: #C5A572; --gold-dark: #A8884E; --brown: #3A2F2B; --brown-light: #5C4D47; }
-
-    #announcement-bar { background: var(--brown); color: rgba(255,255,255,0.8); text-align: center; padding: 8px 16px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; position: relative; z-index: 60; }
-    #announcement-bar a { color: var(--gold); font-weight: 500; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
-    #announcement-bar a:hover { border-bottom-color: var(--gold); }
-
-    #main-nav { position: sticky; top: 0; z-index: 50; transition: background 0.35s ease, box-shadow 0.35s ease; background: rgba(250,247,242,0.97); box-shadow: 0 1px 0 rgba(58,47,43,0.08); }
-    .nav-inner { padding: 0 48px; height: 68px; display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; }
-    .nav-logo img { height: 64px; width: auto; object-fit: contain; }
-    .nav-links { display: flex; align-items: center; gap: 40px; }
-    .nav-link { font-size: 11.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brown-light); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.2s ease, transform 0.12s ease; }
-    .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.2s ease; }
-    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-    .nav-link:active { transform: translateY(2px) scale(0.95); }
-    .nav-link:hover, .nav-link.active { color: var(--brown); }
-    .nav-hamburger { display: none; flex-direction: column; gap: 8px; cursor: pointer; padding: 4px; background: none; border: none; }
-    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--brown); }
-    /* ── Mobile Menu Overlay ── */
-    #mobile-menu { display: none; position: fixed; inset: 0; z-index: 200; background-color: rgba(26,18,14,0.97); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); flex-direction: column; overflow: hidden; opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.25,0.1,0.25,1); }
-    #mobile-menu.is-open { display: flex; pointer-events: all; }
-    #mobile-menu.is-visible { opacity: 1; }
-    .mmenu-header { display: flex; align-items: center; justify-content: space-between; padding: 24px 24px 0; flex-shrink: 0; }
-    .mmenu-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
-    .mmenu-close { background: none; border: none; cursor: pointer; padding: 8px; color: rgba(250,247,242,0.7); display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: color 0.2s, background 0.2s; }
-    .mmenu-close:hover { color: var(--gold); background: rgba(197,165,114,0.12); }
-    .mmenu-close:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-    .mmenu-close:active { transform: scale(0.92); }
-    .mmenu-nav { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 48px; }
-    .mmenu-link { display: block; font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 400; color: rgba(250,247,242,0.88); text-decoration: none; letter-spacing: -0.03em; line-height: 1.2; padding: 16px 0; border-bottom: 1px solid rgba(197,165,114,0.12); opacity: 0; transform: translateX(-24px); transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1), color 0.2s; }
-    .mmenu-link:last-child { border-bottom: none; }
-    .mmenu-link:hover { color: var(--gold); }
-    .mmenu-link:active { transform: translateX(4px); }
-    .mmenu-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px; }
-    .mmenu-link--active { color: var(--gold); }
-    .mmenu-link:nth-child(1) { transition-delay: 0s; } .mmenu-link:nth-child(2) { transition-delay: 0.05s; } .mmenu-link:nth-child(3) { transition-delay: 0.10s; } .mmenu-link:nth-child(4) { transition-delay: 0.15s; } .mmenu-link:nth-child(5) { transition-delay: 0.20s; }
-    #mobile-menu.is-visible .mmenu-link { opacity: 1; transform: translateX(0); }
-    #mobile-menu:not(.is-visible) .mmenu-link { transition-delay: 0s !important; }
-    .mmenu-footer { padding: 32px 24px 40px; flex-shrink: 0; }
-    .mmenu-cta { width: 100% !important; min-width: 0 !important; display: flex !important; justify-content: center; }
-
-    .page-hero { background: var(--beige); padding: 96px 48px 80px; text-align: center; }
-    .section-label { font-size: 10.5px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; letter-spacing: -0.03em; line-height: 1.15; color: var(--brown); }
-    .section-title.light { color: #fff; }
-    .section-body { font-size: 15px; font-weight: 300; line-height: 1.75; color: var(--brown-light); max-width: 520px; }
-
-    .treatments-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
-    .treatment-card { overflow: hidden; display: flex; flex-direction: column; text-decoration: none; background: var(--cream); cursor: pointer; }
-    .treatment-card-img-wrap { overflow: hidden; aspect-ratio: 4/3; position: relative; flex-shrink: 0; }
-    .treatment-card-img-wrap::after { content: ''; position: absolute; inset: 0; border: 3px solid rgba(197,165,114,0.65); pointer-events: none; z-index: 1; }
-    .treatment-card-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.25,0.1,0.25,1); }
-    .treatment-card:hover .treatment-card-img { transform: scale(1.04); }
-    .treatment-card-body { padding: 24px 32px 40px; border-bottom: 1px solid var(--beige); flex: 1; display: flex; flex-direction: column; }
-    .treatment-card-price { font-size: 12px; font-weight: 300; color: var(--gold); letter-spacing: 0.04em; margin-bottom: 8px; }
-    .treatment-card-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; color: var(--brown); letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 8px; }
-    .treatment-card-desc { font-size: 14px; font-weight: 300; color: var(--brown-light); line-height: 1.65; margin-bottom: 16px; }
-    .btn-small { font-size: 10.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown); border-bottom: 1px solid var(--gold); padding-bottom: 2px; text-decoration: none; transition: color 0.2s; display: inline-block; }
-    .btn-small:hover { color: var(--gold-dark); }
-    .btn-small:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: 4px; border-radius: 2px; }
-    .btn-small:active { color: var(--gold-dark); transform: translateY(1px); }
-    .treatment-card:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: -2px; }
-    .treatment-card:active .treatment-card-img { transform: scale(1.02); }
-    .treatment-card-lead { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; font-weight: 400; color: var(--brown); line-height: 1.5; margin-bottom: 16px; }
-    .treatment-card-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-dark); margin: 8px 0 12px; }
-    .treatment-card-list { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 8px; }
-    .treatment-card-list li { font-size: 13.5px; font-weight: 300; color: var(--brown); line-height: 1.55; display: flex; align-items: flex-start; gap: 8px; }
-    .treatment-card-list li::before { content: '✦'; color: var(--gold); font-size: 9px; flex-shrink: 0; margin-top: 5px; }
-    .treatment-card-extra { font-size: 14px; font-weight: 300; color: var(--brown-light); line-height: 1.65; margin-bottom: 16px; }
-    .treatment-card-foot { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--beige); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; }
-    .treatment-card-duur { font-size: 12px; font-weight: 300; letter-spacing: 0.06em; color: var(--brown-light); }
-    .page-hero-intro { font-size: 15px; font-weight: 300; color: var(--brown-light); line-height: 1.75; max-width: 600px; margin: 16px auto 0; }
-    .page-hero-intro + .page-hero-intro { margin-top: 8px; }
-
-    /* ── Video bento grid ── */
-    .video-bento-section { background: var(--brown); padding: 96px 48px; }
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: 400px 400px;
-      gap: 16px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .bento-item {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      transition: box-shadow 0.25s ease;
-    }
-    .bento-item:hover { box-shadow: 0 0 0 2px var(--gold), 0 8px 32px rgba(197,165,114,0.18); }
-    .bento-item.wide { grid-column: span 2; }
-    .bento-item.full { grid-column: span 3; }
-    .bento-item video { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .bento-label {
-      position: absolute; bottom: 16px; left: 16px;
-      background: rgba(250,247,242,0.1);
-      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(197,165,114,0.35);
-      border-radius: 99px;
-      padding: 6px 14px;
-      font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
-      color: rgba(250,247,242,0.92);
-      pointer-events: none;
-    }
-
-
-    /* ── Reveal animations → zie animations.css ── */
-
-    #footer { background: var(--brown); padding: 72px 48px 40px; }
-    .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
-    .footer-logo { height: 48px; filter: none; opacity: 1; margin-bottom: 16px; background: #FAF7F2; border-radius: 6px; padding: 4px 8px; }
-    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 24px; max-width: 240px; }
-    .footer-social { display: flex; gap: 16px; }
-    .footer-social a { color: rgba(255,255,255,0.45); transition: color 0.2s; }
-    .footer-social a:hover { color: var(--gold); }
-    .footer-social svg { width: 18px; height: 18px; }
-    .footer-col-title { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
-    .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: #fff; }
-    .footer-contact-item { display: flex; gap: 8px; margin-bottom: 16px; }
-    .footer-contact-item svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
-    .footer-contact-item span { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
-    .footer-newsletter form { display: flex; }
-    .footer-newsletter input { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 16px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; transition: border-color 0.2s; }
-    .footer-newsletter input::placeholder { color: rgba(255,255,255,0.3); }
-    .footer-newsletter input:focus { border-color: var(--gold); }
-    .footer-newsletter button { background: var(--gold); color: var(--brown); padding: 16px 24px; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
-    .footer-newsletter button:hover { background: var(--gold-dark); color: #fff; }
-    .footer-bottom { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
-    .footer-legal { display: flex; gap: 24px; }
-    .footer-legal a { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; }
-    .footer-legal a:hover { color: rgba(255,255,255,0.6); }
-
-
-    @media (max-width: 1024px) { .treatments-grid { grid-template-columns: repeat(2, 1fr); } .footer-inner { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 768px) { .nav-links, .nav-cta { display: none; } .nav-hamburger { display: flex; } .nav-inner { padding: 0 24px; } .treatments-grid { grid-template-columns: 1fr; } .footer-inner { grid-template-columns: 1fr; gap: 32px; } #footer { padding: 48px 24px 32px; } .page-hero { padding: 80px 24px 64px; } .video-bento-section { padding: 64px 20px; } .bento-grid { grid-template-columns: 1fr; grid-template-rows: none; gap: 12px; } .bento-item, .bento-item.wide { grid-column: span 1; aspect-ratio: 9/16; } .bento-item.full { grid-column: span 1; aspect-ratio: 16/9; } }
-
-    /* ── Yoly Luxe Packages + slotblok ── */
-    .packages-section { background: var(--beige); padding: 96px 48px; }
-    .packages-head { text-align: center; margin-bottom: 56px; }
-    .packages-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto; }
-    .package-group { background: var(--cream); border: 1px solid rgba(197,165,114,0.35); padding: 40px 32px 24px; min-width: 0; box-shadow: 0 1px 2px rgba(58,47,43,0.04), 0 12px 32px rgba(58,47,43,0.06); }
-    .package-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; color: var(--brown); letter-spacing: -0.02em; line-height: 1.3; margin: 0 0 16px; }
-    .package-list { list-style: none; padding: 0; margin: 0; }
-    .package-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 16px 0; border-top: 1px solid var(--beige); }
-    .package-count { font-size: 14px; font-weight: 300; color: var(--brown-light); line-height: 1.5; }
-    .package-price { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; color: var(--gold-dark); letter-spacing: -0.01em; white-space: nowrap; }
-    .closing-section { background: var(--beige); padding: 96px 48px; text-align: center; }
-    .closing-inner { max-width: 560px; margin: 0 auto; }
-    .closing-text { font-size: 15px; font-weight: 300; color: var(--brown-light); line-height: 1.75; margin: 0 0 16px; }
-    .closing-text:last-of-type { margin-bottom: 32px; }
-    @media (max-width: 768px) { .packages-section, .closing-section { padding: 64px 24px; } .packages-head { margin-bottom: 40px; } .packages-grid { grid-template-columns: 1fr; gap: 16px; } .package-group { padding: 32px 24px 16px; } }
-
-    /* ── Treatment Modal ────────────────────────────── */
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 200;
-      background: rgba(58,47,43,0.72);
-      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center; padding: 24px;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal-panel {
-      background: var(--cream); border-radius: 4px;
-      max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto;
-      position: relative;
-      transform: translateY(32px);
-      transition: transform 0.38s cubic-bezier(0.25,0.1,0.25,1);
-      box-shadow: 0 32px 96px rgba(58,47,43,0.28), 0 4px 20px rgba(58,47,43,0.12);
-    }
-    .modal-overlay.open .modal-panel { transform: translateY(0); }
-    .modal-close {
-      position: absolute; top: 16px; right: 16px; z-index: 10;
-      background: none; border: none; font-size: 18px; color: var(--brown-light);
-      cursor: pointer; width: 36px; height: 36px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, color 0.2s;
-    }
-    .modal-close:hover { background: var(--beige); color: var(--gold-dark); }
-    .modal-close:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: 2px; }
-    .modal-close:active { transform: scale(0.92); }
-    .modal-panel [hidden] { display: none; }
-    .modal-inner { display: grid; grid-template-columns: 1fr 1fr; min-height: 460px; }
-    .modal-img-col { overflow: hidden; border-radius: 4px 0 0 4px; position: relative; }
-    .modal-img-col::after { content: ''; position: absolute; inset: 0; border: 3px solid rgba(197,165,114,0.65); pointer-events: none; border-radius: 4px 0 0 4px; z-index: 1; }
-    .modal-img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 320px; }
-    .modal-content-col { padding: 56px 48px 48px; display: flex; flex-direction: column; }
-    .modal-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
-    .modal-price-badge {
-      font-size: 12.5px; font-weight: 400; color: var(--gold-dark); letter-spacing: 0.05em;
-      background: rgba(197,165,114,0.12); border: 1px solid rgba(197,165,114,0.3);
-      padding: 8px 16px; border-radius: 100px;
-    }
-    .modal-duur-badge {
-      font-size: 12px; font-weight: 300; color: var(--brown-light); letter-spacing: 0.06em;
-    }
-    .modal-divider { width: 32px; height: 1px; background: var(--gold); opacity: 0.4; margin-bottom: 16px; }
-    .modal-title {
-      font-family: 'Playfair Display', serif; font-size: clamp(1.4rem,2.2vw,1.9rem);
-      font-weight: 400; color: var(--brown); letter-spacing: -0.02em;
-      line-height: 1.2; margin-bottom: 16px;
-    }
-    .modal-desc {
-      font-size: 13.5px; font-weight: 300; color: var(--brown-light);
-      line-height: 1.78; margin-bottom: 24px;
-    }
-    .modal-desc p + p { margin-top: 12px; }
-    .modal-benefits-label {
-      font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 16px;
-    }
-    .modal-benefits {
-      list-style: none; padding: 0; margin: 0 0 24px;
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    .modal-benefits li {
-      font-size: 13px; font-weight: 300; color: var(--brown);
-      display: flex; align-items: flex-start; gap: 8px; line-height: 1.55;
-    }
-    .modal-benefits li::before { content: '✦'; color: var(--gold); font-size: 9px; flex-shrink: 0; margin-top: 4px; }
-    .modal-cta { margin-top: auto; align-self: flex-start; text-decoration: none; }
-    .modal-extra { margin-bottom: 32px; }
-    @media (max-width: 640px) {
-      .modal-inner { grid-template-columns: 1fr; }
-      .modal-img-col { height: 200px; border-radius: 4px 4px 0 0; }
-      .modal-img { min-height: 200px; }
-      .modal-content-col { padding: 32px 24px 40px; }
-    }
-  </style>
   <link rel="stylesheet" href="buttons.css">
-  <link rel="stylesheet" href="glowing-effect.css">
   <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="theme.css">
 </head>
 <body>
 
 <div id="announcement-bar">
   Nieuw: <strong>Yoly Luxe Packages.</strong> Voordeliger bij 3 of 5 behandelingen.
-  <a href="#packages">Bekijk de pakketten →</a>
+  <a href="#packages">Bekijk de pakketten</a>
 </div>
 
 <nav id="main-nav">
@@ -273,13 +32,13 @@
     <a href="index.html" class="nav-logo"><img src="media/fotos/Yoly_logo_transparant 1.png" alt="YolyLuxeSpa"></a>
     <div class="nav-links">
       <a href="index.html" class="nav-link">Home</a>
-      <a href="behandelingen.html" class="nav-link active">Behandelingen</a>
+      <a href="behandelingen.html" class="nav-link active" aria-current="page">Behandelingen</a>
       <a href="over.html" class="nav-link">Over</a>
       <a href="blog.html" class="nav-link">Blog</a>
       <a href="contact.html" class="nav-link">Contact</a>
     </div>
     <a href="afspraak.html" class="nav-cta">Reserveer</a>
-    <button class="nav-hamburger" id="hamburger-btn"><span></span><span></span><span></span></button>
+    <button class="nav-hamburger" id="hamburger-btn" aria-label="Menu openen"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -287,260 +46,235 @@
   <div class="mmenu-header">
     <span class="mmenu-label">Menu</span>
     <button class="mmenu-close" id="mobile-close-btn" aria-label="Menu sluiten">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/>
-      </svg>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/></svg>
     </button>
   </div>
   <nav class="mmenu-nav">
-    <a href="index.html"          class="mmenu-link">Home</a>
-    <a href="behandelingen.html"  class="mmenu-link mmenu-link--active">Behandelingen</a>
-    <a href="over.html"           class="mmenu-link">Over</a>
-    <a href="blog.html"           class="mmenu-link">Blog</a>
-    <a href="contact.html"        class="mmenu-link">Contact</a>
+    <a href="index.html" class="mmenu-link">Home</a>
+    <a href="behandelingen.html" class="mmenu-link mmenu-link--active">Behandelingen</a>
+    <a href="over.html" class="mmenu-link">Over</a>
+    <a href="blog.html" class="mmenu-link">Blog</a>
+    <a href="contact.html" class="mmenu-link">Contact</a>
   </nav>
-  <div class="mmenu-footer">
-    <a href="afspraak.html" class="btn-primary mmenu-cta">Reserveer nu</a>
-  </div>
+  <div class="mmenu-footer"><a href="afspraak.html" class="btn-primary mmenu-cta">Reserveer nu</a></div>
 </div>
 
-<!-- Page Hero -->
-<section class="page-hero">
-  <div style="max-width:860px; margin:0 auto;" class="reveal">
-    <p class="section-label">Yoly Luxe</p>
-    <h1 class="section-title" style="font-size:clamp(1.7rem,5vw,4rem);">Professionele gezichtsbehandelingen</h1>
-    <p class="page-hero-intro">Ontdek een moment voor jezelf met professionele huidverzorging, afgestemd op de behoeften van jouw huid.</p>
-    <p class="page-hero-intro">Bij Yoly Luxe staat een gezonde, stralende en verzorgde huid centraal.</p>
+<!-- Paginakop: Yoly's inleiding -->
+<header class="page-hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1 class="display">Professionele gezichtsbehandelingen</h1>
+      <p class="lead">Ontdek een moment voor jezelf met professionele huidverzorging, afgestemd op de behoeften van jouw huid.</p>
+      <p class="lead">Bij Yoly Luxe staat een gezonde, stralende en verzorgde huid centraal.</p>
+      <nav class="jump" aria-label="Ga naar een behandeling">
+        <a href="#basis">Basic Facial</a>
+        <a href="#diepe">Deep Clean Facial</a>
+        <a href="#hydrafacial">HydraFacial</a>
+        <a href="#dermapen">Dermapen</a>
+        <a href="#lips">Lip Hydration</a>
+        <a href="#melanin">Melanin Glow</a>
+        <a href="#packages">Packages</a>
+      </nav>
+    </div>
+    <div class="media hero-media">
+      <img src="media/fotos/Yoly aan het werk.jpeg" alt="Yoly aan het werk in haar salon">
+    </div>
   </div>
-</section>
+</header>
 
-<!-- Treatments Grid -->
-<section style="padding: 80px 0 0; background: var(--cream);">
-  <div style="max-width:1400px; margin:0 auto; padding:0 48px; margin-bottom:48px;" class="reveal">
-    <p class="section-label">Alle behandelingen</p>
-  </div>
-  <div class="treatments-grid">
-    <div id="basis" data-treatment="basis" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
-      <div class="treatment-card-img-wrap">
-        <img src="media/fotos/basis behandeling yoly.jpg" alt="Yoly Luxe Basic Facial" class="treatment-card-img">
-      </div>
-      <div class="treatment-card-body reveal-fade">
-        <p class="treatment-card-price" data-veld="prijs">€55</p>
-        <h2 class="treatment-card-name" data-veld="naam">Yoly Luxe Basic Facial</h2>
-        <p class="treatment-card-desc" data-veld="zin">Een zachte en verzorgende gezichtsbehandeling voor een frisse, schone en verzorgde huid.</p>
-        <p class="treatment-card-label" data-veld="lijstkop">De behandeling omvat</p>
-        <ul class="treatment-card-list">
-          <li>Reiniging van de huid</li>
-          <li>Diepe reiniging</li>
-          <li>Exfoliatie</li>
-          <li>Masker afgestemd op de huid</li>
-          <li>Hydratatie</li>
-          <li>Verzorgende afsluiting</li>
+<!-- De 6 behandelingen -->
+<main class="menu">
+  <div class="wrap">
+
+    <article id="basis" data-treatment="basis" class="t-row reveal-fade">
+      <button type="button" class="media t-media" data-open-venster aria-label="Bekijk Yoly Luxe Basic Facial in een venster">
+        <img src="media/fotos/basis behandeling yoly.jpg" alt="Yoly Luxe Basic Facial">
+      </button>
+      <div class="t-body">
+        <div class="t-head"><h2 class="t-name" data-veld="naam">Yoly Luxe Basic Facial</h2><span class="t-leader" aria-hidden="true"></span><p class="t-price" data-veld="prijs">€55</p></div>
+        <p class="t-desc" data-veld="zin">Een zachte en verzorgende gezichtsbehandeling voor een frisse, schone en verzorgde huid.</p>
+        <h3 class="t-list-title" data-veld="lijstkop">De behandeling omvat</h3>
+        <ul class="t-list">
+          <li>Reiniging van de huid</li><li>Diepe reiniging</li><li>Exfoliatie</li>
+          <li>Masker afgestemd op de huid</li><li>Hydratatie</li><li>Verzorgende afsluiting</li>
         </ul>
-        <p class="treatment-card-label" data-veld="extra-kop">Ideaal voor</p>
-        <p class="treatment-card-extra" data-veld="extra">Een eerste kennismaking met professionele gezichtsverzorging of als regelmatig onderhoud van de huid.</p>
-        <div class="treatment-card-foot">
-          <span class="treatment-card-duur" data-veld="duur">± 60 min</span>
-          <a href="afspraak.html" class="btn-small">Afspraak maken →</a>
+        <p class="t-note"><strong data-veld="extra-kop">Ideaal voor</strong> <span data-veld="extra">Een eerste kennismaking met professionele gezichtsverzorging of als regelmatig onderhoud van de huid.</span></p>
+        <div class="t-foot">
+          <a href="afspraak.html" class="btn-primary">Afspraak maken</a>
+          <span class="t-duur" data-veld="duur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg>± 60 min</span>
         </div>
       </div>
-    </div>
-    <div id="diepe" data-treatment="diepe" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
-      <div class="treatment-card-img-wrap">
-        <img src="media/fotos/diep gezichtsbehandeling.jpg" alt="Deep Clean Facial" class="treatment-card-img">
-      </div>
-      <div class="treatment-card-body reveal-fade reveal-d1">
-        <p class="treatment-card-price" data-veld="prijs">€75</p>
-        <h2 class="treatment-card-name" data-veld="naam">Deep Clean Facial</h2>
-        <p class="treatment-card-desc" data-veld="zin">Een intensievere gezichtsbehandeling gericht op het grondig reinigen van de huid en het verwijderen van onzuiverheden.</p>
-        <p class="treatment-card-label" data-veld="lijstkop">De behandeling omvat</p>
-        <ul class="treatment-card-list">
-          <li>Dubbele reiniging</li>
-          <li>Exfoliatie</li>
-          <li>Intensieve poriënreiniging</li>
-          <li>Verwijdering van mee-eters en onzuiverheden</li>
-          <li>Verzorgend masker</li>
-          <li>Hydratatie</li>
+    </article>
+
+    <article id="diepe" data-treatment="diepe" class="t-row reveal-fade">
+      <button type="button" class="media t-media" data-open-venster aria-label="Bekijk Deep Clean Facial in een venster">
+        <img src="media/fotos/diep gezichtsbehandeling.jpg" alt="Deep Clean Facial">
+      </button>
+      <div class="t-body">
+        <div class="t-head"><h2 class="t-name" data-veld="naam">Deep Clean Facial</h2><span class="t-leader" aria-hidden="true"></span><p class="t-price" data-veld="prijs">€75</p></div>
+        <p class="t-desc" data-veld="zin">Een intensievere gezichtsbehandeling gericht op het grondig reinigen van de huid en het verwijderen van onzuiverheden.</p>
+        <h3 class="t-list-title" data-veld="lijstkop">De behandeling omvat</h3>
+        <ul class="t-list">
+          <li>Dubbele reiniging</li><li>Exfoliatie</li><li>Intensieve poriënreiniging</li>
+          <li>Verwijdering van mee-eters en onzuiverheden</li><li>Verzorgend masker</li><li>Hydratatie</li>
           <li>Afwerking met passende huidverzorging</li>
         </ul>
-        <p class="treatment-card-label" data-veld="extra-kop">Ideaal voor</p>
-        <p class="treatment-card-extra" data-veld="extra">Een huid met verstopte poriën, mee-eters en zichtbare onzuiverheden.</p>
-        <div class="treatment-card-foot">
-          <span class="treatment-card-duur" data-veld="duur">± 75 min</span>
-          <a href="afspraak.html" class="btn-small">Afspraak maken →</a>
+        <p class="t-note"><strong data-veld="extra-kop">Ideaal voor</strong> <span data-veld="extra">Een huid met verstopte poriën, mee-eters en zichtbare onzuiverheden.</span></p>
+        <div class="t-foot">
+          <a href="afspraak.html" class="btn-primary">Afspraak maken</a>
+          <span class="t-duur" data-veld="duur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg>± 75 min</span>
         </div>
       </div>
-    </div>
-    <div id="hydrafacial" data-treatment="hydrafacial" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
-      <div class="treatment-card-img-wrap">
-        <img src="media/fotos/steaming foto.jpg" alt="HydraFacial" class="treatment-card-img">
-      </div>
-      <div class="treatment-card-body reveal-fade reveal-d2">
-        <p class="treatment-card-price" data-veld="prijs">€95</p>
-        <h2 class="treatment-card-name" data-veld="naam">HydraFacial</h2>
-        <p class="treatment-card-desc" data-veld="zin">Een intensieve behandeling voor een diep gereinigde, gehydrateerde en stralende huid.</p>
-        <p class="treatment-card-desc" data-veld="zin">De huid wordt grondig gereinigd en onzuiverheden worden verwijderd, terwijl de huid tegelijkertijd wordt verzorgd en gehydrateerd.</p>
-        <p class="treatment-card-label" data-veld="lijstkop">De behandeling omvat</p>
-        <ul class="treatment-card-list">
-          <li>Reiniging</li>
-          <li>Exfoliatie</li>
-          <li>Diepe poriënreiniging</li>
-          <li>Verwijdering van onzuiverheden</li>
-          <li>Intensieve hydratatie</li>
-          <li>Verzorgende finishing treatment</li>
+    </article>
+
+    <article id="hydrafacial" data-treatment="hydrafacial" class="t-row reveal-fade">
+      <button type="button" class="media t-media" data-open-venster aria-label="Bekijk HydraFacial in een venster">
+        <img src="media/fotos/steaming foto.jpg" alt="HydraFacial">
+      </button>
+      <div class="t-body">
+        <div class="t-head"><h2 class="t-name" data-veld="naam">HydraFacial</h2><span class="t-leader" aria-hidden="true"></span><p class="t-price" data-veld="prijs">€95</p></div>
+        <p class="t-desc" data-veld="zin">Een intensieve behandeling voor een diep gereinigde, gehydrateerde en stralende huid.</p>
+        <p class="t-desc" data-veld="zin">De huid wordt grondig gereinigd en onzuiverheden worden verwijderd, terwijl de huid tegelijkertijd wordt verzorgd en gehydrateerd.</p>
+        <h3 class="t-list-title" data-veld="lijstkop">De behandeling omvat</h3>
+        <ul class="t-list">
+          <li>Reiniging</li><li>Exfoliatie</li><li>Diepe poriënreiniging</li>
+          <li>Verwijdering van onzuiverheden</li><li>Intensieve hydratatie</li><li>Verzorgende finishing treatment</li>
         </ul>
-        <p class="treatment-card-label" data-veld="extra-kop">Resultaat</p>
-        <p class="treatment-card-extra" data-veld="extra">Een frisse, zachte en zichtbaar stralende huid.</p>
-        <div class="treatment-card-foot">
-          <span class="treatment-card-duur" data-veld="duur">± 75–90 min</span>
-          <a href="afspraak.html" class="btn-small">Afspraak maken →</a>
+        <p class="t-note"><strong data-veld="extra-kop">Resultaat</strong> <span data-veld="extra">Een frisse, zachte en zichtbaar stralende huid.</span></p>
+        <div class="t-foot">
+          <a href="afspraak.html" class="btn-primary">Afspraak maken</a>
+          <span class="t-duur" data-veld="duur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg>± 75–90 min</span>
         </div>
       </div>
-    </div>
-    <div id="dermapen" data-treatment="dermapen" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
-      <div class="treatment-card-img-wrap">
-        <img src="media/fotos/puisten trekker foto.jpg" alt="Dermapen" class="treatment-card-img">
-      </div>
-      <div class="treatment-card-body reveal-fade">
-        <p class="treatment-card-price" data-veld="prijs">€55</p>
-        <h2 class="treatment-card-name" data-veld="naam">Dermapen</h2>
-        <p class="treatment-card-desc" data-veld="zin">Een professionele behandeling die de huid stimuleert en de natuurlijke huidvernieuwing ondersteunt.</p>
-        <p class="treatment-card-desc" data-veld="zin">Dermapen wordt toegepast om de huidtextuur te verfijnen en de huid een gladdere en egalere uitstraling te geven.</p>
-        <p class="treatment-card-label" data-veld="lijstkop">Geschikt voor</p>
-        <ul class="treatment-card-list">
-          <li>Oneffen huidstructuur</li>
-          <li>Grove poriën</li>
-          <li>Huid die haar glans heeft verloren</li>
-          <li>Fijne lijntjes</li>
-          <li>Acne-littekentjes</li>
+    </article>
+
+    <article id="dermapen" data-treatment="dermapen" class="t-row reveal-fade">
+      <button type="button" class="media t-media" data-open-venster aria-label="Bekijk Dermapen in een venster">
+        <img src="media/fotos/puisten trekker foto.jpg" alt="Dermapen">
+      </button>
+      <div class="t-body">
+        <div class="t-head"><h2 class="t-name" data-veld="naam">Dermapen</h2><span class="t-leader" aria-hidden="true"></span><p class="t-price" data-veld="prijs">€55</p></div>
+        <p class="t-desc" data-veld="zin">Een professionele behandeling die de huid stimuleert en de natuurlijke huidvernieuwing ondersteunt.</p>
+        <p class="t-desc" data-veld="zin">Dermapen wordt toegepast om de huidtextuur te verfijnen en de huid een gladdere en egalere uitstraling te geven.</p>
+        <h3 class="t-list-title" data-veld="lijstkop">Geschikt voor</h3>
+        <ul class="t-list">
+          <li>Oneffen huidstructuur</li><li>Grove poriën</li><li>Huid die haar glans heeft verloren</li>
+          <li>Fijne lijntjes</li><li>Acne-littekentjes</li>
         </ul>
-        <div class="treatment-card-foot">
-          <span class="treatment-card-duur" data-veld="duur">± 45–60 min</span>
-          <a href="afspraak.html" class="btn-small">Afspraak maken →</a>
+        <div class="t-foot">
+          <a href="afspraak.html" class="btn-primary">Afspraak maken</a>
+          <span class="t-duur" data-veld="duur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg>± 45–60 min</span>
         </div>
       </div>
-    </div>
-    <div id="lips" data-treatment="lips" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
-      <div class="treatment-card-img-wrap">
-        <img src="media/fotos/glossy lips rose.jpg" alt="Lip Hydration" class="treatment-card-img">
-      </div>
-      <div class="treatment-card-body reveal-fade reveal-d1">
-        <p class="treatment-card-price" data-veld="prijs">€30</p>
-        <h2 class="treatment-card-name" data-veld="naam">Lip Hydration</h2>
-        <p class="treatment-card-desc" data-veld="zin">Een verzorgende behandeling voor zachte, gehydrateerde en mooi verzorgde lippen.</p>
-        <p class="treatment-card-label" data-veld="lijstkop">De behandeling omvat</p>
-        <ul class="treatment-card-list">
-          <li>Zachte exfoliatie</li>
-          <li>Intensieve hydratatie</li>
-          <li>Verzorgende lip treatment</li>
+    </article>
+
+    <article id="lips" data-treatment="lips" class="t-row reveal-fade">
+      <button type="button" class="media t-media" data-open-venster aria-label="Bekijk Lip Hydration in een venster">
+        <img src="media/fotos/glossy lips rose.jpg" alt="Lip Hydration">
+      </button>
+      <div class="t-body">
+        <div class="t-head"><h2 class="t-name" data-veld="naam">Lip Hydration</h2><span class="t-leader" aria-hidden="true"></span><p class="t-price" data-veld="prijs">€30</p></div>
+        <p class="t-desc" data-veld="zin">Een verzorgende behandeling voor zachte, gehydrateerde en mooi verzorgde lippen.</p>
+        <h3 class="t-list-title" data-veld="lijstkop">De behandeling omvat</h3>
+        <ul class="t-list">
+          <li>Zachte exfoliatie</li><li>Intensieve hydratatie</li><li>Verzorgende lip treatment</li>
         </ul>
-        <p class="treatment-card-extra" data-veld="extra">Perfect als kleine beauty treatment of als aanvulling op een gezichtsbehandeling.</p>
-        <div class="treatment-card-foot">
-          <span class="treatment-card-duur" data-veld="duur">± 20–30 min</span>
-          <a href="afspraak.html" class="btn-small">Afspraak maken →</a>
+        <p class="t-note" data-veld="extra">Perfect als kleine beauty treatment of als aanvulling op een gezichtsbehandeling.</p>
+        <div class="t-foot">
+          <a href="afspraak.html" class="btn-primary">Afspraak maken</a>
+          <span class="t-duur" data-veld="duur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg>± 20–30 min</span>
         </div>
       </div>
-    </div>
-    <div id="melanin" data-treatment="melanin" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
-      <div class="treatment-card-img-wrap">
-        <img src="media/fotos/gouden masker.jpg" alt="Melanin Glow" class="treatment-card-img">
-      </div>
-      <div class="treatment-card-body reveal-fade reveal-d2">
-        <p class="treatment-card-price" data-veld="prijs">Prijs op aanvraag</p>
-        <h2 class="treatment-card-name" data-veld="naam">Melanin Glow</h2>
-        <p class="treatment-card-lead" data-veld="zin">Professionele verzorging voor een mooie, egale en stralende huid</p>
-        <p class="treatment-card-desc" data-veld="zin">Een behandeling speciaal afgestemd op de behoeften van een huid met meer melanine.</p>
-        <p class="treatment-card-desc" data-veld="zin">De focus ligt op een gezonde huidbarrière, hydratatie, een egale uitstraling en een mooie natuurlijke glow.</p>
-        <p class="treatment-card-desc" data-veld="zin">De behandeling wordt afgestemd op de conditie en behoeften van jouw huid.</p>
-        <div class="treatment-card-foot">
-          <a href="afspraak.html" class="btn-small">Afspraak maken →</a>
+    </article>
+
+    <article id="melanin" data-treatment="melanin" class="t-row reveal-fade">
+      <button type="button" class="media t-media" data-open-venster aria-label="Bekijk Melanin Glow in een venster">
+        <img src="media/fotos/gouden masker.jpg" alt="Melanin Glow">
+      </button>
+      <div class="t-body">
+        <div class="t-head"><h2 class="t-name" data-veld="naam">Melanin Glow</h2><span class="t-leader" aria-hidden="true"></span><p class="t-price on-request" data-veld="prijs">Prijs op aanvraag</p></div>
+        <p class="t-sub" data-veld="zin">Professionele verzorging voor een mooie, egale en stralende huid</p>
+        <p class="t-desc" data-veld="zin">Een behandeling speciaal afgestemd op de behoeften van een huid met meer melanine.</p>
+        <p class="t-desc" data-veld="zin">De focus ligt op een gezonde huidbarrière, hydratatie, een egale uitstraling en een mooie natuurlijke glow.</p>
+        <p class="t-desc" data-veld="zin">De behandeling wordt afgestemd op de conditie en behoeften van jouw huid.</p>
+        <div class="t-foot">
+          <a href="afspraak.html" class="btn-primary">Afspraak maken</a>
         </div>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<!-- Pakketten -->
+<section id="packages" class="packages">
+  <div class="wrap">
+    <h2 class="heading on-dark reveal">Yoly Luxe Packages</h2>
+    <div class="pkg-grid">
+      <div data-package="basis" class="pkg reveal">
+        <h3 class="pkg-name">Basic Facial</h3>
+        <ul class="pkg-rows">
+          <li><span>1 behandeling</span><span class="dots" aria-hidden="true"></span><span class="amount">€55</span></li>
+          <li><span>3 behandelingen</span><span class="dots" aria-hidden="true"></span><span class="amount">€150</span></li>
+          <li><span>5 behandelingen</span><span class="dots" aria-hidden="true"></span><span class="amount">€240</span></li>
+        </ul>
+      </div>
+      <div data-package="diepe" class="pkg reveal reveal-d1">
+        <h3 class="pkg-name">Deep Clean Facial</h3>
+        <ul class="pkg-rows">
+          <li><span>1 behandeling</span><span class="dots" aria-hidden="true"></span><span class="amount">€75</span></li>
+          <li><span>3 behandelingen</span><span class="dots" aria-hidden="true"></span><span class="amount">€210</span></li>
+          <li><span>5 behandelingen</span><span class="dots" aria-hidden="true"></span><span class="amount">€335</span></li>
+        </ul>
+      </div>
+      <div data-package="hydrafacial" class="pkg reveal reveal-d2">
+        <h3 class="pkg-name">HydraFacial</h3>
+        <ul class="pkg-rows">
+          <li><span>1 behandeling</span><span class="dots" aria-hidden="true"></span><span class="amount">€95</span></li>
+          <li><span>3 behandelingen</span><span class="dots" aria-hidden="true"></span><span class="amount">€270</span></li>
+          <li><span>5 behandelingen</span><span class="dots" aria-hidden="true"></span><span class="amount">€425</span></li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Yoly Luxe Packages -->
-<section id="packages" class="packages-section">
-  <div class="packages-head reveal">
-    <h2 class="section-title">Yoly Luxe Packages</h2>
-  </div>
-  <div class="packages-grid">
-    <div data-package="basis" class="package-group reveal">
-      <h3 class="package-name">Basic Facial</h3>
-      <ul class="package-list">
-        <li class="package-row"><span class="package-count">1 behandeling</span> <span class="package-price">€55</span></li>
-        <li class="package-row"><span class="package-count">3 behandelingen</span> <span class="package-price">€150</span></li>
-        <li class="package-row"><span class="package-count">5 behandelingen</span> <span class="package-price">€240</span></li>
-      </ul>
-    </div>
-    <div data-package="diepe" class="package-group reveal">
-      <h3 class="package-name">Deep Clean Facial</h3>
-      <ul class="package-list">
-        <li class="package-row"><span class="package-count">1 behandeling</span> <span class="package-price">€75</span></li>
-        <li class="package-row"><span class="package-count">3 behandelingen</span> <span class="package-price">€210</span></li>
-        <li class="package-row"><span class="package-count">5 behandelingen</span> <span class="package-price">€335</span></li>
-      </ul>
-    </div>
-    <div data-package="hydrafacial" class="package-group reveal">
-      <h3 class="package-name">HydraFacial</h3>
-      <ul class="package-list">
-        <li class="package-row"><span class="package-count">1 behandeling</span> <span class="package-price">€95</span></li>
-        <li class="package-row"><span class="package-count">3 behandelingen</span> <span class="package-price">€270</span></li>
-        <li class="package-row"><span class="package-count">5 behandelingen</span> <span class="package-price">€425</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- Video Bento Grid -->
+<!-- Video's -->
 <section class="video-bento-section">
-  <div style="text-align:center; margin-bottom:56px;" class="reveal">
-    <p class="section-label" style="color:rgba(255,255,255,0.4);">Behandelingen in beeld</p>
-    <h2 class="section-title light" style="font-size:clamp(1.8rem,3.5vw,2.8rem);">Bekijk onze behandelingen</h2>
-  </div>
-  <div class="bento-grid">
-    <!-- Row 1: wide left + tall right -->
-    <div class="bento-item wide reveal reveal-d1">
-      <video muted loop playsinline class="demo-video">
-        <source src="https://res.cloudinary.com/do0coejzs/video/upload/v1773449236/glossy_lips_vid.mp4" type="video/mp4">
-      </video>
-      <span class="bento-label" data-video-label="lips">Lip Hydration</span>
-    </div>
-    <div class="bento-item reveal reveal-d2">
-      <video muted loop playsinline class="demo-video">
-        <source src="https://res.cloudinary.com/do0coejzs/video/upload/v1773449246/masker_toebreng_vide.mp4" type="video/mp4">
-      </video>
-      <span class="bento-label" data-video-label="basic">Basic Facial</span>
-    </div>
-    <!-- Row 2: tall left + wide right -->
-    <div class="bento-item reveal reveal-d1">
-      <video muted loop playsinline class="demo-video">
-        <source src="https://res.cloudinary.com/do0coejzs/video/upload/v1773449248/steamer_vid.mov" type="video/mp4">
-      </video>
-      <span class="bento-label" data-video-label="deep-clean">Deep Clean Facial</span>
-    </div>
-    <div class="bento-item wide reveal reveal-d2">
-      <video muted loop playsinline class="demo-video">
-        <source src="https://res.cloudinary.com/do0coejzs/video/upload/v1773449229/gezichtmasker.mov" type="video/mp4">
-      </video>
-      <span class="bento-label" data-video-label="hydrafacial">HydraFacial</span>
+  <div class="wrap">
+    <h2 class="heading reveal">Bekijk onze behandelingen</h2>
+    <div class="bento-grid">
+      <div class="bento-item wide reveal">
+        <video muted loop playsinline class="demo-video"><source src="https://res.cloudinary.com/do0coejzs/video/upload/v1773449236/glossy_lips_vid.mp4" type="video/mp4"></video>
+        <span class="bento-label" data-video-label="lips">Lip Hydration</span>
+      </div>
+      <div class="bento-item reveal reveal-d1">
+        <video muted loop playsinline class="demo-video"><source src="https://res.cloudinary.com/do0coejzs/video/upload/v1773449246/masker_toebreng_vide.mp4" type="video/mp4"></video>
+        <span class="bento-label" data-video-label="basic">Basic Facial</span>
+      </div>
+      <div class="bento-item reveal">
+        <video muted loop playsinline class="demo-video"><source src="https://res.cloudinary.com/do0coejzs/video/upload/v1773449248/steamer_vid.mov" type="video/mp4"></video>
+        <span class="bento-label" data-video-label="deep-clean">Deep Clean Facial</span>
+      </div>
+      <div class="bento-item wide reveal reveal-d1">
+        <video muted loop playsinline class="demo-video"><source src="https://res.cloudinary.com/do0coejzs/video/upload/v1773449229/gezichtmasker.mov" type="video/mp4"></video>
+        <span class="bento-label" data-video-label="hydrafacial">HydraFacial</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Jouw huid, jouw moment -->
-<section id="jouw-moment" class="closing-section">
+<!-- Slotblok -->
+<section id="jouw-moment" class="closing">
   <div class="closing-inner reveal">
-    <h2 class="section-title" style="margin-bottom:24px;">Jouw huid, jouw moment</h2>
-    <p class="closing-text">Elke huid is anders. Daarom wordt iedere behandeling afgestemd op de actuele behoeften van jouw huid.</p>
-    <p class="closing-text">Heb je vragen over welke behandeling het beste bij jou past?</p>
-    <p class="closing-text">Plan jouw afspraak bij Yoly Luxe en geef jouw huid het moment dat ze verdient.</p>
-    <a href="afspraak.html" class="btn-primary">Afspraak maken →</a>
+    <h2 class="heading">Jouw huid, jouw moment</h2>
+    <p>Elke huid is anders. Daarom wordt iedere behandeling afgestemd op de actuele behoeften van jouw huid.</p>
+    <p>Heb je vragen over welke behandeling het beste bij jou past?</p>
+    <p>Plan jouw afspraak bij Yoly Luxe en geef jouw huid het moment dat ze verdient.</p>
+    <a href="afspraak.html" class="btn-primary">Afspraak maken</a>
   </div>
 </section>
 
-<!-- Footer -->
 <footer id="footer">
   <div class="footer-inner">
     <div>
@@ -549,7 +283,6 @@
       <div class="footer-social">
         <a href="https://www.instagram.com/yolyluxespa" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
         <a href="https://wa.me/32469443144" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.133.558 4.133 1.535 5.866L.099 23.901l6.196-1.393A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.672-.5-5.207-1.378l-.374-.217-3.678.828.882-3.556-.235-.374A9.953 9.953 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10z"/></svg></a>
-
       </div>
     </div>
     <div>
@@ -569,38 +302,28 @@
       <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>y.poncemontero@gmail.com</span></div>
     </div>
   </div>
-  <hr style="border:none; border-top:1px solid rgba(255,255,255,0.08); max-width:1400px; margin:40px auto 20px;">
-  <div class="footer-bottom"><p class="footer-copy">© 2025 YolyLuxeSpa. Alle rechten voorbehouden.</p><div class="footer-legal"><a href="privacybeleid.html">Privacybeleid</a><a href="algemene-voorwaarden.html">Algemene voorwaarden</a><a href="cookiebeleid.html">Cookiebeleid</a></div></div>
+  <hr class="footer-rule">
+  <div class="footer-bottom"><p class="footer-copy">© 2026 YolyLuxeSpa. Alle rechten voorbehouden.</p><div class="footer-legal"><a href="privacybeleid.html">Privacybeleid</a><a href="algemene-voorwaarden.html">Algemene voorwaarden</a><a href="cookiebeleid.html">Cookiebeleid</a></div></div>
 </footer>
 
-<!-- Treatment Modal -->
+<!-- Venster bij een behandeling (gevuld door behandeling-venster.js) -->
 <div id="treatment-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-el">
   <div class="modal-panel">
     <button type="button" class="modal-close" aria-label="Sluiten">✕</button>
     <div class="modal-inner">
-      <div class="modal-img-col">
-        <img id="modal-img" alt="" class="modal-img">
-      </div>
+      <div class="modal-img-col"><img id="modal-img" alt="" class="modal-img"></div>
       <div class="modal-content-col">
-        <div class="modal-meta">
-          <span id="modal-price" class="modal-price-badge"></span>
-          <span id="modal-duur" class="modal-duur-badge"></span>
-        </div>
-        <div class="modal-divider"></div>
         <h2 id="modal-title-el" class="modal-title"></h2>
+        <div class="modal-meta"><span id="modal-price" class="modal-price-badge"></span><span id="modal-duur" class="modal-duur-badge"></span></div>
         <div id="modal-desc" class="modal-desc"></div>
         <p id="modal-list-label" class="modal-benefits-label"></p>
         <ul id="modal-benefits" class="modal-benefits"></ul>
-        <p id="modal-extra-label" class="modal-benefits-label"></p>
-        <p id="modal-extra" class="modal-desc modal-extra"></p>
-        <a href="afspraak.html" class="btn-primary modal-cta">Afspraak maken →</a>
+        <a href="afspraak.html" class="btn-primary modal-cta">Afspraak maken</a>
       </div>
     </div>
   </div>
 </div>
 
-
-<script src="glowing-effect.js"></script>
 <script>
   (function() {
     const menu = document.getElementById('mobile-menu');
@@ -613,12 +336,12 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-visible')) closeMenu(); });
     menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
   })();
-  // Scroll reveal → zie animations.js
+
   const demoVideos = document.querySelectorAll('.demo-video');
-  const vObs = new IntersectionObserver((entries) => { entries.forEach(e => { e.isIntersecting ? e.target.play() : e.target.pause(); }); }, { threshold: 0.3 });
+  const vObs = new IntersectionObserver((entries) => { entries.forEach(e => { e.isIntersecting ? e.target.play().catch(() => {}) : e.target.pause(); }); }, { threshold: 0.3 });
   demoVideos.forEach(v => vObs.observe(v));
 
-  // Venster van de behandelingen → zie behandeling-venster.js (leest uit de kaarten)
+  // Venster van de behandelingen → zie behandeling-venster.js (leest uit de rijen)
 </script>
 <script src="behandeling-venster.js"></script>
 <script src="animations.js" defer></script>
