@@ -29,17 +29,9 @@
     }
     .hero-sub + .lead { margin-top: var(--s2); }
     .hero-copy .btn-primary { margin-top: var(--s4); }
-    .text-link {
-      display: inline-block; font-weight: 500; color: var(--brown);
-      text-decoration: underline; text-decoration-thickness: 1px;
-      text-decoration-color: var(--gold-dark); text-underline-offset: 5px;
-      transition: opacity 0.2s ease, transform 0.15s var(--ease-spring);
-    }
-    .text-link:hover { color: var(--gold-dark); }
-    .text-link:active { opacity: 0.6; transform: translateY(1px); }
 
     /* ── Formulier links, kaarten rechts ── */
-    .contact-main { padding: var(--s7) 0; }
+    .contact-main { padding: var(--s6) 0 var(--s7); }
     .contact-grid { display: grid; grid-template-columns: 7fr 5fr; gap: var(--s6); align-items: start; }
     .form-intro {
       margin-top: var(--s2);
@@ -117,7 +109,7 @@
       .contact-grid { grid-template-columns: 1fr; gap: var(--s5); }
     }
     @media (max-width: 768px) {
-      .contact-main { padding: var(--s6) 0; }
+      .contact-main { padding: var(--s5) 0 var(--s6); }
       .form-card { padding: var(--s4) var(--s3); }
       .c-card { padding: var(--s3); }
     }
@@ -309,7 +301,6 @@
     openBtn.addEventListener('click', openMenu);
     closeBtn.addEventListener('click', closeMenu);
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-visible')) closeMenu(); });
-    menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
   })();
 
   // Formspree AJAX submit

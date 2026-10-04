@@ -29,9 +29,7 @@
     .content-p { color: var(--brown-light); margin-bottom: var(--s2); }
     .content-p:last-child { margin-bottom: 0; }
     .content-p strong { font-weight: 500; color: var(--brown); }
-    .content-p a { color: var(--brown); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 3px; overflow-wrap: anywhere; transition: opacity 0.2s ease; }
-    .content-p a:hover { color: var(--gold-dark); text-decoration-color: var(--gold-dark); }
-    .content-p a:active { opacity: 0.6; }
+    .content-p a { overflow-wrap: anywhere; }
     .content-ul { display: grid; gap: 6px; margin-bottom: var(--s2); }
     .content-ul li { position: relative; padding-left: 20px; color: var(--brown-light); }
     .content-ul li::before { content: ''; position: absolute; left: 2px; top: 0.7em; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
@@ -217,7 +215,6 @@
     openBtn.addEventListener('click', openMenu);
     closeBtn.addEventListener('click', closeMenu);
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-visible')) closeMenu(); });
-    menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
   })();
 </script>
 </body>

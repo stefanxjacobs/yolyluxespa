@@ -456,3 +456,17 @@ ul { padding: 0; list-style: none; }
 .tile-link { margin-top: var(--s2); align-self: flex-start; }
 @media (max-width: 1024px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .tiles { grid-template-columns: 1fr; gap: var(--s5); } }
+
+/* ── Tekstlink in lopende tekst: één stijl op alle pagina's ── */
+.text-link, .content-p a, .article-read-more {
+  font-weight: 500; color: var(--brown);
+  text-decoration: underline; text-decoration-thickness: 1px;
+  text-decoration-color: var(--gold-dark); text-underline-offset: 5px;
+  transition: opacity 0.2s ease, transform 0.15s var(--ease-spring);
+}
+.text-link { display: inline-block; }
+.text-link:hover, .content-p a:hover, .article-read-more:hover { color: var(--gold-dark); }
+.text-link:active, .content-p a:active, .article-read-more:active { opacity: 0.6; transform: translateY(1px); }
+
+/* goudknop als <button>: zelfde regelhoogte als de <a>-knoppen (12px x 1.7 = 20.4px) */
+button.btn-primary { line-height: 1.7; }

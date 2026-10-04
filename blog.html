@@ -71,9 +71,7 @@
     .article-excerpt { color: var(--brown-light); max-width: 36em; }
     .article-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 13.5px; color: var(--brown-light); }
     .article-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold-dark); }
-    .article-read-more { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 15px; font-weight: 500; color: var(--brown); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
-    .article-read-more svg { width: 14px; height: 14px; color: var(--gold-dark); transition: transform 0.3s var(--ease-out); }
-    .article-card:hover .article-read-more svg { transform: translateX(4px); }
+    .article-read-more { display: inline-block; margin-top: 4px; font-size: 15px; }
 
     /* Artikelvenster: .modal-overlay, .modal-panel, .modal-close en .modal-title uit theme.css */
     .modal-panel { max-width: 760px; }
@@ -101,7 +99,7 @@
       .blog-sidebar { position: static; }
       .article-content { padding: var(--s3); }
       .modal-body { padding: var(--s6) var(--s3) var(--s4); }
-      .modal-cta-wrap .btn-primary { width: 100%; min-width: 0; white-space: normal; text-align: center; }
+      .modal-cta-wrap .btn-primary { width: 100%; min-width: 0; padding-left: var(--s2); padding-right: var(--s2); white-space: nowrap; text-align: center; }
     }
   </style>
 </head>
@@ -213,7 +211,7 @@
             <span class="article-meta-dot"></span>
             <span>5 min leestijd</span>
           </div>
-          <span class="article-read-more">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <span class="article-read-more">Lees het artikel</span>
         </div>
       </article>
 
@@ -228,7 +226,7 @@
             <span class="article-meta-dot"></span>
             <span>4 min leestijd</span>
           </div>
-          <span class="article-read-more">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <span class="article-read-more">Lees het artikel</span>
         </div>
       </article>
 
@@ -243,7 +241,7 @@
             <span class="article-meta-dot"></span>
             <span>6 min leestijd</span>
           </div>
-          <span class="article-read-more">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <span class="article-read-more">Lees het artikel</span>
         </div>
       </article>
 
@@ -258,7 +256,7 @@
             <span class="article-meta-dot"></span>
             <span>5 min leestijd</span>
           </div>
-          <span class="article-read-more">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <span class="article-read-more">Lees het artikel</span>
         </div>
       </article>
 
@@ -273,7 +271,7 @@
             <span class="article-meta-dot"></span>
             <span>4 min leestijd</span>
           </div>
-          <span class="article-read-more">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <span class="article-read-more">Lees het artikel</span>
         </div>
       </article>
 
@@ -288,7 +286,7 @@
             <span class="article-meta-dot"></span>
             <span>5 min leestijd</span>
           </div>
-          <span class="article-read-more">Lees het artikel <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          <span class="article-read-more">Lees het artikel</span>
         </div>
       </article>
 
@@ -331,7 +329,7 @@
         <p>Na de behandeling adviseer ik: vermijd make-up de eerste 24 uur, ga niet in direct zonlicht zonder SPF, en gebruik kalmerende, hydraterende crèmes. Thuis: handhaaf een basisroutine van reiniger → toner → hydratatie → zonnebescherming.</p>
       </div>
       <div class="modal-cta-wrap">
-        <a href="afspraak.html" class="btn-primary">Boek een behandeling in Loenhout →</a>
+        <a href="afspraak.html" class="btn-primary">Boek een behandeling in Loenhout</a>
       </div>
     </div>
   </div>
@@ -365,7 +363,7 @@
         <p>Lip Hydration kost €30 en duurt ± 20–30 minuten.</p>
       </div>
       <div class="modal-cta-wrap">
-        <a href="afspraak.html" class="btn-primary">Boek Lip Hydration bij YolyLuxeSpa →</a>
+        <a href="afspraak.html" class="btn-primary">Boek Lip Hydration bij YolyLuxeSpa</a>
       </div>
     </div>
   </div>
@@ -400,7 +398,7 @@
         <p>Voor optimale en langdurige resultaten adviseer ik een HydraFacial elke 4 tot 6 weken. Veel klanten combineren het met andere behandelingen in hun persoonlijk huidverzorgingsplan bij YolyLuxeSpa.</p>
       </div>
       <div class="modal-cta-wrap">
-        <a href="afspraak.html" class="btn-primary">Boek een HydraFacial in Loenhout →</a>
+        <a href="afspraak.html" class="btn-primary">Boek een HydraFacial in Loenhout</a>
       </div>
     </div>
   </div>
@@ -434,7 +432,7 @@
         <p>Het gouden masker is bij uitstek geschikt voor mensen die tekenen van huidveroudering willen aanpakken of een speciale gelegenheid hebben. Wil je weten welke behandeling uit het huidige aanbod bij jouw huid past? Yoly adviseert je graag.</p>
       </div>
       <div class="modal-cta-wrap">
-        <a href="afspraak.html" class="btn-primary">Maak een afspraak bij YolyLuxeSpa →</a>
+        <a href="afspraak.html" class="btn-primary">Maak een afspraak bij YolyLuxeSpa</a>
       </div>
     </div>
   </div>
@@ -472,7 +470,7 @@
         <p>Voor het beste resultaat combineer je een goede thuisroutine met regelmatige professionele behandelingen bij YolyLuxeSpa in Loenhout. Afhankelijk van jouw huidtype en doelen adviseer ik een behandeling elke 4 tot 8 weken. In een persoonlijk consult stel ik een plan op maat voor je op.</p>
       </div>
       <div class="modal-cta-wrap">
-        <a href="afspraak.html" class="btn-primary">Plan een consult bij YolyLuxeSpa →</a>
+        <a href="afspraak.html" class="btn-primary">Plan een consult bij YolyLuxeSpa</a>
       </div>
     </div>
   </div>
@@ -508,7 +506,7 @@
         <p>Bij YolyLuxeSpa in Loenhout combineer ik vakkennis, persoonlijke aandacht en luxe beleving. Als je écht iets wilt doen voor de gezondheid en uitstraling van jouw huid, dan ben je bij Yoly aan het juiste adres.</p>
       </div>
       <div class="modal-cta-wrap">
-        <a href="afspraak.html" class="btn-primary">Maak een afspraak in Loenhout →</a>
+        <a href="afspraak.html" class="btn-primary">Maak een afspraak in Loenhout</a>
       </div>
     </div>
   </div>
@@ -636,13 +634,14 @@
     openBtn.addEventListener('click', openMenu);
     closeBtn.addEventListener('click', closeMenu);
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-visible')) closeMenu(); });
-    menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
   })();
 
   // Modal open/close
+  let lastTrigger = null;
   function openModal(id) {
     const overlay = document.getElementById('modal-' + id);
     if (!overlay) return;
+    lastTrigger = (window.event && window.event.currentTarget instanceof Element) ? window.event.currentTarget : document.activeElement;
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
     // Focus trap: focus close button
@@ -655,6 +654,7 @@
     if (!overlay) return;
     overlay.classList.remove('open');
     document.body.style.overflow = '';
+    if (lastTrigger) lastTrigger.focus();
   }
 
   // Close on overlay click

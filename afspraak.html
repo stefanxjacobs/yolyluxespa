@@ -32,7 +32,7 @@
     .hero-copy .btn-primary { margin-top: var(--s4); }
 
     /* ── Overzicht links, agenda rechts ── */
-    .booking { padding: var(--s7) 0; }
+    .booking { padding: var(--s6) 0 var(--s7); }
     .booking-grid { display: grid; grid-template-columns: 5fr 7fr; gap: var(--s6); align-items: start; }
     .booking-intro { margin-top: var(--s2); color: var(--brown-light); }
     .pay-note {
@@ -72,7 +72,7 @@
       .booking-grid { grid-template-columns: 1fr; gap: var(--s5); }
     }
     @media (max-width: 768px) {
-      .booking { padding: var(--s6) 0; }
+      .booking { padding: var(--s5) 0 var(--s6); }
       .cal-head { padding: var(--s3); }
       .hero-copy .btn-primary { width: 100%; }
     }
@@ -257,7 +257,6 @@
     openBtn.addEventListener('click', openMenu);
     closeBtn.addEventListener('click', closeMenu);
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-visible')) closeMenu(); });
-    menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
   })();
 </script>
 </body>
