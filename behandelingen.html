@@ -83,7 +83,20 @@
     .treatment-card-desc { font-size: 14px; font-weight: 300; color: var(--brown-light); line-height: 1.65; margin-bottom: 16px; }
     .btn-small { font-size: 10.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown); border-bottom: 1px solid var(--gold); padding-bottom: 2px; text-decoration: none; transition: color 0.2s; display: inline-block; }
     .btn-small:hover { color: var(--gold-dark); }
-    .treatment-card-tags { font-size: 11px; font-weight: 400; letter-spacing: 0.06em; color: var(--gold); margin-top: auto; padding-top: 16px; margin-bottom: 16px; line-height: 1.6; }
+    .btn-small:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: 4px; border-radius: 2px; }
+    .btn-small:active { color: var(--gold-dark); transform: translateY(1px); }
+    .treatment-card:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: -2px; }
+    .treatment-card:active .treatment-card-img { transform: scale(1.02); }
+    .treatment-card-lead { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; font-weight: 400; color: var(--brown); line-height: 1.5; margin-bottom: 16px; }
+    .treatment-card-label { font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-dark); margin: 8px 0 12px; }
+    .treatment-card-list { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 8px; }
+    .treatment-card-list li { font-size: 13.5px; font-weight: 300; color: var(--brown); line-height: 1.55; display: flex; align-items: flex-start; gap: 8px; }
+    .treatment-card-list li::before { content: '✦'; color: var(--gold); font-size: 9px; flex-shrink: 0; margin-top: 5px; }
+    .treatment-card-extra { font-size: 14px; font-weight: 300; color: var(--brown-light); line-height: 1.65; margin-bottom: 16px; }
+    .treatment-card-foot { margin-top: auto; padding-top: 24px; border-top: 1px solid var(--beige); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 16px; }
+    .treatment-card-duur { font-size: 12px; font-weight: 300; letter-spacing: 0.06em; color: var(--brown-light); }
+    .page-hero-intro { font-size: 15px; font-weight: 300; color: var(--brown-light); line-height: 1.75; max-width: 600px; margin: 16px auto 0; }
+    .page-hero-intro + .page-hero-intro { margin-top: 8px; }
 
     /* ── Video bento grid ── */
     .video-bento-section { background: var(--brown); padding: 96px 48px; }
@@ -178,6 +191,9 @@
       transition: background 0.2s, color 0.2s;
     }
     .modal-close:hover { background: var(--beige); color: var(--gold-dark); }
+    .modal-close:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: 2px; }
+    .modal-close:active { transform: scale(0.92); }
+    .modal-panel [hidden] { display: none; }
     .modal-inner { display: grid; grid-template-columns: 1fr 1fr; min-height: 460px; }
     .modal-img-col { overflow: hidden; border-radius: 4px 0 0 4px; position: relative; }
     .modal-img-col::after { content: ''; position: absolute; inset: 0; border: 3px solid rgba(197,165,114,0.65); pointer-events: none; border-radius: 4px 0 0 4px; z-index: 1; }
@@ -202,12 +218,13 @@
       font-size: 13.5px; font-weight: 300; color: var(--brown-light);
       line-height: 1.78; margin-bottom: 24px;
     }
+    .modal-desc p + p { margin-top: 12px; }
     .modal-benefits-label {
       font-size: 10px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
       color: var(--gold); margin-bottom: 16px;
     }
     .modal-benefits {
-      list-style: none; padding: 0; margin: 0 0 32px;
+      list-style: none; padding: 0; margin: 0 0 24px;
       display: flex; flex-direction: column; gap: 8px;
     }
     .modal-benefits li {
@@ -216,6 +233,7 @@
     }
     .modal-benefits li::before { content: '✦'; color: var(--gold); font-size: 9px; flex-shrink: 0; margin-top: 4px; }
     .modal-cta { margin-top: auto; align-self: flex-start; text-decoration: none; }
+    .modal-extra { margin-bottom: 32px; }
     @media (max-width: 640px) {
       .modal-inner { grid-template-columns: 1fr; }
       .modal-img-col { height: 200px; border-radius: 4px 4px 0 0; }
@@ -272,12 +290,11 @@
 
 <!-- Page Hero -->
 <section class="page-hero">
-  <div style="max-width:640px; margin:0 auto;" class="reveal">
-    <p class="section-label">Luxe huidverzorging</p>
-    <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem);">Onze behandelingen</h1>
-    <p style="font-size:15px; font-weight:300; color:var(--brown-light); line-height:1.75; margin-top:16px;">
-      Elke behandeling is zorgvuldig afgestemd op jouw huid. Van diepe reiniging tot innovatieve lipbehandelingen, bij YolyLuxeSpa staat jouw huid centraal.
-    </p>
+  <div style="max-width:860px; margin:0 auto;" class="reveal">
+    <p class="section-label">Yoly Luxe</p>
+    <h1 class="section-title" style="font-size:clamp(1.7rem,5vw,4rem);">Professionele gezichtsbehandelingen</h1>
+    <p class="page-hero-intro">Ontdek een moment voor jezelf met professionele huidverzorging, afgestemd op de behoeften van jouw huid.</p>
+    <p class="page-hero-intro">Bij Yoly Luxe staat een gezonde, stralende en verzorgde huid centraal.</p>
   </div>
 </section>
 
@@ -287,76 +304,141 @@
     <p class="section-label">Alle behandelingen</p>
   </div>
   <div class="treatments-grid">
-    <div id="basis" class="treatment-card" onclick="openModal('basis')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openModal('basis')">
+    <div id="basis" data-treatment="basis" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
       <div class="treatment-card-img-wrap">
-        <img src="media/fotos/basis behandeling yoly.jpg" alt="Basis Reiniging" class="treatment-card-img">
+        <img src="media/fotos/basis behandeling yoly.jpg" alt="Yoly Luxe Basic Facial" class="treatment-card-img">
       </div>
-      <div class="treatment-card-body reveal">
-        <p class="treatment-card-price">Vanaf €35</p>
-        <h2 class="treatment-card-name">Basis Reiniging</h2>
-        <p class="treatment-card-desc">Een combinatie van actieve ingrediënten die de huid grondig reinigt, dode huidcellen verwijdert en de teint direct verlicht. De perfecte instapbehandeling voor elke huid.</p>
-        <p class="treatment-card-tags">✦ Regenereert · Verlicht · Verzacht</p>
-        <a href="afspraak.html" class="btn-small" onclick="event.stopPropagation()">Reserveer →</a>
+      <div class="treatment-card-body reveal-fade">
+        <p class="treatment-card-price" data-veld="prijs">€55</p>
+        <h2 class="treatment-card-name" data-veld="naam">Yoly Luxe Basic Facial</h2>
+        <p class="treatment-card-desc" data-veld="zin">Een zachte en verzorgende gezichtsbehandeling voor een frisse, schone en verzorgde huid.</p>
+        <p class="treatment-card-label" data-veld="lijstkop">De behandeling omvat</p>
+        <ul class="treatment-card-list">
+          <li>Reiniging van de huid</li>
+          <li>Diepe reiniging</li>
+          <li>Exfoliatie</li>
+          <li>Masker afgestemd op de huid</li>
+          <li>Hydratatie</li>
+          <li>Verzorgende afsluiting</li>
+        </ul>
+        <p class="treatment-card-label" data-veld="extra-kop">Ideaal voor</p>
+        <p class="treatment-card-extra" data-veld="extra">Een eerste kennismaking met professionele gezichtsverzorging of als regelmatig onderhoud van de huid.</p>
+        <div class="treatment-card-foot">
+          <span class="treatment-card-duur" data-veld="duur">± 60 min</span>
+          <a href="afspraak.html" class="btn-small">Afspraak maken →</a>
+        </div>
       </div>
     </div>
-    <div id="diepe" class="treatment-card" onclick="openModal('diepe')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openModal('diepe')">
+    <div id="diepe" data-treatment="diepe" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
       <div class="treatment-card-img-wrap">
-        <img src="media/fotos/diep gezichtsbehandeling.jpg" alt="Diepe Gezichtsreiniging" class="treatment-card-img">
+        <img src="media/fotos/diep gezichtsbehandeling.jpg" alt="Deep Clean Facial" class="treatment-card-img">
       </div>
-      <div class="treatment-card-body reveal reveal-d1">
-        <p class="treatment-card-price">Vanaf €50</p>
-        <h2 class="treatment-card-name">Diepe Gezichtsreiniging Hydra</h2>
-        <p class="treatment-card-desc">Reinigt diep, ontlast de huid en herstelt van binnenuit. Verwijdert onzuiverheden, talg en vervuilingsresten die thuisverzorging niet bereikt, afgewerkt met intensieve hydratatie.</p>
-        <p class="treatment-card-tags">✦ Vernieuwde huid · Diepe hydratatie · Anti-acne</p>
-        <a href="afspraak.html" class="btn-small" onclick="event.stopPropagation()">Reserveer →</a>
+      <div class="treatment-card-body reveal-fade reveal-d1">
+        <p class="treatment-card-price" data-veld="prijs">€75</p>
+        <h2 class="treatment-card-name" data-veld="naam">Deep Clean Facial</h2>
+        <p class="treatment-card-desc" data-veld="zin">Een intensievere gezichtsbehandeling gericht op het grondig reinigen van de huid en het verwijderen van onzuiverheden.</p>
+        <p class="treatment-card-label" data-veld="lijstkop">De behandeling omvat</p>
+        <ul class="treatment-card-list">
+          <li>Dubbele reiniging</li>
+          <li>Exfoliatie</li>
+          <li>Intensieve poriënreiniging</li>
+          <li>Verwijdering van mee-eters en onzuiverheden</li>
+          <li>Verzorgend masker</li>
+          <li>Hydratatie</li>
+          <li>Afwerking met passende huidverzorging</li>
+        </ul>
+        <p class="treatment-card-label" data-veld="extra-kop">Ideaal voor</p>
+        <p class="treatment-card-extra" data-veld="extra">Een huid met verstopte poriën, mee-eters en zichtbare onzuiverheden.</p>
+        <div class="treatment-card-foot">
+          <span class="treatment-card-duur" data-veld="duur">± 75 min</span>
+          <a href="afspraak.html" class="btn-small">Afspraak maken →</a>
+        </div>
       </div>
     </div>
-    <div id="hydrafacial" class="treatment-card" onclick="openModal('hydrafacial')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openModal('hydrafacial')">
+    <div id="hydrafacial" data-treatment="hydrafacial" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
       <div class="treatment-card-img-wrap">
         <img src="media/fotos/steaming foto.jpg" alt="HydraFacial" class="treatment-card-img">
       </div>
-      <div class="treatment-card-body reveal reveal-d2">
-        <p class="treatment-card-price">Vanaf €70</p>
-        <h2 class="treatment-card-name">HydraFacial</h2>
-        <p class="treatment-card-desc">De complete behandeling in één sessie: reiniging, exfoliatie, peeling én extractie. Geeft je huid maximale uitstraling en hydratatie. Geschikt voor alle huidtypes.</p>
-        <p class="treatment-card-tags">✦ Vernieuwde huid · Extra hydratatie · Maximale uitstraling</p>
-        <a href="afspraak.html" class="btn-small" onclick="event.stopPropagation()">Reserveer →</a>
+      <div class="treatment-card-body reveal-fade reveal-d2">
+        <p class="treatment-card-price" data-veld="prijs">€95</p>
+        <h2 class="treatment-card-name" data-veld="naam">HydraFacial</h2>
+        <p class="treatment-card-desc" data-veld="zin">Een intensieve behandeling voor een diep gereinigde, gehydrateerde en stralende huid.</p>
+        <p class="treatment-card-desc" data-veld="zin">De huid wordt grondig gereinigd en onzuiverheden worden verwijderd, terwijl de huid tegelijkertijd wordt verzorgd en gehydrateerd.</p>
+        <p class="treatment-card-label" data-veld="lijstkop">De behandeling omvat</p>
+        <ul class="treatment-card-list">
+          <li>Reiniging</li>
+          <li>Exfoliatie</li>
+          <li>Diepe poriënreiniging</li>
+          <li>Verwijdering van onzuiverheden</li>
+          <li>Intensieve hydratatie</li>
+          <li>Verzorgende finishing treatment</li>
+        </ul>
+        <p class="treatment-card-label" data-veld="extra-kop">Resultaat</p>
+        <p class="treatment-card-extra" data-veld="extra">Een frisse, zachte en zichtbaar stralende huid.</p>
+        <div class="treatment-card-foot">
+          <span class="treatment-card-duur" data-veld="duur">± 75–90 min</span>
+          <a href="afspraak.html" class="btn-small">Afspraak maken →</a>
+        </div>
       </div>
     </div>
-    <div id="lips" class="treatment-card" onclick="openModal('lips')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openModal('lips')">
+    <div id="dermapen" data-treatment="dermapen" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
       <div class="treatment-card-img-wrap">
-        <img src="media/fotos/glossy lips rose.jpg" alt="Hydra Glow Lips" class="treatment-card-img">
+        <img src="media/fotos/puisten trekker foto.jpg" alt="Dermapen" class="treatment-card-img">
       </div>
-      <div class="treatment-card-body reveal">
-        <p class="treatment-card-price">Vanaf €35</p>
-        <h2 class="treatment-card-name">Hydra Glow Lips</h2>
-        <p class="treatment-card-desc">Een niet-invasieve lippenbehandeling met hyaluronzuur-serum en vitamines, aangebracht via Dermapen. Stimuleert collageen en elastine voor volle, zichtbaar gezondere lippen.</p>
-        <p class="treatment-card-tags">✦ Diepe hydratatie · Subtiel volume · Stralende lippen</p>
-        <a href="afspraak.html" class="btn-small" onclick="event.stopPropagation()">Reserveer →</a>
+      <div class="treatment-card-body reveal-fade">
+        <p class="treatment-card-price" data-veld="prijs">€55</p>
+        <h2 class="treatment-card-name" data-veld="naam">Dermapen</h2>
+        <p class="treatment-card-desc" data-veld="zin">Een professionele behandeling die de huid stimuleert en de natuurlijke huidvernieuwing ondersteunt.</p>
+        <p class="treatment-card-desc" data-veld="zin">Dermapen wordt toegepast om de huidtextuur te verfijnen en de huid een gladdere en egalere uitstraling te geven.</p>
+        <p class="treatment-card-label" data-veld="lijstkop">Geschikt voor</p>
+        <ul class="treatment-card-list">
+          <li>Oneffen huidstructuur</li>
+          <li>Grove poriën</li>
+          <li>Huid die haar glans heeft verloren</li>
+          <li>Fijne lijntjes</li>
+          <li>Acne-littekentjes</li>
+        </ul>
+        <div class="treatment-card-foot">
+          <span class="treatment-card-duur" data-veld="duur">± 45–60 min</span>
+          <a href="afspraak.html" class="btn-small">Afspraak maken →</a>
+        </div>
       </div>
     </div>
-    <div id="masker" class="treatment-card" onclick="openModal('masker')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openModal('masker')">
+    <div id="lips" data-treatment="lips" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
       <div class="treatment-card-img-wrap">
-        <img src="media/fotos/gouden masker.jpg" alt="Gouden Masker" class="treatment-card-img">
+        <img src="media/fotos/glossy lips rose.jpg" alt="Lip Hydration" class="treatment-card-img">
       </div>
-      <div class="treatment-card-body reveal reveal-d1">
-        <p class="treatment-card-price">Op aanvraag</p>
-        <h2 class="treatment-card-name">Gouden Masker</h2>
-        <p class="treatment-card-desc">Een luxe behandeling met een verstevigende goudmasker die de huid voedt, verstevigt en een onmiddellijke glow geeft. Pure verwennerij met zichtbaar resultaat.</p>
-        <p class="treatment-card-tags">✦ Verstevigend · Anti-veroudering · Onmiddellijke glow</p>
-        <button type="button" class="btn-small" onclick="event.stopPropagation();openModal('masker')">Meer info →</button>
+      <div class="treatment-card-body reveal-fade reveal-d1">
+        <p class="treatment-card-price" data-veld="prijs">€30</p>
+        <h2 class="treatment-card-name" data-veld="naam">Lip Hydration</h2>
+        <p class="treatment-card-desc" data-veld="zin">Een verzorgende behandeling voor zachte, gehydrateerde en mooi verzorgde lippen.</p>
+        <p class="treatment-card-label" data-veld="lijstkop">De behandeling omvat</p>
+        <ul class="treatment-card-list">
+          <li>Zachte exfoliatie</li>
+          <li>Intensieve hydratatie</li>
+          <li>Verzorgende lip treatment</li>
+        </ul>
+        <p class="treatment-card-extra" data-veld="extra">Perfect als kleine beauty treatment of als aanvulling op een gezichtsbehandeling.</p>
+        <div class="treatment-card-foot">
+          <span class="treatment-card-duur" data-veld="duur">± 20–30 min</span>
+          <a href="afspraak.html" class="btn-small">Afspraak maken →</a>
+        </div>
       </div>
     </div>
-    <div id="steaming" class="treatment-card" onclick="openModal('steaming')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openModal('steaming')">
+    <div id="melanin" data-treatment="melanin" class="treatment-card" role="button" tabindex="0" aria-haspopup="dialog">
       <div class="treatment-card-img-wrap">
-        <img src="media/fotos/puisten trekker foto.jpg" alt="Steaming behandeling" class="treatment-card-img">
+        <img src="media/fotos/gouden masker.jpg" alt="Melanin Glow" class="treatment-card-img">
       </div>
-      <div class="treatment-card-body reveal reveal-d2">
-        <p class="treatment-card-price">Inbegrepen</p>
-        <h2 class="treatment-card-name">Stoombehandeling</h2>
-        <p class="treatment-card-desc">Stoomtherapie opent de poriën grondig, bevordert de doorbloeding en bereidt de huid optimaal voor op verdere behandelingen. Ontspannend én essentieel.</p>
-        <p class="treatment-card-tags">✦ Opent poriën · Verbetert doorbloeding · Optimaliseert resultaat</p>
-        <button type="button" class="btn-small" onclick="event.stopPropagation();openModal('steaming')">Meer info →</button>
+      <div class="treatment-card-body reveal-fade reveal-d2">
+        <p class="treatment-card-price" data-veld="prijs">Prijs op aanvraag</p>
+        <h2 class="treatment-card-name" data-veld="naam">Melanin Glow</h2>
+        <p class="treatment-card-lead" data-veld="zin">Professionele verzorging voor een mooie, egale en stralende huid</p>
+        <p class="treatment-card-desc" data-veld="zin">Een behandeling speciaal afgestemd op de behoeften van een huid met meer melanine.</p>
+        <p class="treatment-card-desc" data-veld="zin">De focus ligt op een gezonde huidbarrière, hydratatie, een egale uitstraling en een mooie natuurlijke glow.</p>
+        <p class="treatment-card-desc" data-veld="zin">De behandeling wordt afgestemd op de conditie en behoeften van jouw huid.</p>
+        <div class="treatment-card-foot">
+          <a href="afspraak.html" class="btn-small">Afspraak maken →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -444,12 +526,12 @@
 </footer>
 
 <!-- Treatment Modal -->
-<div id="treatment-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-el" onclick="closeOnBackdrop(event)">
+<div id="treatment-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-el">
   <div class="modal-panel">
-    <button class="modal-close" onclick="closeModal()" aria-label="Sluiten">✕</button>
+    <button type="button" class="modal-close" aria-label="Sluiten">✕</button>
     <div class="modal-inner">
       <div class="modal-img-col">
-        <img id="modal-img" src="" alt="" class="modal-img">
+        <img id="modal-img" alt="" class="modal-img">
       </div>
       <div class="modal-content-col">
         <div class="modal-meta">
@@ -458,10 +540,12 @@
         </div>
         <div class="modal-divider"></div>
         <h2 id="modal-title-el" class="modal-title"></h2>
-        <p id="modal-desc" class="modal-desc"></p>
-        <p class="modal-benefits-label">Voordelen</p>
+        <div id="modal-desc" class="modal-desc"></div>
+        <p id="modal-list-label" class="modal-benefits-label"></p>
         <ul id="modal-benefits" class="modal-benefits"></ul>
-        <a href="afspraak.html" class="btn-primary modal-cta">Reserveer nu →</a>
+        <p id="modal-extra-label" class="modal-benefits-label"></p>
+        <p id="modal-extra" class="modal-desc modal-extra"></p>
+        <a href="afspraak.html" class="btn-primary modal-cta">Afspraak maken →</a>
       </div>
     </div>
   </div>
@@ -486,87 +570,9 @@
   const vObs = new IntersectionObserver((entries) => { entries.forEach(e => { e.isIntersecting ? e.target.play() : e.target.pause(); }); }, { threshold: 0.3 });
   demoVideos.forEach(v => vObs.observe(v));
 
-  // ── Behandeling modal ────────────────────────────────
-  const treatments = {
-    basis: {
-      naam: 'Basis Reiniging',
-      prijs: 'Vanaf €35',
-      duur: '± 45 min',
-      img: 'media/fotos/basis behandeling yoly.jpg',
-      beschrijving: 'Tijdcapsule: een combinatie van zorgvuldig geselecteerde actieve ingrediënten voor een verjonged uiterlijk en een vernieuwde huid. De behandeling reinigt de huid grondig, verwijdert dode huidcellen en opgehoopte onzuiverheden, en verlicht de teint direct. Zachte technieken zorgen ervoor dat ook gevoelige huid volledig tot rust komt. De perfecte instapbehandeling die de huid tegelijkertijd reinigt én voorbereidt op verdere verzorging.',
-      voordelen: ['Regenereert en vernieuwt de huidcellen', 'Verlicht en verfrist de teint direct', 'Verwijdert dode huidcellen en onzuiverheden grondig', 'Bereidt de huid optimaal voor op verdere verzorging', 'Geschikt voor alle huidtypes, ook gevoelige huid']
-    },
-    diepe: {
-      naam: 'Diepe Gezichtsreiniging Hydra',
-      prijs: 'Vanaf €50',
-      duur: '± 60 min',
-      img: 'media/fotos/diep gezichtsbehandeling.jpg',
-      beschrijving: 'Je huid wordt elke dag blootgesteld aan zon, vervuiling, stress en make-up. Dat laat sporen na: verstopte poriën, verlies van uitstraling en versnelde huidveroudering. Een diepe gezichtsreiniging geeft je huid de reset die ze verdient. Bij deze professionele behandeling worden onzuiverheden, dode huidcellen, overtollig talg en vervuilingsresten diep uit de huid verwijderd — zonder schade. Niet vergelijkbaar met thuis reinigen: wij bereiken de lagen die jij niet kunt bereiken. Verstopte poriën leiden tot acne, matte huid en vroegtijdige rimpels. Een diepe reiniging pakt de oorzaak aan, bevordert celvernieuwing en verhoogt de effectiviteit van alle andere behandelingen die je daarna doet. Afgerond met intensieve hydratatie voor een direct stralend, vernieuwd resultaat.',
-      voordelen: ['Verwijdert diep zittende onzuiverheden en gifstoffen die thuisverzorging niet verwijdert', 'Verstopt poriën los, vermindert mee-eters en acne', 'Verbetert de bloedsomloop en zuurstoftoevoer naar de huid', 'Versterkt de opname van je dagelijkse verzorgingsproducten', 'Vertraagt vroegtijdige huidveroudering door celvernieuwing', 'Direct zichtbaar resultaat: frissere, stralendere huid']
-    },
-    hydrafacial: {
-      naam: 'HydraFacial',
-      prijs: 'Vanaf €70',
-      duur: '± 75 min',
-      img: 'media/fotos/steaming foto.jpg',
-      beschrijving: 'De meest complete gezichtsbehandeling die er bestaat — alles in één sessie. De HydraFacial combineert vier stappen die elkaar versterken: reiniging, exfoliatie, peeling én extractie. Elke stap bereidt de huid voor op de volgende, zodat het eindresultaat méér is dan de som der delen. De huid wordt ontdaan van alle opgehoopte onzuiverheden, dode huidcellen en overtollig talg, waarna een diepe hydratatie de huid vult en tot bloei brengt. Geschikt voor alle huidtypes. Je ziet het resultaat al na de eerste behandeling — en er is geen herstelperiode nodig.',
-      voordelen: ['4-in-1 behandeling: reinigt, exfolieert, extraheert én hydrateert', 'Vernieuwde, stralende huid met egale teint', 'Extra diepe hydratatie van binnenuit', 'Maximale uitstraling, zichtbaar vanaf de eerste sessie', 'Geschikt voor alle huidtypes', 'Geen herstelperiode nodig']
-    },
-    lips: {
-      naam: 'Hydra Glow Lips',
-      prijs: 'Vanaf €35',
-      duur: '± 45 min',
-      img: 'media/fotos/glossy lips rose.jpg',
-      beschrijving: 'Volle, zachte, stralende lippen — zonder injectie. Hydra Glow Lips is een revolutionaire niet-invasieve lippenbehandeling waarbij een serum op basis van hyaluronzuur en vitamines via de Dermapen diep in de huid wordt aangebracht. De micro-kanaaltjes die de Dermapen creëert zorgen voor een maximale opname van de werkzame stoffen, zodat ze collageen en elastine rechtstreeks van binnenuit stimuleren. De behandeling wordt afgerond met een intensief hydraterend masker dat de lippen voedt en beschermt. Het resultaat? Zachte, volle, ultra-gehydrateerde en verjongde lippen die er zichtbaar gezonder en voller uitzien — pijnloos en direct.',
-      voordelen: ['Diepe hydratatie: volle, sappige lippen zonder injectie', 'Stralender en gezonder lippenaspect', 'Egalisering van de liptint voor een uniformer beeld', 'Subtiel volumizerend effect door collageen- en elastinestimulatie', 'Algehele revitalisering — zichtbaar gezondere en zachtere lippen']
-    },
-    masker: {
-      naam: 'Gouden Masker',
-      prijs: 'Op aanvraag',
-      duur: '± 60 min',
-      img: 'media/fotos/gouden masker.jpg',
-      beschrijving: 'Een luxe verwenbehandeling met een professioneel verstevigende goudmasker. De rijke formule voedt de huid diepgaand, verstevigt de huidcontouren en geeft een onmiddellijke, zichtbare glow. Goud staat al eeuwen bekend om zijn huidverstevigend en antioxidant werking, in combinatie met de intensieve behandeltechnieken van YolyLuxeSpa wordt dit een echte luxe-ervaring met meetbaar resultaat. Ideaal als extra verwenmoment of als aanvulling op een bestaand behandelplan.',
-      voordelen: ['Verstevigend en lichtjes liftend effect op de huidcontouren', 'Intense voeding en hydratatie van binnenuit', 'Onmiddellijke glow en stralende uitstraling', 'Zichtbaar anti-verouderend resultaat', 'Luxe spa-ervaring met professionele producten']
-    },
-    steaming: {
-      naam: 'Stoombehandeling',
-      prijs: 'Inbegrepen',
-      duur: '± 20 min',
-      img: 'media/fotos/puisten trekker foto.jpg',
-      beschrijving: 'Stoomtherapie is een essentiële eerste stap in vrijwel elke professionele gezichtsbehandeling. De warme stoom opent de poriën diep en effectief, waardoor opgehoopte onzuiverheden, talg en vervuilingsresten gemakkelijker verwijderd kunnen worden. Tegelijkertijd verbetert de warmte de bloedcirculatie in het gezicht, wat zorgt voor meer zuurstoftoevoer naar de huid. Doordat de poriën volledig geopend zijn, werken alle opvolgende behandelstappen — reiniging, extractie, maskers — aanzienlijk beter. De stoombehandeling is inbegrepen bij alle behandelingen van YolyLuxeSpa en vormt de basis voor optimaal resultaat.',
-      voordelen: ['Opent poriën grondig voor maximaal effect', 'Verbetert de bloedcirculatie en zuurstoftoevoer', 'Maakt reiniging en extractie aanzienlijk effectiever', 'Ontspannend en zacht, ook voor gevoelige huid', 'Inbegrepen bij alle YolyLuxeSpa behandelingen']
-    }
-  };
-
-  const modal = document.getElementById('treatment-modal');
-
-  function openModal(id) {
-    const t = treatments[id];
-    if (!t) return;
-    document.getElementById('modal-img').src = t.img;
-    document.getElementById('modal-img').alt = t.naam;
-    document.getElementById('modal-price').textContent = t.prijs;
-    document.getElementById('modal-duur').textContent = t.duur;
-    document.getElementById('modal-title-el').textContent = t.naam;
-    document.getElementById('modal-desc').textContent = t.beschrijving;
-    const ul = document.getElementById('modal-benefits');
-    ul.innerHTML = '';
-    t.voordelen.forEach(v => { const li = document.createElement('li'); li.textContent = v; ul.appendChild(li); });
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    modal.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  function closeOnBackdrop(e) {
-    if (e.target === modal) closeModal();
-  }
-
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  // Venster van de behandelingen → zie behandeling-venster.js (leest uit de kaarten)
 </script>
+<script src="behandeling-venster.js"></script>
 <script src="animations.js" defer></script>
 </body>
 </html>
