@@ -87,8 +87,6 @@
     opener = terug || kaart; // waar de focus na sluiten naartoe gaat
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
-    var paneel = modal.querySelector('.modal-panel');
-    if (paneel) paneel.scrollTop = 0;
     if (sluitknop) sluitknop.focus({ preventScroll: true });
   }
 
@@ -96,7 +94,7 @@
     if (!modal.classList.contains('open')) return;
     modal.classList.remove('open');
     document.body.style.overflow = '';
-    if (opener && document.contains(opener)) opener.focus({ preventScroll: true });
+    if (opener && document.contains(opener)) opener.focus();
     opener = null;
   }
 
