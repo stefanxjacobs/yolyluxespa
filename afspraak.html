@@ -12,187 +12,78 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <script>
-    tailwind.config = { theme: { extend: { colors: { cream: '#FAF7F2', beige: '#E8DDD3', gold: '#C5A572', 'gold-dark': '#A8884E', brown: '#3A2F2B', 'brown-light': '#5C4D47' }, fontFamily: { serif: ['Playfair Display', 'Georgia', 'serif'], sans: ['DM Sans', 'system-ui', 'sans-serif'] } } } }
+    tailwind.config = { corePlugins: { preflight: false }, theme: { extend: {
+      colors: { cream: '#FAF7F2', beige: '#E8DDD3', gold: '#C5A572', 'gold-dark': '#A8884E', brown: '#3A2F2B', 'brown-light': '#5C4D47' },
+      fontFamily: { serif: ['Playfair Display', 'Georgia', 'serif'], sans: ['DM Sans', 'system-ui', 'sans-serif'] } } } }
   </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', system-ui, sans-serif; background: #FAF7F2; color: #3A2F2B; overflow-x: hidden; }
-    :root { --cream: #FAF7F2; --beige: #E8DDD3; --gold: #C5A572; --gold-dark: #A8884E; --brown: #3A2F2B; --brown-light: #5C4D47; }
-
-    #announcement-bar { background: var(--brown); color: rgba(255,255,255,0.8); text-align: center; padding: 8px 16px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; z-index: 60; }
-    #announcement-bar a { color: var(--gold); font-weight: 500; text-decoration: none; }
-    #main-nav { position: sticky; top: 0; z-index: 50; background: rgba(250,247,242,0.97); box-shadow: 0 1px 0 rgba(58,47,43,0.08); }
-    .nav-inner { padding: 0 48px; height: 68px; display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; }
-    .nav-logo img { height: 64px; width: auto; }
-    .nav-links { display: flex; align-items: center; gap: 40px; }
-    .nav-link { font-size: 11.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brown-light); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.2s ease, transform 0.12s ease; }
-    .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.2s ease; }
-    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-    .nav-link:active { transform: translateY(2px) scale(0.95); }
-    .nav-link:hover, .nav-link.active { color: var(--brown); }
-    .nav-hamburger { display: none; flex-direction: column; gap: 8px; cursor: pointer; padding: 4px; background: none; border: none; }
-    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--brown); }
-    /* ── Mobile Menu Overlay ── */
-    #mobile-menu { display: none; position: fixed; inset: 0; z-index: 200; background-color: rgba(26,18,14,0.97); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); flex-direction: column; overflow: hidden; opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.25,0.1,0.25,1); }
-    #mobile-menu.is-open { display: flex; pointer-events: all; }
-    #mobile-menu.is-visible { opacity: 1; }
-    .mmenu-header { display: flex; align-items: center; justify-content: space-between; padding: 24px 24px 0; flex-shrink: 0; }
-    .mmenu-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
-    .mmenu-close { background: none; border: none; cursor: pointer; padding: 8px; color: rgba(250,247,242,0.7); display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: color 0.2s, background 0.2s; }
-    .mmenu-close:hover { color: var(--gold); background: rgba(197,165,114,0.12); }
-    .mmenu-close:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-    .mmenu-close:active { transform: scale(0.92); }
-    .mmenu-nav { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 48px; }
-    .mmenu-link { display: block; font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 400; color: rgba(250,247,242,0.88); text-decoration: none; letter-spacing: -0.03em; line-height: 1.2; padding: 16px 0; border-bottom: 1px solid rgba(197,165,114,0.12); opacity: 0; transform: translateX(-24px); transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1), color 0.2s; }
-    .mmenu-link:last-child { border-bottom: none; }
-    .mmenu-link:hover { color: var(--gold); }
-    .mmenu-link:active { transform: translateX(4px); }
-    .mmenu-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px; }
-    .mmenu-link--active { color: var(--gold); }
-    .mmenu-link:nth-child(1) { transition-delay: 0s; } .mmenu-link:nth-child(2) { transition-delay: 0.05s; } .mmenu-link:nth-child(3) { transition-delay: 0.10s; } .mmenu-link:nth-child(4) { transition-delay: 0.15s; } .mmenu-link:nth-child(5) { transition-delay: 0.20s; }
-    #mobile-menu.is-visible .mmenu-link { opacity: 1; transform: translateX(0); }
-    #mobile-menu:not(.is-visible) .mmenu-link { transition-delay: 0s !important; }
-    .mmenu-footer { padding: 32px 24px 40px; flex-shrink: 0; }
-    .mmenu-cta { width: 100% !important; min-width: 0 !important; display: flex !important; justify-content: center; }
-
-    .section-label { font-size: 10.5px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; letter-spacing: -0.03em; line-height: 1.15; color: var(--brown); }
-
-    /* ── Booking Hero ─────────────────────────────────────── */
-    .booking-hero {
-      position: relative;
-      padding: 120px 48px 96px; /* 15×8 top, 12×8 bottom */
-      text-align: center;
-      overflow: hidden;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212,184,130,0.28) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 72% 100%, rgba(197,165,114,0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 18% 80%, rgba(232,221,211,0.35) 0%, transparent 55%),
-        #FAF7F2;
-    }
-    .booking-hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(197,165,114,0.4) 30%, rgba(212,184,130,0.6) 50%, rgba(197,165,114,0.4) 70%, transparent);
-    }
-    .booking-hero-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-    .booking-hero-grain { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .booking-hero-content { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
-    .booking-hero-sub {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-style: italic;
-      font-weight: 400;
-      color: var(--gold-dark);
-      margin-bottom: 16px; /* 2×8 */
-      letter-spacing: 0.01em;
-      line-height: 1.6;
-    }
-
-    /* ── Split-screen booking ─────────────────────────────── */
-    .booking-split { background: var(--cream); padding: 96px 48px; } /* 12×8 */
-    .booking-split-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 480px 1fr; gap: 64px; align-items: start; } /* gap 8×8 */
-
-    /* Left panel */
-    .booking-left-header { margin-bottom: 24px; } /* 3×8 */
-    .payment-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(197,165,114,0.10); border: 1px solid rgba(197,165,114,0.40); color: var(--gold-dark); padding: 8px 16px; border-radius: 9999px; font-size: 11.5px; font-weight: 500; letter-spacing: 0.05em; margin-top: 16px; margin-bottom: 32px; }
-    .payment-pill svg { width: 14px; height: 14px; flex-shrink: 0; }
-    .treatment-select-list { display: flex; flex-direction: column; gap: 8px; } /* 1×8 */
-    .treatment-select-card {
-      background:
-        radial-gradient(ellipse 100% 80% at 20% 0%, rgba(212,184,130,0.18) 0%, transparent 65%),
-        radial-gradient(ellipse 80% 60% at 85% 100%, rgba(197,165,114,0.08) 0%, transparent 60%),
-        var(--beige);
-      padding: 16px 24px; /* 2×8, 3×8 */
-      cursor: default;
-      position: relative;
-      border-radius: 8px;
-      border: 1px solid rgba(197,165,114,0.3);
-      box-shadow:
-        0 2px 8px rgba(58,47,43,0.06),
-        0 8px 24px rgba(168,136,78,0.08);
-      transition: box-shadow 0.2s, transform 0.15s;
-    }
-    .treatment-select-card:hover {
-      box-shadow:
-        0 4px 16px rgba(58,47,43,0.09),
-        0 12px 32px rgba(168,136,78,0.12);
-      transform: translateY(-1px);
-    }
-    .treatment-select-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 8px; } /* 1×8 */
-    .treatment-select-name { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400; color: var(--brown); letter-spacing: -0.01em; }
-    .treatment-select-price { font-size: 14px; font-weight: 500; color: var(--gold-dark); white-space: nowrap; }
-    .treatment-select-meta { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(92,77,71,0.55); }
-
-    /* Right panel */
-    .booking-right { position: sticky; top: 24px; } /* 3×8 */
-    .calendly-wrapper {
-      border: 1px solid rgba(197,165,114,0.28);
-      background: var(--cream);
-      box-shadow:
-        0 2px 8px rgba(58,47,43,0.06),
-        0 8px 32px rgba(58,47,43,0.09),
-        0 24px 64px rgba(168,136,78,0.06);
-      overflow: hidden;
-      border-radius: 8px;
-      position: relative;
-    }
-    .calendly-wrapper::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      border-radius: 8px 8px 0 0;
-      background: linear-gradient(90deg, rgba(168,136,78,0.3), #C5A572 30%, #D4B882 60%, rgba(168,136,78,0.3));
-      z-index: 1;
-    }
-    .calendly-panel-header { padding: 24px 32px 16px; border-bottom: 1px solid rgba(197,165,114,0.18); } /* 3×8, 4×8, 2×8 */
-    .calendly-panel-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; display: block; }
-    .calendly-panel-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--brown); font-weight: 400; letter-spacing: -0.01em; }
-    .calendly-panel-note { font-size: 12px; color: rgba(92,77,71,0.6); margin-top: 8px; display: block; }
-    #calendly-inline .calendly-inline-widget { min-height: 700px; }
-
-    @media (max-width: 1100px) { .booking-split-inner { grid-template-columns: 1fr; gap: 40px; } .booking-right { position: static; } }
-    @media (max-width: 768px) { .booking-split { padding: 56px 24px; } .booking-hero { padding: 80px 24px 64px; } .nav-links, .nav-cta { display: none; } .nav-hamburger { display: flex; } .nav-inner { padding: 0 24px; } }
-
-    /* Footer */
-    #footer { background: var(--brown); padding: 72px 48px 40px; }
-    .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
-    .footer-logo { height: 48px; filter: none; opacity: 1; margin-bottom: 16px; background: #FAF7F2; border-radius: 6px; padding: 4px 8px; }
-    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 24px; max-width: 240px; }
-    .footer-social { display: flex; gap: 16px; }
-    .footer-social a { color: rgba(255,255,255,0.45); transition: color 0.2s; }
-    .footer-social a:hover { color: var(--gold); }
-    .footer-social svg { width: 18px; height: 18px; }
-    .footer-col-title { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
-    .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: #fff; }
-    .footer-contact-item { display: flex; gap: 8px; margin-bottom: 16px; }
-    .footer-contact-item svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
-    .footer-contact-item span { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
-    .footer-newsletter form { display: flex; }
-    .footer-newsletter input { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 16px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; }
-    .footer-newsletter input::placeholder { color: rgba(255,255,255,0.3); }
-    .footer-newsletter button { background: var(--gold); color: var(--brown); padding: 16px 24px; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; }
-    .footer-newsletter button:hover { background: var(--gold-dark); color: #fff; }
-    .footer-bottom { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
-    .footer-legal { display: flex; gap: 24px; }
-    .footer-legal a { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; }
-    @media (max-width: 1024px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr; gap: 32px; } #footer { padding: 48px 24px 32px; } }
-  </style>
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <link rel="stylesheet" href="buttons.css">
   <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    /* Alleen wat eigen is aan deze pagina. Balk, menu, knoppen, paginakop, slotblok en footer: theme.css. */
+    .kicker { font-size: 15px; line-height: 1.5; color: var(--brown-light); margin-bottom: var(--s1); }
+    .hero-sub {
+      margin-top: var(--s3);
+      font-family: 'Playfair Display', Georgia, serif; font-style: italic;
+      font-size: 1.25rem; line-height: 1.5; color: var(--brown);
+    }
+    .hero-sub + .lead { margin-top: var(--s2); }
+    .hero-copy .btn-primary { margin-top: var(--s4); }
+
+    /* ── Overzicht links, agenda rechts ── */
+    .booking { padding: var(--s6) 0 var(--s7); }
+    .booking-grid { display: grid; grid-template-columns: 5fr 7fr; gap: var(--s6); align-items: start; }
+    .booking-intro { margin-top: var(--s2); color: var(--brown-light); }
+    .pay-note {
+      display: inline-flex; align-items: center; gap: var(--s1);
+      margin-top: var(--s3); padding: 8px 16px; border-radius: var(--r-media);
+      font-size: 14px; line-height: 1.4; color: var(--brown);
+      background: rgba(197,165,114,0.14);
+      box-shadow: inset 0 0 0 1px rgba(197,165,114,0.45);
+    }
+    .pay-note svg { width: 16px; height: 16px; flex-shrink: 0; color: var(--gold-dark); }
+
+    /* menulijst: naam · stippellijn · prijs, daaronder de duur (zelfde .t-head als de behandelrijen) */
+    .price-menu { margin-top: var(--s5); }
+    .price-row { padding: var(--s3) 0; border-top: 1px solid var(--beige); }
+    .price-row:first-child { border-top: none; padding-top: 0; }
+    .price-row .t-name, .price-row .t-price { font-size: 1.375rem; line-height: 1.25; letter-spacing: -0.02em; }
+    .price-row .t-price.on-request { font-size: 1rem; }
+    .price-row .t-leader { min-width: 16px; transform: translateY(-4px); }
+    .price-duur { display: block; margin-top: 4px; font-size: 15px; color: var(--brown-light); }
+
+    /* agenda in een kaart */
+    .cal-card { background: #fff; border-radius: var(--r-media); box-shadow: var(--shadow-raised); overflow: hidden; }
+    .cal-head { padding: var(--s4) var(--s4) var(--s3); border-bottom: 1px solid var(--beige); }
+    .cal-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.5rem; line-height: 1.2; letter-spacing: -0.02em; }
+    .cal-note { display: block; margin-top: var(--s1); font-size: 15px; color: var(--brown-light); }
+    .cal-cancel {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin-top: var(--s2); padding: 12px 16px; border-radius: var(--r-small);
+      background: rgba(232,221,211,0.5);
+      font-size: 14px; line-height: 1.6; color: var(--brown-light);
+    }
+    .cal-cancel svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 3px; color: var(--gold-dark); }
+    .cal-cancel strong { font-weight: 500; color: var(--brown); }
+    #calendly-inline .calendly-inline-widget { min-height: 700px; }
+
+    @media (max-width: 1024px) {
+      .booking-grid { grid-template-columns: 1fr; gap: var(--s5); }
+    }
+    @media (max-width: 768px) {
+      .booking { padding: var(--s5) 0 var(--s6); }
+      .cal-head { padding: var(--s3); }
+      .hero-copy .btn-primary { width: 100%; }
+    }
+  </style>
 </head>
 <body>
 
-<div id="announcement-bar">Nieuw: <strong>Hydra Glow Lips</strong>, <a href="behandelingen.html">Ontdek de behandeling →</a></div>
+<div id="announcement-bar">
+  Nieuw: <strong>Yoly Luxe Packages</strong>. Voordeliger bij 3 of 5 behandelingen.
+  <a href="behandelingen.html#packages">Bekijk de pakketten</a>
+</div>
 
 <nav id="main-nav">
   <div class="nav-inner">
@@ -205,125 +96,111 @@
       <a href="contact.html" class="nav-link">Contact</a>
     </div>
     <a href="afspraak.html" class="nav-cta">Reserveer</a>
-    <button class="nav-hamburger" id="hamburger-btn"><span></span><span></span><span></span></button>
+    <button class="nav-hamburger" id="hamburger-btn" aria-label="Menu openen"><span></span><span></span><span></span></button>
   </div>
 </nav>
+
 <div id="mobile-menu" aria-modal="true" role="dialog" aria-label="Navigatiemenu">
   <div class="mmenu-header">
     <span class="mmenu-label">Menu</span>
     <button class="mmenu-close" id="mobile-close-btn" aria-label="Menu sluiten">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/>
-      </svg>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/></svg>
     </button>
   </div>
   <nav class="mmenu-nav">
-    <a href="index.html"          class="mmenu-link">Home</a>
-    <a href="behandelingen.html"  class="mmenu-link">Behandelingen</a>
-    <a href="over.html"           class="mmenu-link">Over</a>
-    <a href="blog.html"           class="mmenu-link">Blog</a>
-    <a href="contact.html"        class="mmenu-link">Contact</a>
+    <a href="index.html" class="mmenu-link">Home</a>
+    <a href="behandelingen.html" class="mmenu-link">Behandelingen</a>
+    <a href="over.html" class="mmenu-link">Over</a>
+    <a href="blog.html" class="mmenu-link">Blog</a>
+    <a href="contact.html" class="mmenu-link">Contact</a>
   </nav>
-  <div class="mmenu-footer">
-    <a href="afspraak.html" class="btn-primary mmenu-cta">Reserveer nu</a>
-  </div>
+  <div class="mmenu-footer"><a href="afspraak.html" class="btn-primary mmenu-cta">Reserveer nu</a></div>
 </div>
 
-<!-- Page Hero -->
-<section class="booking-hero">
-  <div class="booking-hero-bg" aria-hidden="true">
-    <svg class="booking-hero-grain" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-      <filter id="grain-filter">
-        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
-        <feColorMatrix type="saturate" values="0"/>
-      </filter>
-      <rect width="100%" height="100%" filter="url(#grain-filter)" opacity="0.035"/>
-    </svg>
-  </div>
-  <div class="booking-hero-content reveal">
-    <p class="section-label">Jouw luxemoment begint hier</p>
-    <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem); margin-bottom:24px;">Boek je afspraak</h1>
-    <p class="booking-hero-sub"><em>Kies je moment, Yoly staat voor je klaar.</em></p>
-    <p style="font-size:15px; font-weight:300; color:var(--brown-light); line-height:1.75; margin-bottom:32px;">
+<!-- Paginakop -->
+<header class="page-hero">
+  <div class="wrap hero-copy reveal">
+    <p class="kicker">Jouw luxemoment begint hier</p>
+    <h1 class="display">Boek je afspraak</h1>
+    <p class="hero-sub"><em>Kies je moment, Yoly staat voor je klaar.</em></p>
+    <p class="lead">
       Kies je gewenste datum en tijdstip direct in de agenda van Yoly. Snel, eenvoudig en zonder wachten.
     </p>
-    <a href="#boek" class="btn-primary">Kies je moment →</a>
+    <a href="#boek" class="btn-primary">Kies je moment</a>
   </div>
-</section>
+</header>
 
-<!-- Booking Section — Split-screen Concierge -->
-<section class="booking-split reveal" id="boek">
-  <div class="booking-split-inner">
+<!-- Overzicht van de behandelingen + agenda -->
+<section class="booking" id="boek">
+  <div class="wrap booking-grid">
 
-    <!-- Left: Treatment Overview -->
-    <div class="booking-left">
-      <div class="booking-left-header">
-        <p class="section-label">Kies je behandeling</p>
-        <h2 class="section-title">Wat mag het zijn?</h2>
-        <p style="font-size:14px; color:var(--brown-light); margin-top:8px; line-height:1.7;">
-          Selecteer je behandeling in de Calendly agenda rechts.
-        </p>
-        <div class="payment-pill">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-          Betaling ter plaatse, geen online betaling vereist
-        </div>
+    <!-- Links: de zes behandelingen als menulijst -->
+    <div class="booking-left reveal">
+      <p class="kicker">Kies je behandeling</p>
+      <h2 class="heading">Wat mag het zijn?</h2>
+      <p class="booking-intro">
+        Selecteer je behandeling in de Calendly agenda rechts.
+      </p>
+      <div class="pay-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        Betaling ter plaatse, geen online betaling vereist
       </div>
 
-      <div class="treatment-select-list">
+      <div class="price-menu">
 
-        <div class="treatment-select-card">
-          <div class="treatment-select-top">
-            <span class="treatment-select-name">Hydra Glow Lips</span>
-            <span class="treatment-select-price">€35</span>
+        <div class="price-row" data-treatment="basis">
+          <div class="t-head">
+            <span class="t-name">Yoly Luxe Basic Facial</span><span class="t-leader" aria-hidden="true"></span><span class="t-price">€55</span>
           </div>
-          <span class="treatment-select-meta">45 min</span>
+          <span class="price-duur">± 60 min</span>
         </div>
 
-        <div class="treatment-select-card">
-          <div class="treatment-select-top">
-            <span class="treatment-select-name">HydraFacial</span>
-            <span class="treatment-select-price">€70</span>
+        <div class="price-row" data-treatment="diepe">
+          <div class="t-head">
+            <span class="t-name">Deep Clean Facial</span><span class="t-leader" aria-hidden="true"></span><span class="t-price">€75</span>
           </div>
-          <span class="treatment-select-meta">75 min</span>
+          <span class="price-duur">± 75 min</span>
         </div>
 
-        <div class="treatment-select-card">
-          <div class="treatment-select-top">
-            <span class="treatment-select-name">Diepe Gezichtsreiniging</span>
-            <span class="treatment-select-price">€50</span>
+        <div class="price-row" data-treatment="hydrafacial">
+          <div class="t-head">
+            <span class="t-name">HydraFacial</span><span class="t-leader" aria-hidden="true"></span><span class="t-price">€95</span>
           </div>
-          <span class="treatment-select-meta">60 min</span>
+          <span class="price-duur">± 75–90 min</span>
         </div>
 
-        <div class="treatment-select-card">
-          <div class="treatment-select-top">
-            <span class="treatment-select-name">Basis Reiniging</span>
-            <span class="treatment-select-price">€35</span>
+        <div class="price-row" data-treatment="dermapen">
+          <div class="t-head">
+            <span class="t-name">Dermapen</span><span class="t-leader" aria-hidden="true"></span><span class="t-price">€55</span>
           </div>
-          <span class="treatment-select-meta">45 min</span>
+          <span class="price-duur">± 45–60 min</span>
         </div>
 
-      </div>
-
-      <!-- Gouden Masker info -->
-      <div style="margin-top:24px; padding:16px 20px; background:rgba(197,165,114,0.08); border:1px solid rgba(197,165,114,0.28); border-radius:8px; display:flex; gap:12px; align-items:flex-start;">
-        <svg style="width:18px;height:18px;flex-shrink:0;margin-top:2px;color:#A8884E;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        <div>
-          <p style="font-size:13px;font-weight:500;color:#3A2F2B;margin:0 0 4px;">Gouden Masker, op aanvraag</p>
-          <p style="font-size:12.5px;color:rgba(92,77,71,0.7);line-height:1.6;margin:0;">Het gouden masker is een luxe extra optie die je kunt aanvragen bij het boeken van je behandeling. Vermeld dit in de notities van je afspraak of neem <a href="contact.html" style="color:#A8884E;text-decoration:none;font-weight:500;">contact op met Yoly</a>.</p>
+        <div class="price-row" data-treatment="lips">
+          <div class="t-head">
+            <span class="t-name">Lip Hydration</span><span class="t-leader" aria-hidden="true"></span><span class="t-price">€30</span>
+          </div>
+          <span class="price-duur">± 20–30 min</span>
         </div>
+
+        <div class="price-row" data-treatment="melanin">
+          <div class="t-head">
+            <span class="t-name">Melanin Glow</span><span class="t-leader" aria-hidden="true"></span><span class="t-price on-request">Prijs op aanvraag</span>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- Right: Inline Calendly -->
-    <div class="booking-right">
-      <div class="calendly-wrapper">
-        <div class="calendly-panel-header">
-          <p class="calendly-panel-title">Kies je moment</p>
-          <span class="calendly-panel-note">Je ontvangt een bevestiging per e-mail · Betaling ter plaatse</span>
-          <div style="display:flex; align-items:flex-start; gap:8px; margin-top:12px; padding:10px 14px; background:rgba(197,165,114,0.08); border:1px solid rgba(197,165,114,0.25); border-radius:6px;">
-            <svg style="width:14px;height:14px;flex-shrink:0;margin-top:1px;color:#A8884E;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-            <span style="font-size:11.5px;color:rgba(92,77,71,0.7);line-height:1.6;">Annuleren kan tot <strong style="color:#3A2F2B;font-weight:500;">24 uur voor</strong> de afspraak. Daarna wordt de afspraak in rekening gebracht.</span>
+    <!-- Rechts: Calendly in een kaart -->
+    <div class="booking-right reveal reveal-d1">
+      <div class="cal-card">
+        <div class="cal-head">
+          <p class="cal-title">Kies je moment</p>
+          <span class="cal-note">Je ontvangt een bevestiging per e-mail · Betaling ter plaatse</span>
+          <div class="cal-cancel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            <span>Annuleren kan tot <strong>24 uur voor</strong> de afspraak. Daarna wordt de afspraak in rekening gebracht.</span>
           </div>
         </div>
         <div id="calendly-inline">
@@ -338,7 +215,6 @@
 </section>
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
-<!-- Footer -->
 <footer id="footer">
   <div class="footer-inner">
     <div>
@@ -347,12 +223,17 @@
       <div class="footer-social">
         <a href="https://www.instagram.com/yolyluxespa" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
         <a href="https://wa.me/32469443144" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.133.558 4.133 1.535 5.866L.099 23.901l6.196-1.393A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.672-.5-5.207-1.378l-.374-.217-3.678.828.882-3.556-.235-.374A9.953 9.953 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10z"/></svg></a>
-        
       </div>
     </div>
     <div>
       <p class="footer-col-title">Navigatie</p>
-      <ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="behandelingen.html">Behandelingen</a></li><li><a href="over.html">Over Yoly</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="behandelingen.html">Behandelingen</a></li>
+        <li><a href="over.html">Over Yoly</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </div>
     <div>
       <p class="footer-col-title">Contact</p>
@@ -361,8 +242,8 @@
       <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>y.poncemontero@gmail.com</span></div>
     </div>
   </div>
-  <hr style="border:none; border-top:1px solid rgba(255,255,255,0.08); max-width:1400px; margin:40px auto 24px;">
-  <div class="footer-bottom"><p class="footer-copy">© 2025 YolyLuxeSpa. Alle rechten voorbehouden.</p><div class="footer-legal"><a href="privacybeleid.html">Privacybeleid</a><a href="algemene-voorwaarden.html">Algemene voorwaarden</a><a href="cookiebeleid.html">Cookiebeleid</a></div></div>
+  <hr class="footer-rule">
+  <div class="footer-bottom"><p class="footer-copy">© 2026 YolyLuxeSpa. Alle rechten voorbehouden.</p><div class="footer-legal"><a href="privacybeleid.html">Privacybeleid</a><a href="algemene-voorwaarden.html">Algemene voorwaarden</a><a href="cookiebeleid.html">Cookiebeleid</a></div></div>
 </footer>
 
 <script src="animations.js" defer></script>
@@ -376,7 +257,6 @@
     openBtn.addEventListener('click', openMenu);
     closeBtn.addEventListener('click', closeMenu);
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-visible')) closeMenu(); });
-    menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
   })();
 </script>
 </body>

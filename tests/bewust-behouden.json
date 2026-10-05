@@ -1,0 +1,68 @@
+[
+  {
+    "bestand": "index.html",
+    "zoekterm": "Hydra Glow Lips",
+    "tekst": "De Hydra Glow Lips behandeling is fantastisch",
+    "reden": "B5: letterlijke woorden van een klant in een quote blijven ongewijzigd; alleen het label eronder is aangepast naar Lipbehandeling."
+  },
+  {
+    "bestand": "index.html",
+    "zoekterm": "Gouden Masker",
+    "tekst": "media/fotos/gouden masker.jpg\" alt=\"Melanin Glow\"",
+    "reden": "B8: bestandsnaam van de voorlopige foto bij Melanin Glow; niet zichtbaar voor de bezoeker, de alt-tekst is Melanin Glow."
+  },
+  {
+    "bestand": "behandelingen.html",
+    "zoekterm": "Gouden Masker",
+    "tekst": "media/fotos/gouden masker.jpg\" alt=\"Melanin Glow\"",
+    "reden": "B8: bestandsnaam van de voorlopige foto bij Melanin Glow; niet zichtbaar voor de bezoeker, de alt-tekst is Melanin Glow."
+  },
+  {
+    "bestand": "blog.html",
+    "zoekterm": "Gouden Masker",
+    "tekst": "aria-label=\"Lees artikel over het gouden masker\"",
+    "reden": "B6: het artikel over het gouden masker blijft als achtergrondartikel, zonder prijs en zonder boekbare behandeling met die naam; dit is het toegankelijkheidslabel van de artikelkaart."
+  },
+  {
+    "bestand": "blog.html",
+    "zoekterm": "Gouden Masker",
+    "tekst": "De voordelen van een gouden masker voor jouw huid",
+    "reden": "B6: het artikel over het gouden masker blijft als achtergrondartikel, zonder prijs en zonder boekbare behandeling met die naam; dit is de titel van het artikel (op de kaart en in het artikelvenster)."
+  },
+  {
+    "bestand": "blog.html",
+    "zoekterm": "Gouden Masker",
+    "tekst": "het gouden masker heeft bewezen anti-aging voordelen",
+    "reden": "B6: het artikel over het gouden masker blijft als achtergrondartikel, zonder prijs en zonder boekbare behandeling met die naam; dit is de samenvatting op de artikelkaart."
+  },
+  {
+    "bestand": "blog.html",
+    "zoekterm": "Gouden Masker",
+    "tekst": "Een gouden masker is een luxe anti-aging masker",
+    "reden": "B6: het artikel over het gouden masker blijft als achtergrondartikel, zonder prijs en zonder boekbare behandeling met die naam; dit is de korte samenvatting bovenaan, die zegt dat het geen aparte behandeling in het huidige aanbod is."
+  },
+  {
+    "bestand": "blog.html",
+    "zoekterm": "Gouden Masker",
+    "tekst": "Een gouden masker lijkt misschien een louter luxe beleving",
+    "reden": "B6: het artikel over het gouden masker blijft als achtergrondartikel, zonder prijs en zonder boekbare behandeling met die naam; dit is de inleidende alinea van het artikel."
+  },
+  {
+    "bestand": "blog.html",
+    "zoekterm": "Gouden Masker",
+    "tekst": "wordt het gouden masker aangebracht en inwerkend gelaten",
+    "reden": "B6: het artikel over het gouden masker blijft als achtergrondartikel, zonder prijs en zonder boekbare behandeling met die naam; dit is de alinea over hoe zo een masker wordt toegepast."
+  },
+  {
+    "bestand": "blog.html",
+    "zoekterm": "Gouden Masker",
+    "tekst": "<h2>Voor wie is het gouden masker ideaal?</h2>",
+    "reden": "B6: het artikel over het gouden masker blijft als achtergrondartikel, zonder prijs en zonder boekbare behandeling met die naam; dit is een tussenkop in het artikel."
+  },
+  {
+    "bestand": "blog.html",
+    "zoekterm": "Gouden Masker",
+    "tekst": "Het gouden masker is bij uitstek geschikt voor mensen",
+    "reden": "B6: het artikel over het gouden masker blijft als achtergrondartikel, zonder prijs en zonder boekbare behandeling met die naam; dit is de slotalinea, die verwijst naar het huidige aanbod."
+  }
+]

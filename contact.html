@@ -12,297 +12,115 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <script>
-    tailwind.config = { theme: { extend: { colors: { cream: '#FAF7F2', beige: '#E8DDD3', gold: '#C5A572', 'gold-dark': '#A8884E', brown: '#3A2F2B', 'brown-light': '#5C4D47' }, fontFamily: { serif: ['Playfair Display', 'Georgia', 'serif'], sans: ['DM Sans', 'system-ui', 'sans-serif'] } } } }
+    tailwind.config = { corePlugins: { preflight: false }, theme: { extend: {
+      colors: { cream: '#FAF7F2', beige: '#E8DDD3', gold: '#C5A572', 'gold-dark': '#A8884E', brown: '#3A2F2B', 'brown-light': '#5C4D47' },
+      fontFamily: { serif: ['Playfair Display', 'Georgia', 'serif'], sans: ['DM Sans', 'system-ui', 'sans-serif'] } } } }
   </script>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', system-ui, sans-serif; background: #FAF7F2; color: #3A2F2B; overflow-x: hidden; }
-    :root { --cream: #FAF7F2; --beige: #E8DDD3; --gold: #C5A572; --gold-dark: #A8884E; --brown: #3A2F2B; --brown-light: #5C4D47; }
-
-    #announcement-bar { background: var(--brown); color: rgba(255,255,255,0.8); text-align: center; padding: 8px 16px; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; z-index: 60; }
-    #announcement-bar a { color: var(--gold); font-weight: 500; text-decoration: none; }
-    #main-nav { position: sticky; top: 0; z-index: 50; background: rgba(250,247,242,0.97); box-shadow: 0 1px 0 rgba(58,47,43,0.08); }
-    .nav-inner { padding: 0 48px; height: 68px; display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; }
-    .nav-logo img { height: 64px; width: auto; }
-    .nav-links { display: flex; align-items: center; gap: 40px; }
-    .nav-link { font-size: 11.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brown-light); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.2s ease, transform 0.12s ease; }
-    .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.2s ease; }
-    .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-    .nav-link:active { transform: translateY(2px) scale(0.95); }
-    .nav-link:hover, .nav-link.active { color: var(--brown); }
-    .nav-hamburger { display: none; flex-direction: column; gap: 8px; cursor: pointer; padding: 4px; background: none; border: none; }
-    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--brown); }
-    /* ── Mobile Menu Overlay ── */
-    #mobile-menu { display: none; position: fixed; inset: 0; z-index: 200; background-color: rgba(26,18,14,0.97); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); flex-direction: column; overflow: hidden; opacity: 0; pointer-events: none; transition: opacity 0.3s cubic-bezier(0.25,0.1,0.25,1); }
-    #mobile-menu.is-open { display: flex; pointer-events: all; }
-    #mobile-menu.is-visible { opacity: 1; }
-    .mmenu-header { display: flex; align-items: center; justify-content: space-between; padding: 24px 24px 0; flex-shrink: 0; }
-    .mmenu-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
-    .mmenu-close { background: none; border: none; cursor: pointer; padding: 8px; color: rgba(250,247,242,0.7); display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: color 0.2s, background 0.2s; }
-    .mmenu-close:hover { color: var(--gold); background: rgba(197,165,114,0.12); }
-    .mmenu-close:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-    .mmenu-close:active { transform: scale(0.92); }
-    .mmenu-nav { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 48px; }
-    .mmenu-link { display: block; font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 400; color: rgba(250,247,242,0.88); text-decoration: none; letter-spacing: -0.03em; line-height: 1.2; padding: 16px 0; border-bottom: 1px solid rgba(197,165,114,0.12); opacity: 0; transform: translateX(-24px); transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1), color 0.2s; }
-    .mmenu-link:last-child { border-bottom: none; }
-    .mmenu-link:hover { color: var(--gold); }
-    .mmenu-link:active { transform: translateX(4px); }
-    .mmenu-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px; }
-    .mmenu-link--active { color: var(--gold); }
-    .mmenu-link:nth-child(1) { transition-delay: 0s; } .mmenu-link:nth-child(2) { transition-delay: 0.05s; } .mmenu-link:nth-child(3) { transition-delay: 0.10s; } .mmenu-link:nth-child(4) { transition-delay: 0.15s; } .mmenu-link:nth-child(5) { transition-delay: 0.20s; }
-    #mobile-menu.is-visible .mmenu-link { opacity: 1; transform: translateX(0); }
-    #mobile-menu:not(.is-visible) .mmenu-link { transition-delay: 0s !important; }
-    .mmenu-footer { padding: 32px 24px 40px; flex-shrink: 0; }
-    .mmenu-cta { width: 100% !important; min-width: 0 !important; display: flex !important; justify-content: center; }
-
-    .section-label { font-size: 10.5px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
-    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; letter-spacing: -0.03em; line-height: 1.15; color: var(--brown); }
-
-    /* ── Contact Hero ─────────────────────────────────────── */
-    .contact-hero {
-      position: relative;
-      padding: 120px 48px 96px; /* 15×8 top, 12×8 bottom */
-      text-align: center;
-      overflow: hidden;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212,184,130,0.28) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 72% 100%, rgba(197,165,114,0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 18% 80%, rgba(232,221,211,0.35) 0%, transparent 55%),
-        #FAF7F2;
-    }
-    .contact-hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(197,165,114,0.4) 30%, rgba(212,184,130,0.6) 50%, rgba(197,165,114,0.4) 70%, transparent);
-    }
-    .contact-hero-bg {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .contact-hero-grain {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .contact-hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 560px;
-      margin: 0 auto;
-    }
-    .contact-hero-sub {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-style: italic;
-      font-weight: 400;
-      color: var(--gold-dark);
-      margin-bottom: 16px; /* 2×8 */
-      letter-spacing: 0.01em;
-      line-height: 1.6;
-    }
-
-    /* ── Contact grid ──────────────────────────────────────── */
-    .contact-main { background: var(--cream); padding: 96px 48px; } /* 12×8 */
-    .contact-main-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: start; } /* gap 8×8 */
-
-    /* ── Email form ────────────────────────────────────────── */
-    .form-editorial-intro {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 0.95rem;
-      color: var(--gold-dark);
-      margin-bottom: 16px; /* 2×8 */
-      letter-spacing: 0.01em;
-      line-height: 1.6;
-    }
-    .form-card {
-      background: var(--cream);
-      border-radius: 8px;
-      padding: 48px; /* 6×8 */
-      position: relative;
-      box-shadow:
-        0 2px 8px rgba(58,47,43,0.06),
-        0 8px 32px rgba(58,47,43,0.09),
-        0 24px 64px rgba(168,136,78,0.06);
-    }
-    .form-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      border-radius: 8px 8px 0 0;
-      background: linear-gradient(90deg, rgba(168,136,78,0.3), #C5A572 30%, #D4B882 60%, rgba(168,136,78,0.3));
-    }
-    .form-field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; } /* 1×8, 3×8 */
-    .form-field:last-of-type { margin-bottom: 32px; } /* 4×8 */
-    .form-label { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brown-light); }
-    .form-input {
-      background: #FAF7F2;
-      border: 1px solid rgba(197,165,114,0.25);
-      border-radius: 8px;
-      padding: 16px; /* 2×8 */
-      font-size: 14px;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--brown);
-      outline: none;
-      transition: border-color 0.25s, box-shadow 0.25s;
-    }
-    .form-input:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(197,165,114,0.14), 0 1px 4px rgba(197,165,114,0.10);
-    }
-    .form-input::placeholder { color: rgba(92,77,71,0.4); }
-    textarea.form-input { resize: vertical; min-height: 144px; } /* 18×8 */
-    .form-success { display: none; padding: 16px; background: rgba(197,165,114,0.12); border: 1px solid rgba(197,165,114,0.3); border-radius: 8px; font-size: 14px; color: var(--brown); margin-top: 16px; }
-
-    /* ── Right: contact info + hours ────────────────────────── */
-    .contact-sidebar { display: flex; flex-direction: column; gap: 24px; } /* 3×8 */
-
-    .contact-info-card {
-      border-radius: 8px;
-      padding: 32px; /* 4×8 */
-      background:
-        radial-gradient(ellipse 100% 80% at 20% 0%, rgba(212,184,130,0.18) 0%, transparent 65%),
-        radial-gradient(ellipse 80% 60% at 85% 100%, rgba(197,165,114,0.08) 0%, transparent 60%),
-        var(--beige);
-      border: 1px solid rgba(197,165,114,0.3);
-      box-shadow:
-        0 2px 8px rgba(58,47,43,0.06),
-        0 8px 24px rgba(168,136,78,0.08);
-    }
-    .contact-info-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid rgba(197,165,114,0.2); } /* 2×8 */
-    .contact-info-item:first-of-type { padding-top: 0; }
-    .contact-info-item:last-of-type { border-bottom: none; padding-bottom: 0; }
-    .contact-info-icon {
-      width: 48px; height: 48px; /* 6×8 */
-      background: linear-gradient(135deg, rgba(212,184,130,0.2) 0%, rgba(197,165,114,0.12) 100%);
-      border: 1px solid rgba(197,165,114,0.28);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .contact-info-icon svg { width: 18px; height: 18px; color: var(--gold); }
-    .contact-info-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; display: block; }
-    .contact-info-value { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--brown); font-weight: 400; margin-bottom: 8px; display: block; } /* 1×8 */
-    .contact-info-action {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--brown); color: #fff;
-      padding: 8px 16px; /* 1×8, 2×8 */
-      border-radius: 9999px; /* pill */
-      font-size: 10.5px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s;
-    }
-    .contact-info-action:hover { background: var(--brown-light); }
-    .contact-info-action:active { transform: scale(0.97) translateY(1px); }
-    .contact-info-action.gold { background: var(--gold); color: var(--brown); }
-    .contact-info-action.gold:hover { background: var(--gold-dark); color: #fff; }
-
-    /* Hours card */
-    .hours-card {
-      border-radius: 8px;
-      padding: 32px; /* 4×8 */
-      background:
-        radial-gradient(ellipse 90% 70% at 50% -10%, rgba(212,184,130,0.12) 0%, transparent 70%),
-        var(--beige);
-      border: 1px solid rgba(197,165,114,0.3);
-      box-shadow:
-        0 2px 8px rgba(58,47,43,0.05),
-        0 8px 24px rgba(58,47,43,0.06);
-    }
-    .hours-divider {
-      height: 1px;
-      background: linear-gradient(90deg, rgba(197,165,114,0.5), rgba(197,165,114,0.15));
-      margin: 12px 0 20px;
-    }
-    .hours-grid { display: grid; grid-template-columns: auto 1fr; gap: 8px 24px; } /* 1×8, 3×8 */
-    .hours-day { font-size: 13px; font-weight: 500; color: var(--brown); }
-    .hours-time { font-size: 13px; color: var(--brown-light); font-weight: 400; }
-    .hours-time.hours-open { color: var(--gold-dark); font-weight: 500; }
-    .hours-closed { color: rgba(58,47,43,0.28); font-size: 12px; letter-spacing: 0.04em; }
-
-    /* Address card */
-    .address-card {
-      background: var(--brown);
-      border-radius: 8px;
-      padding: 40px; /* 5×8 */
-      position: relative;
-      overflow: hidden;
-    }
-    .address-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 8px;
-      background:
-        radial-gradient(ellipse 70% 50% at 90% 0%, rgba(197,165,114,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 10% 100%, rgba(168,136,78,0.07) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    .address-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 24px; right: 24px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(197,165,114,0.4) 40%, rgba(212,184,130,0.5) 60%, transparent);
-    }
-    .address-item { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px; position: relative; z-index: 1; } /* 2×8 */
-    .address-item:last-child { margin-bottom: 0; }
-    .address-item svg { width: 18px; height: 18px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
-    .address-item span { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.65; font-weight: 300; }
-    .address-card .section-label { color: rgba(197,165,114,0.9); margin-bottom: 20px; position: relative; z-index: 1; }
-
-    /* Footer */
-    #footer { background: var(--brown); padding: 72px 48px 40px; }
-    .footer-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
-    .footer-logo { height: 48px; filter: none; opacity: 1; margin-bottom: 16px; background: #FAF7F2; border-radius: 6px; padding: 4px 8px; }
-    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 24px; max-width: 240px; }
-    .footer-social { display: flex; gap: 16px; }
-    .footer-social a { color: rgba(255,255,255,0.45); transition: color 0.2s; }
-    .footer-social a:hover { color: var(--gold); }
-    .footer-social svg { width: 18px; height: 18px; }
-    .footer-col-title { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
-    .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: #fff; }
-    .footer-contact-item { display: flex; gap: 8px; margin-bottom: 16px; }
-    .footer-contact-item svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
-    .footer-contact-item span { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
-    .footer-newsletter form { display: flex; }
-    .footer-newsletter input { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 16px; font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; }
-    .footer-newsletter input::placeholder { color: rgba(255,255,255,0.3); }
-    .footer-newsletter button { background: var(--gold); color: var(--brown); padding: 16px 24px; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; border: none; cursor: pointer; }
-    .footer-newsletter button:hover { background: var(--gold-dark); color: #fff; }
-    .footer-bottom { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
-    .footer-legal { display: flex; gap: 24px; }
-    .footer-legal a { font-size: 12px; color: rgba(255,255,255,0.3); text-decoration: none; }
-
-    @media (max-width: 1024px) { .contact-main-inner { grid-template-columns: 1fr; gap: 40px; } .footer-inner { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 768px) {
-      .nav-links, .nav-cta { display: none; }
-      .nav-hamburger { display: flex; }
-      .nav-inner { padding: 0 24px; }
-      .contact-hero { padding: 80px 24px 64px; }
-      .contact-main { padding: 56px 24px; }
-      .form-card { padding: 32px 24px; }
-      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
-      #footer { padding: 48px 24px 32px; }
-    }
-  </style>
   <link rel="stylesheet" href="buttons.css">
   <link rel="stylesheet" href="animations.css">
-  <link rel="stylesheet" href="glowing-effect.css">
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    /* Alleen wat eigen is aan deze pagina. Balk, menu, knoppen, paginakop, slotblok en footer: theme.css. */
+    .kicker { font-size: 15px; line-height: 1.5; color: var(--brown-light); margin-bottom: var(--s1); }
+    .hero-sub {
+      margin-top: var(--s3);
+      font-family: 'Playfair Display', Georgia, serif; font-style: italic;
+      font-size: 1.25rem; line-height: 1.5; color: var(--brown);
+    }
+    .hero-sub + .lead { margin-top: var(--s2); }
+    .hero-copy .btn-primary { margin-top: var(--s4); }
+
+    /* ── Formulier links, kaarten rechts ── */
+    .contact-main { padding: var(--s6) 0 var(--s7); }
+    .contact-grid { display: grid; grid-template-columns: 7fr 5fr; gap: var(--s6); align-items: start; }
+    .form-intro {
+      margin-top: var(--s2);
+      font-family: 'Playfair Display', Georgia, serif; font-style: italic;
+      font-size: 1.125rem; line-height: 1.6; color: var(--brown-light);
+    }
+    .form-card {
+      margin-top: var(--s4); padding: var(--s5);
+      background: #fff; border-radius: var(--r-media); box-shadow: var(--shadow-raised);
+    }
+    .form-field { display: flex; flex-direction: column; gap: var(--s1); margin-bottom: var(--s3); }
+    .form-field.is-last { margin-bottom: var(--s4); }
+    .form-label { font-size: 15px; font-weight: 500; color: var(--brown); }
+    .form-input {
+      width: 100%; display: block;
+      background: var(--cream); color: var(--brown);
+      border: 1px solid rgba(58,47,43,0.18); border-radius: var(--r-small);
+      padding: 14px 16px;
+      font-family: 'DM Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.5;
+    }
+    .form-input::placeholder { color: rgba(92,77,71,0.6); }
+    .form-input:hover { border-color: var(--gold-dark); }
+    .form-input:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: 1px; border-color: var(--gold-dark); border-radius: var(--r-small); }
+    textarea.form-input { resize: vertical; min-height: 144px; }
+    .form-card .btn-primary { width: 100%; min-width: 0; }
+    .form-card .btn-primary:disabled { opacity: 0.6; cursor: default; }
+    .form-success {
+      display: none; margin-top: var(--s2); padding: var(--s2);
+      border-radius: var(--r-small); font-size: 15px; color: var(--brown);
+      background: rgba(197,165,114,0.14); box-shadow: inset 0 0 0 1px rgba(197,165,114,0.45);
+    }
+
+    /* ── De drie contactkaarten ── */
+    .contact-sidebar { display: flex; flex-direction: column; gap: var(--s3); }
+    .c-card { padding: var(--s4); border-radius: var(--r-media); background: #fff; box-shadow: var(--shadow-raised); }
+    .c-card-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.375rem; line-height: 1.2; letter-spacing: -0.02em; color: var(--brown); }
+    .c-item { display: flex; gap: var(--s2); align-items: flex-start; padding: var(--s3) 0; border-bottom: 1px solid var(--beige); }
+    .c-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .c-icon {
+      width: 48px; height: 48px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--r-small); background: rgba(197,165,114,0.16); color: var(--gold-dark);
+    }
+    .c-icon svg { width: 20px; height: 20px; }
+    .c-label { display: block; font-size: 13.5px; line-height: 1.5; color: var(--brown-light); }
+    .c-value { display: block; margin-bottom: 12px; font-family: 'Playfair Display', Georgia, serif; font-size: 1.125rem; line-height: 1.4; color: var(--brown); }
+    .c-action {
+      display: inline-flex; align-items: center;
+      padding: 8px 16px; border-radius: var(--r-pill);
+      font-size: 14px; font-weight: 500; line-height: 1.4; text-decoration: none;
+      background: var(--brown); color: var(--cream);
+      transition: transform 0.2s var(--ease-spring), opacity 0.2s ease;
+    }
+    .c-action:hover { background: var(--brown-light); transform: translateY(-2px); }
+    .c-action:active { transform: translateY(0) scale(0.96); }
+    .c-action:focus-visible { outline: 2px solid var(--brown); outline-offset: 2px; border-radius: var(--r-pill); }
+    .c-action.gold { background: var(--gold); color: var(--brown); }
+    .c-action.gold:hover { background: #D4B882; }
+
+    .hours-grid { margin-top: var(--s3); display: grid; grid-template-columns: auto 1fr; gap: var(--s1) var(--s3); }
+    .hours-day { font-weight: 500; color: var(--brown); }
+    .hours-time { text-align: right; color: var(--brown-light); }
+
+    .c-card.is-dark {
+      color: rgba(250,247,242,0.85);
+      background:
+        radial-gradient(70% 60% at 100% 0%, rgba(197,165,114,0.22) 0%, rgba(197,165,114,0) 70%),
+        var(--brown);
+    }
+    .c-card.is-dark .c-card-title { color: var(--cream); }
+    .address-item { display: flex; gap: var(--s2); align-items: flex-start; margin-top: var(--s2); }
+    .address-item svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 4px; color: var(--gold); }
+
+    @media (max-width: 1024px) {
+      .contact-grid { grid-template-columns: 1fr; gap: var(--s5); }
+    }
+    @media (max-width: 768px) {
+      .contact-main { padding: var(--s5) 0 var(--s6); }
+      .form-card { padding: var(--s4) var(--s3); }
+      .c-card { padding: var(--s3); }
+    }
+  </style>
 </head>
 <body>
 
-<div id="announcement-bar">Nieuw: <strong>Hydra Glow Lips</strong>, <a href="behandelingen.html">Ontdek de behandeling →</a></div>
+<div id="announcement-bar">
+  Nieuw: <strong>Yoly Luxe Packages</strong>. Voordeliger bij 3 of 5 behandelingen.
+  <a href="behandelingen.html#packages">Bekijk de pakketten</a>
+</div>
 
 <nav id="main-nav">
   <div class="nav-inner">
@@ -312,63 +130,51 @@
       <a href="behandelingen.html" class="nav-link">Behandelingen</a>
       <a href="over.html" class="nav-link">Over</a>
       <a href="blog.html" class="nav-link">Blog</a>
-      <a href="contact.html" class="nav-link active">Contact</a>
+      <a href="contact.html" class="nav-link active" aria-current="page">Contact</a>
     </div>
     <a href="afspraak.html" class="nav-cta">Reserveer</a>
-    <button class="nav-hamburger" id="hamburger-btn"><span></span><span></span><span></span></button>
+    <button class="nav-hamburger" id="hamburger-btn" aria-label="Menu openen"><span></span><span></span><span></span></button>
   </div>
 </nav>
+
 <div id="mobile-menu" aria-modal="true" role="dialog" aria-label="Navigatiemenu">
   <div class="mmenu-header">
     <span class="mmenu-label">Menu</span>
     <button class="mmenu-close" id="mobile-close-btn" aria-label="Menu sluiten">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/>
-      </svg>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/></svg>
     </button>
   </div>
   <nav class="mmenu-nav">
-    <a href="index.html"          class="mmenu-link">Home</a>
-    <a href="behandelingen.html"  class="mmenu-link">Behandelingen</a>
-    <a href="over.html"           class="mmenu-link">Over</a>
-    <a href="blog.html"           class="mmenu-link">Blog</a>
-    <a href="contact.html"        class="mmenu-link mmenu-link--active">Contact</a>
+    <a href="index.html" class="mmenu-link">Home</a>
+    <a href="behandelingen.html" class="mmenu-link">Behandelingen</a>
+    <a href="over.html" class="mmenu-link">Over</a>
+    <a href="blog.html" class="mmenu-link">Blog</a>
+    <a href="contact.html" class="mmenu-link mmenu-link--active">Contact</a>
   </nav>
-  <div class="mmenu-footer">
-    <a href="afspraak.html" class="btn-primary mmenu-cta">Reserveer nu</a>
-  </div>
+  <div class="mmenu-footer"><a href="afspraak.html" class="btn-primary mmenu-cta">Reserveer nu</a></div>
 </div>
 
-<!-- Page Hero -->
-<section class="contact-hero">
-  <div class="contact-hero-bg" aria-hidden="true">
-    <svg class="contact-hero-grain" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-      <filter id="grain-filter">
-        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
-        <feColorMatrix type="saturate" values="0"/>
-      </filter>
-      <rect width="100%" height="100%" filter="url(#grain-filter)" opacity="0.035"/>
-    </svg>
-  </div>
-  <div class="contact-hero-content reveal">
-    <p class="section-label">Neem contact op</p>
-    <h1 class="section-title" style="font-size:clamp(2.5rem,5vw,4rem); margin-bottom:20px;">Hoe kan ik je helpen?</h1>
-    <p class="contact-hero-sub"><em>Met plezier beantwoord ik al jouw vragen.</em></p>
-    <p style="font-size:15px; font-weight:300; color:var(--brown-light); line-height:1.75;">
-      Stuur een bericht, bel of app. Ik antwoord zo snel mogelijk. Wil je direct een afspraak inplannen? <a href="afspraak.html" style="color:var(--gold-dark); border-bottom:1px solid rgba(168,136,78,0.4); text-decoration:none;">Reserveer hier.</a>
+<!-- Paginakop -->
+<header class="page-hero">
+  <div class="wrap hero-copy reveal">
+    <p class="kicker">Neem contact op</p>
+    <h1 class="display">Hoe kan ik je helpen?</h1>
+    <p class="hero-sub"><em>Met plezier beantwoord ik al jouw vragen.</em></p>
+    <p class="lead">
+      Stuur een bericht, bel of app. Ik antwoord zo snel mogelijk. Wil je direct een afspraak inplannen? <a href="afspraak.html" class="text-link">Reserveer hier.</a>
     </p>
   </div>
-</section>
+</header>
 
-<!-- Contact Main -->
+<!-- Formulier + contactgegevens -->
 <section class="contact-main">
-  <div class="contact-main-inner">
+  <div class="wrap contact-grid">
 
-    <!-- Left: Email form -->
-    <div class="reveal-left">
-      <p class="section-label">Stuur een bericht</p>
-      <h2 class="section-title" style="font-size:1.9rem; margin-bottom:32px;">Schrijf me</h2>
-      <p class="form-editorial-intro"><em>"Stuur mij een berichtje, ik help je graag verder."</em></p>
+    <!-- Links: formulier -->
+    <div class="reveal">
+      <p class="kicker">Stuur een bericht</p>
+      <h2 class="heading">Schrijf me</h2>
+      <p class="form-intro"><em>"Stuur mij een berichtje, ik help je graag verder."</em></p>
       <div class="form-card">
         <form action="https://formspree.io/f/mqeypjwe" method="POST" id="contact-form">
           <div class="form-field">
@@ -379,11 +185,11 @@
             <label class="form-label" for="email">E-mailadres</label>
             <input class="form-input" type="email" id="email" name="email" placeholder="jouw@email.com" required>
           </div>
-          <div class="form-field" style="margin-bottom:32px;">
+          <div class="form-field is-last">
             <label class="form-label" for="message">Bericht</label>
             <textarea class="form-input" id="message" name="message" placeholder="Stel je vraag of laat een bericht achter..." required></textarea>
           </div>
-          <button type="submit" class="btn-primary" style="width:100%; min-width:0; justify-content:center;">Verstuur bericht →</button>
+          <button type="submit" class="btn-primary">Verstuur bericht</button>
           <div class="form-success" id="form-success">
             Bedankt voor je bericht! Ik neem zo snel mogelijk contact met je op.
           </div>
@@ -391,61 +197,60 @@
       </div>
     </div>
 
-    <!-- Right: Contact info + hours -->
+    <!-- Rechts: contactgegevens, openingsuren, adres -->
     <div class="contact-sidebar">
 
       <!-- Telefoon & WhatsApp -->
-      <div class="contact-info-card glow-border reveal-right">
-        <p class="section-label" style="margin-bottom:0;">Direct contact</p>
+      <div class="c-card reveal reveal-d1">
+        <p class="c-card-title">Direct contact</p>
 
-        <div class="contact-info-item">
-          <div class="contact-info-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.22 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.41a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        <div class="c-item">
+          <div class="c-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.12 2.22 2 2 0 012.08 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.41a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           </div>
           <div>
-            <span class="contact-info-label">Telefoon</span>
-            <span class="contact-info-value">+32 469 44 31 44</span>
-            <a href="tel:+32469443144" class="contact-info-action">Bel direct →</a>
+            <span class="c-label">Telefoon</span>
+            <span class="c-value">+32 469 44 31 44</span>
+            <a href="tel:+32469443144" class="c-action">Bel direct</a>
           </div>
         </div>
 
-        <div class="contact-info-item">
-          <div class="contact-info-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--gold)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.133.558 4.133 1.535 5.866L.099 23.901l6.196-1.393A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.672-.5-5.207-1.378l-.374-.217-3.678.828.882-3.556-.235-.374A9.953 9.953 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        <div class="c-item">
+          <div class="c-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.133.558 4.133 1.535 5.866L.099 23.901l6.196-1.393A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.672-.5-5.207-1.378l-.374-.217-3.678.828.882-3.556-.235-.374A9.953 9.953 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10z"/></svg>
           </div>
           <div>
-            <span class="contact-info-label">WhatsApp</span>
-            <span class="contact-info-value">+32 469 44 31 44</span>
-            <a href="https://wa.me/32469443144" class="contact-info-action gold" target="_blank" rel="noopener">App direct →</a>
+            <span class="c-label">WhatsApp</span>
+            <span class="c-value">+32 469 44 31 44</span>
+            <a href="https://wa.me/32469443144" class="c-action gold" target="_blank" rel="noopener">App direct</a>
           </div>
         </div>
 
       </div>
 
       <!-- Openingsuren -->
-      <div class="hours-card reveal-right reveal-d2">
-        <p class="section-label" style="margin-bottom:0;">Beschikbaarheid</p>
-        <div class="hours-divider" aria-hidden="true"></div>
+      <div class="c-card reveal reveal-d2">
+        <p class="c-card-title">Beschikbaarheid</p>
         <div class="hours-grid">
-          <span class="hours-day">Maandag</span><span class="hours-time hours-open">9:00 – 19:00</span>
-          <span class="hours-day">Dinsdag</span><span class="hours-time hours-open">9:00 – 19:00</span>
-          <span class="hours-day">Woensdag</span><span class="hours-time hours-open">9:00 – 12:00</span>
-          <span class="hours-day">Donderdag</span><span class="hours-time hours-open">9:00 – 19:00</span>
-          <span class="hours-day">Vrijdag</span><span class="hours-time hours-open">9:00 – 19:00</span>
-          <span class="hours-day">Zaterdag</span><span class="hours-time hours-open">9:00 – 19:00</span>
-          <span class="hours-day">Zondag</span><span class="hours-time hours-open">9:00 – 19:00</span>
+          <span class="hours-day">Maandag</span><span class="hours-time">9:00 – 19:00</span>
+          <span class="hours-day">Dinsdag</span><span class="hours-time">9:00 – 19:00</span>
+          <span class="hours-day">Woensdag</span><span class="hours-time">9:00 – 12:00</span>
+          <span class="hours-day">Donderdag</span><span class="hours-time">9:00 – 19:00</span>
+          <span class="hours-day">Vrijdag</span><span class="hours-time">9:00 – 19:00</span>
+          <span class="hours-day">Zaterdag</span><span class="hours-time">9:00 – 19:00</span>
+          <span class="hours-day">Zondag</span><span class="hours-time">9:00 – 19:00</span>
         </div>
       </div>
 
       <!-- Adres -->
-      <div class="address-card reveal-right reveal-d4">
-        <p class="section-label" style="margin-bottom:20px; color:rgba(197,165,114,0.9);">Locatie</p>
+      <div class="c-card is-dark reveal reveal-d3">
+        <p class="c-card-title">Locatie</p>
         <div class="address-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
           <span>Wuustwezelseweg 125c<br>2990 Loenhout (Wuustwezel)</span>
         </div>
         <div class="address-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <span>Op afspraak, di t/m vr 9:00–17:00</span>
         </div>
       </div>
@@ -454,7 +259,6 @@
   </div>
 </section>
 
-<!-- Footer -->
 <footer id="footer">
   <div class="footer-inner">
     <div>
@@ -463,12 +267,17 @@
       <div class="footer-social">
         <a href="https://www.instagram.com/yolyluxespa" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
         <a href="https://wa.me/32469443144" aria-label="WhatsApp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.133.558 4.133 1.535 5.866L.099 23.901l6.196-1.393A11.951 11.951 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.672-.5-5.207-1.378l-.374-.217-3.678.828.882-3.556-.235-.374A9.953 9.953 0 012 12c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10z"/></svg></a>
-        
       </div>
     </div>
     <div>
       <p class="footer-col-title">Navigatie</p>
-      <ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="behandelingen.html">Behandelingen</a></li><li><a href="over.html">Over Yoly</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="behandelingen.html">Behandelingen</a></li>
+        <li><a href="over.html">Over Yoly</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
     </div>
     <div>
       <p class="footer-col-title">Contact</p>
@@ -477,12 +286,11 @@
       <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>y.poncemontero@gmail.com</span></div>
     </div>
   </div>
-  <hr style="border:none; border-top:1px solid rgba(255,255,255,0.08); max-width:1400px; margin:40px auto 24px;">
-  <div class="footer-bottom"><p class="footer-copy">© 2025 YolyLuxeSpa. Alle rechten voorbehouden.</p><div class="footer-legal"><a href="privacybeleid.html">Privacybeleid</a><a href="algemene-voorwaarden.html">Algemene voorwaarden</a><a href="cookiebeleid.html">Cookiebeleid</a></div></div>
+  <hr class="footer-rule">
+  <div class="footer-bottom"><p class="footer-copy">© 2026 YolyLuxeSpa. Alle rechten voorbehouden.</p><div class="footer-legal"><a href="privacybeleid.html">Privacybeleid</a><a href="algemene-voorwaarden.html">Algemene voorwaarden</a><a href="cookiebeleid.html">Cookiebeleid</a></div></div>
 </footer>
 
 <script src="animations.js" defer></script>
-<script src="glowing-effect.js" defer></script>
 <script>
   (function() {
     const menu = document.getElementById('mobile-menu');
@@ -493,7 +301,6 @@
     openBtn.addEventListener('click', openMenu);
     closeBtn.addEventListener('click', closeMenu);
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-visible')) closeMenu(); });
-    menu.addEventListener('click', e => { if (e.target === menu) closeMenu(); });
   })();
 
   // Formspree AJAX submit
